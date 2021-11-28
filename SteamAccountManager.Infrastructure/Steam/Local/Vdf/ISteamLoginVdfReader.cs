@@ -6,6 +6,6 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
 {
     public interface ISteamLoginVdfReader
     {
-        public Task<List<LoginUserDto>> GetParsedLoginUsersVdf();
+        public Task<string> GetLoginUsersVdfContent();
     }
 }

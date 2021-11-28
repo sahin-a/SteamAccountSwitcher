@@ -7,17 +7,17 @@ using Xunit;
 
 namespace SteamAccountManagerTests.Steam.Data.Local.DataSource
 {
-    public class SteamDataSourceTest
+    public class LocalSteamDataSourceTest
     {
         private readonly Mock<ISteamConfig> _steamConfigMock;
         private readonly Mock<ILoginUsersDao> _loginUsersDaoMock;
-        private readonly ISteamDataSource _sut;
+        private readonly ILocalSteamDataSource _sut;
 
-        public SteamDataSourceTest()
+        public LocalSteamDataSourceTest()
         {
             _loginUsersDaoMock = new Mock<ILoginUsersDao>(behavior: MockBehavior.Strict);
             _steamConfigMock = new Mock<ISteamConfig>(behavior: MockBehavior.Strict);
-            _sut = new SteamDataSource(
+            _sut = new LocalSteamDataSource(
                 steamConfig: _steamConfigMock.Object, 
                 loginUsersDao: _loginUsersDaoMock.Object
                 );

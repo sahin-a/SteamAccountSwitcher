@@ -4,7 +4,7 @@ using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.DataSource
 {
-    public interface ISteamDataSource
+    public interface ILocalSteamDataSource
     {
         public Task<List<LoginUserDto>> GetLoggedInUsers();
         public string GetSteamDir();

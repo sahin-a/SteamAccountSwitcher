@@ -9,9 +9,9 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
 {
     public class SteamRepository : ISteamRepository
     {
-        private readonly ISteamDataSource _steamDataSource;
+        private readonly ILocalSteamDataSource _steamDataSource;
 
-        public SteamRepository(ISteamDataSource steamDataSource)
+        public SteamRepository(ILocalSteamDataSource steamDataSource)
         {
             _steamDataSource = steamDataSource;
         }
