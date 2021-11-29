@@ -8,7 +8,7 @@ namespace SteamAccountManager.Infrastructure
 {
     public static class Dependencies
     {
-        public static void RegisterDataModule(this ContainerBuilder builder)
+        public static void RegisterInfrastructureModule(this ContainerBuilder builder)
         {
             builder.RegisterType<ISteamConfig>().As<SteamWinRegistryConfig>().SingleInstance();
             builder.RegisterType<ISteamLoginVdfParser>().As<SteamLoginVdfParser>().SingleInstance();
