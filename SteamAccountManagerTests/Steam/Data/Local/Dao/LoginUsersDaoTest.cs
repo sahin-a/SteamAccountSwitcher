@@ -12,20 +12,14 @@ namespace SteamAccountManager.Tests.Steam.Data.Local.Dao
     {
         private readonly Mock<ISteamLoginVdfReader> _steamVdfReader;
         private readonly Mock<ISteamLoginVdfParser> _steamVdfParser;
-        private readonly Mock<ISteamLoginVdfWriter> _steamVdfWriter;
         private readonly LoginUsersDao _sut;
 
         public LoginUsersDaoTest()
         {
             _steamVdfReader = new Mock<ISteamLoginVdfReader>(behavior: MockBehavior.Strict);
             _steamVdfParser = new Mock<ISteamLoginVdfParser>(behavior: MockBehavior.Strict);
-            _steamVdfWriter = new Mock<ISteamLoginVdfWriter>(behavior: MockBehavior.Strict);
             
-            _sut = new LoginUsersDao(
-                _steamVdfReader.Object,
-                _steamVdfParser.Object,
-                _steamVdfWriter.Object
-                );
+            _sut = new LoginUsersDao(_steamVdfReader.Object, _steamVdfParser.Object);
         }
 
         [Fact]
