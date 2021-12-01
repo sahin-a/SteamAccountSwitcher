@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using SteamAccountManager.Domain.Steam.Exception;
 using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Domain.Steam.Local.POCO;
 using SteamAccountManager.Domain.Steam.Local.Repository;
@@ -10,14 +13,14 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
 {
     public class SteamService : ISteamService
     {
-        private const string TAG = "SteamService";
-
         private readonly ISteamRepository _steamRepository;
+        private readonly ISteamProcessService _steamProcessService;
         private readonly ILogger _logger;
 
-        public SteamService(ISteamRepository steamRepository, ILogger logger)
+        public SteamService(ISteamRepository steamRepository, ISteamProcessService steamProcessService, ILogger logger)
         {
             _steamRepository = steamRepository;
+            _steamProcessService = steamProcessService;
             _logger = logger;
         }
 
@@ -26,18 +29,22 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             return await _steamRepository.GetSteamLoginUsers();
         }
 
-        public bool LogInAccount(string accountName)
+        public bool SwitchAccount(string accountName)
         {
             try
             {
                 _steamRepository.UpdateAutoLoginUser(accountName);
-                return true;
             }
-            catch (Exception e) // TODO: update to custom exception
+            catch (UpdateAutoLoginUserFailedException e)
             {
                 _logger.LogException(GetType().Name, "Failed to update autologin account :(", e);
                 return false;
             }
+
+            if (_steamProcessService.KillSteam())
+                _steamProcessService.StartSteam();
+
+            return true;
         }
     }
 }

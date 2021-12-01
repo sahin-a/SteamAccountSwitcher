@@ -33,7 +33,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
             }
             catch (Exception e)
             {
-                _logger.LogException(GetType().Name, "StreamReader has thrown Exception", e);
+                _logger.LogException(GetType().Name, "Failed to read login vdf", e);
                 throw new SteamLoginVdfReaderFailureException();
             }
         }

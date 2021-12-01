@@ -23,6 +23,7 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<LocalSteamDataSource>().As<ILocalSteamDataSource>().SingleInstance();
             builder.RegisterType<SteamRepository>().As<ISteamRepository>().SingleInstance();
             builder.RegisterType<SteamService>().As<ISteamService>().SingleInstance();
+            builder.RegisterType<SteamProcessService>().As<ISteamProcessService>().SingleInstance();
         }
     }
 }
