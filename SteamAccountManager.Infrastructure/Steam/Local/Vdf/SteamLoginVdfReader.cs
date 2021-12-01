@@ -17,13 +17,12 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
         {
             _logger = logger;
             _vdfPath = Path.Combine(
-                steamConfig.GetSteamPath(), 
-                "Steam", 
+                steamConfig.GetSteamPath(),
                 "Config", 
                 "loginusers.vdf"
                 );
 
-            _streamReader = new StreamReader(_vdfPath);
+            _streamReader = new StreamReader(Path.GetFullPath(_vdfPath));
         }
 
         public async Task<string> GetLoginUsersVdfContent()
