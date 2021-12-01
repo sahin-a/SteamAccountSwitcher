@@ -10,6 +10,6 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.DataSource
         public string GetSteamDir();
         public string GetSteamExecutablePath();
 
-        public bool UpdateAutoLoginUser(string steamId);
+        public void UpdateAutoLoginUser(string steamId);
     }
 }

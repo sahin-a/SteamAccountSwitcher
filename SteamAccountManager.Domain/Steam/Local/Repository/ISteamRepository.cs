@@ -7,6 +7,6 @@ namespace SteamAccountManager.Domain.Steam.Local.Repository
     public interface ISteamRepository
     {
         public Task<List<SteamLoginUser>> GetSteamLoginUsers();
-        public bool UpdateAutoLoginUser(string steamId);
+        public void UpdateAutoLoginUser(string steamId);
     }
 }

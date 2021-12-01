@@ -11,8 +11,6 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
 {
     public class SteamLoginVdfParser : ISteamLoginVdfParser
     {
-        public const string TAG = "SteamLoginVdfParser";
-
         private readonly ILogger _logger;
 
         public SteamLoginVdfParser(ILogger logger)
@@ -60,7 +58,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
                         SteamId = steamId
                     };
 
-                    _logger.LogInformation(TAG, $"SteamId: {steamId}");
+                    _logger.LogInformation(GetType().Name, $"SteamId: {steamId}");
 
                     foreach (var vChildProperty in vProperty.Value.Children<VProperty>())
                     {

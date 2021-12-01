@@ -31,9 +31,9 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.DataSource
             return _steamConfig.GetSteamExecutablePath();
         }
 
-        public bool UpdateAutoLoginUser(string accountName)
+        public void UpdateAutoLoginUser(string accountName)
         {
-            return _steamConfig.SetAutoLoginUser(accountName);
+            _steamConfig.SetAutoLoginUser(accountName);
         }
     }
 }

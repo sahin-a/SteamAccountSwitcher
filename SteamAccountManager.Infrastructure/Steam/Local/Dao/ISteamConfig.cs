@@ -4,7 +4,6 @@
     {
         string GetSteamExecutablePath();
         string GetSteamPath();
-        
-        bool SetAutoLoginUser(string accountName);
+        void SetAutoLoginUser(string accountName);
     }
 }
