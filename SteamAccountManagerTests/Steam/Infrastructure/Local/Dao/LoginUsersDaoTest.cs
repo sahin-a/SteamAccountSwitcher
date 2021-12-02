@@ -3,10 +3,10 @@ using Moq;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
-using SteamAccountManager.Tests.Steam.Data.Local.TestData;
+using SteamAccountManager.Tests.Steam.Local.TestData;
 using Xunit;
 
-namespace SteamAccountManager.Tests.Steam.Data.Local.Dao
+namespace SteamAccountManager.Tests.Steam.Local.Dao
 {
     public class LoginUsersDaoTest
     {
