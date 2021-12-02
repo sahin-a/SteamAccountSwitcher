@@ -33,6 +33,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
 
         public SteamLoginUser GetCurrentAutoLoginUser()
         {
+            // TODO: fix this; if GetSteamLoginUsers never gets called, the list will be uninitialized so there will be no finding
             string currentUser = _steamDataSource.GetCurrentAutoLoginUser();
             // TODO: throw exception if user not found
             return _steamLoginUsers.FirstOrDefault(user => user.AccountName == currentUser);
