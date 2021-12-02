@@ -35,5 +35,10 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.DataSource
         {
             _steamConfig.SetAutoLoginUser(accountName);
         }
+
+        public string GetCurrentAutoLoginUser()
+        {
+            return _steamConfig.GetAutoLoginUser();
+        }
     }
 }

@@ -51,5 +51,10 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
                 throw new UpdateAutoLoginUserFailedException();
             }
         }
+
+        public string GetAutoLoginUser()
+        {
+            return GetValue("AutoLoginUser");
+        }
     }
 }

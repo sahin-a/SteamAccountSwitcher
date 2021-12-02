@@ -9,7 +9,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.DataSource
         public Task<List<LoginUserDto>> GetLoggedInUsers();
         public string GetSteamDir();
         public string GetSteamExecutablePath();
-
         public void UpdateAutoLoginUser(string steamId);
+        public string GetCurrentAutoLoginUser();
     }
 }
