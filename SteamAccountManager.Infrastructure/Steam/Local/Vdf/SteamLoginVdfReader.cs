@@ -10,7 +10,6 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
     public class SteamLoginVdfReader : ISteamLoginVdfReader
     {
         private readonly string _vdfPath;
-        private readonly StreamReader _streamReader;
         private readonly ILogger _logger;
 
         public SteamLoginVdfReader(ISteamConfig steamConfig, ILogger logger)
@@ -18,18 +17,19 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
             _logger = logger;
             _vdfPath = Path.Combine(
                 steamConfig.GetSteamPath(),
-                "Config", 
+                "Config",
                 "loginusers.vdf"
-                );
-
-            _streamReader = new StreamReader(Path.GetFullPath(_vdfPath));
+            );
         }
 
         public async Task<string> GetLoginUsersVdfContent()
         {
             try
             {
-                return await _streamReader.ReadToEndAsync();
+                using (var streamReader = new StreamReader(Path.GetFullPath(_vdfPath)))
+                {
+                    return await streamReader.ReadToEndAsync();
+                }
             }
             catch (Exception e)
             {
