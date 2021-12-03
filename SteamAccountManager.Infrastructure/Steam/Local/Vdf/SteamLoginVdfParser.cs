@@ -17,11 +17,11 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
         {
             _logger = logger;
         }
-        
+
         private void SetDtoProperty(LoginUserDto dto, VProperty vProperty)
         {
             string value = vProperty.Value.ToString();
-                    
+
             switch (vProperty.Key)
             {
                 case AccountKeys.AccountName:
@@ -57,15 +57,16 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
                     {
                         SteamId = steamId
                     };
-
-                    _logger.LogInformation(GetType().Name, $"SteamId: {steamId}");
+                    
+                    string logMessage = $"SteamId: {steamId}";
 
                     foreach (var vChildProperty in vProperty.Value.Children<VProperty>())
                     {
                         SetDtoProperty(dto, vChildProperty);
-                        Debug.WriteLine($"{vChildProperty.Key}: {vChildProperty.Value}");
+                        logMessage += $" {vChildProperty.Key}: {vChildProperty.Value}";
                     }
-
+                    _logger.LogInformation(logMessage);
+                    
                     loginUsersDto.Add(dto);
                 }
 
