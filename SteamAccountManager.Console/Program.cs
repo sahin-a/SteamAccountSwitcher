@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using DI;
-using SteamAccountManagerConsole.Menu;
+using SteamAccountManager.Console.Menu;
 
 class Program
 {

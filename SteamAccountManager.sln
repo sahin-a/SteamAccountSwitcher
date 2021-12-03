@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamAccountManager.Tests", "SteamAccountManagerTests\SteamAccountManager.Tests.csproj", "{066215D3-00F2-421A-AB56-CFB64ECD3B55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamAccountManager.Tests", "SteamAccountManager.Tests\SteamAccountManager.Tests.csproj", "{066215D3-00F2-421A-AB56-CFB64ECD3B55}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamAccountManager.Infrastructure", "SteamAccountManager.Infrastructure\SteamAccountManager.Infrastructure.csproj", "{7D1D3B9D-5F4C-4A6B-A188-9C0DD9C3D63C}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamAccountManager.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI", "DI\DI.csproj", "{80424B14-7138-48EE-8A7A-B83E4438A7FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamAccountManagerConsole", "SteamAccountManagerConsole\SteamAccountManagerConsole.csproj", "{6A950F6F-40A7-4641-A2A8-F7D651206582}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamAccountManager.Console", "SteamAccountManager.Console\SteamAccountManager.Console.csproj", "{6A950F6F-40A7-4641-A2A8-F7D651206582}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

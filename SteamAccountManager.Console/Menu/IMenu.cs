@@ -1,4 +1,4 @@
-﻿namespace SteamAccountManagerConsole.Menu
+﻿namespace SteamAccountManager.Console.Menu
 {
     public interface IMenu
     {
