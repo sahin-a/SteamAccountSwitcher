@@ -34,7 +34,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
             catch (Exception e)
             {
                 _logger.LogException("Failed to read login vdf", e);
-                throw new SteamLoginVdfReaderFailureException();
+                throw new SteamLoginVdfReaderFailureException("Failed to retrieve contents of vdf file", e);
             }
         }
     }

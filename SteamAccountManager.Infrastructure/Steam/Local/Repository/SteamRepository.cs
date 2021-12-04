@@ -22,9 +22,9 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
             _logger = logger;
         }
 
-        public async Task<List<SteamLoginUser>> GetSteamLoginUsers()
+        public async Task<List<SteamLoginUser>> GetSteamLoginHistoryUsers()
         {
-            return (await _steamDataSource.GetLoggedInUsers())
+            return (await _steamDataSource.GetUsersFromLoginHistory())
                 .ToSteamLoginUsers();
         }
 
@@ -38,7 +38,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
             var currentAutoLoginAccountName = _steamDataSource.GetCurrentAutoLoginUser();
             try
             {
-                var currentSteamLoginUser = (await _steamDataSource.GetLoggedInUsers())
+                var currentSteamLoginUser = (await _steamDataSource.GetUsersFromLoginHistory())
                     .First(dto => dto.AccountName == currentAutoLoginAccountName)
                     .ToSteamLoginUser();
 

@@ -3,19 +3,20 @@ using Moq;
 using SteamAccountManager.Domain.Steam.Exception;
 using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Domain.Steam.Local.POCO;
+using SteamAccountManager.Domain.Steam.Local.Repository;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using SteamAccountManager.Infrastructure.Steam.Local.Repository;
-using SteamAccountManager.Tests.Steam.Local.TestData;
+using SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData;
 using Xunit;
 
-namespace SteamAccountManager.Tests.Steam.Local.Repository
+namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
 {
     public class SteamRepositoryTest
     {
         private readonly Mock<ILocalSteamDataSource> _localSteamDataSourceMock;
         private readonly Mock<ILogger> _logger;
-        private readonly SteamRepository _sut;
+        private readonly ISteamRepository _sut;
 
         public SteamRepositoryTest()
         {
@@ -32,10 +33,10 @@ namespace SteamAccountManager.Tests.Steam.Local.Repository
                 VdfTestData.loginUserDto1
             };
 
-            _localSteamDataSourceMock.Setup(ds => ds.GetLoggedInUsers())
+            _localSteamDataSourceMock.Setup(ds => ds.GetUsersFromLoginHistory())
                 .ReturnsAsync(loginUserDtos);
 
-            var users = await _sut.GetSteamLoginUsers();
+            var users = await _sut.GetSteamLoginHistoryUsers();
 
             var loginUserDto = loginUserDtos[0];
             var steamLoginUser = users[0];
@@ -53,13 +54,13 @@ namespace SteamAccountManager.Tests.Steam.Local.Repository
                 VdfTestData.loginUserDto1
             };
 
-            _localSteamDataSourceMock.Setup(ds => ds.GetLoggedInUsers())
+            _localSteamDataSourceMock.Setup(ds => ds.GetUsersFromLoginHistory())
                 .ReturnsAsync(loginUserDtos)
                 .Verifiable();
 
-            await _sut.GetSteamLoginUsers();
+            await _sut.GetSteamLoginHistoryUsers();
 
-            _localSteamDataSourceMock.Verify(ds => ds.GetLoggedInUsers(), Times.Once);
+            _localSteamDataSourceMock.Verify(ds => ds.GetUsersFromLoginHistory(), Times.Once);
         }
         
         [Fact]
@@ -104,7 +105,7 @@ namespace SteamAccountManager.Tests.Steam.Local.Repository
                 VdfTestData.loginUserDto1
             };
 
-            _localSteamDataSourceMock.Setup(ds => ds.GetLoggedInUsers())
+            _localSteamDataSourceMock.Setup(ds => ds.GetUsersFromLoginHistory())
                 .ReturnsAsync(loginUserDtos);
 
             _localSteamDataSourceMock.Setup(ds => ds.GetCurrentAutoLoginUser())
@@ -131,7 +132,7 @@ namespace SteamAccountManager.Tests.Steam.Local.Repository
                 VdfTestData.loginUserDto1
             };
 
-            _localSteamDataSourceMock.Setup(ds => ds.GetLoggedInUsers())
+            _localSteamDataSourceMock.Setup(ds => ds.GetUsersFromLoginHistory())
                 .ReturnsAsync(loginUserDtos);
 
             _localSteamDataSourceMock.Setup(ds => ds.GetCurrentAutoLoginUser())

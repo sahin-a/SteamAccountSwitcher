@@ -1,6 +1,6 @@
 ﻿using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 
-namespace SteamAccountManager.Tests.Steam.Local.TestData
+namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData
 {
     public static class VdfTestData
     {
