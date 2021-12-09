@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using SteamAccountManager.Application.Steam.Local.Logger;
+using SteamAccountManager.Application.Steam.Local.Repository;
+using SteamAccountManager.Application.Steam.Model;
+using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.Domain.Steam.Exception;
-using SteamAccountManager.Domain.Steam.Local.Logger;
-using SteamAccountManager.Domain.Steam.Local.POCO;
-using SteamAccountManager.Domain.Steam.Local.Repository;
-using SteamAccountManager.Domain.Steam.Service;
 
 namespace SteamAccountManager.Infrastructure.Steam.Service
 {

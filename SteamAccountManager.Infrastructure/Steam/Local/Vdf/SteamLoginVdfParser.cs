@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Gameloop.Vdf;
 using Gameloop.Vdf.Linq;
+using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Domain.Steam.Exception.Vdf;
-using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf

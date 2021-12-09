@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SteamAccountManager.Domain.Steam.Local.POCO;
+using SteamAccountManager.Application.Steam.Model;
 
-namespace SteamAccountManager.Domain.Steam.Local.Repository
+namespace SteamAccountManager.Application.Steam.Local.Repository
 {
     public interface ISteamRepository
     {
