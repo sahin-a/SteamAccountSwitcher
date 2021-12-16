@@ -8,6 +8,8 @@
       <PackageReference Include="Autofac" Version="6.3.0" />
       <PackageReference Include="Gameloop.Vdf.JsonConverter" Version="0.2.1" />
       <PackageReference Include="Microsoft.Win32.Registry" Version="6.0.0-preview.5.21301.5" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="RestSharp" Version="107.0.0-preview.4" />
     </ItemGroup>
 
     <ItemGroup>

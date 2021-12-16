@@ -4,9 +4,8 @@ using SteamAccountManager.Application.Steam.Model;
 
 namespace SteamAccountManager.Application.Steam.Service
 {
-    public interface ISteamService
+    public interface ISteamProfileService
     {
-        public Task<List<SteamAccount>> GetAccounts();
-        public bool SwitchAccount(string accountName);
+        public Task<List<SteamProfile>> GetProfileDetails(params string[] steamIds);
     }
 }
