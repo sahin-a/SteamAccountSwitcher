@@ -26,18 +26,15 @@ namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
             if (steamIds.Length <= 0)
                 throw new InvalidSteamPlayerSummaryRequestException("You have to supply at least 1 steam id!");
 
+            
+            
             // we can only send a maximum of 100 steam ids per request, break it into smaller parts if that's the case
-            string[][] chunks = steamIds
-                .Select((s, i) => new {Value = s, Index = i})
-                .GroupBy(x => x.Index / MAX_STEAM_IDS_PER_REQUEST)
-                .Select(grp => grp.Select(x => x.Value).ToArray())
-                .ToArray();
-
+            var chunks = steamIds.Chunk(100);
             var playerSummaries = new List<PlayerSummary>();
 
-            foreach (var steamIdsPerRequest in chunks)
+            foreach (var steamIdsChunk in chunks)
             {
-                var commaSeperatedSteamIds = string.Join(",", steamIdsPerRequest);
+                var commaSeperatedSteamIds = string.Join(",", steamIdsChunk);
 
                 var request = new RestRequest(resource: "ISteamUser/GetPlayerSummaries/v0002", Method.Get);
                 request.AddParameter(name: "steamids", value: commaSeperatedSteamIds, ParameterType.QueryString);

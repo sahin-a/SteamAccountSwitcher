@@ -56,8 +56,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Remote.Dao
             Assert.Equal(expected: -1L, actual: profileSummary.LastLogOff);
             Assert.Equal(expected: 1063407589L, actual: profileSummary.TimeCreated);
         }
-
-        // TODO: test multiple steam ids usecase => more than one and more than 100 (bruh)
+        
         [Fact]
         public async void GetSummary_throws_InvalidSteamPlayerSummaryRequestException_if_no_steam_ids_supplied()
         {
