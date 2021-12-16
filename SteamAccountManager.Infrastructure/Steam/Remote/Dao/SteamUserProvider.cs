@@ -9,24 +9,27 @@ using SteamAccountManager.Infrastructure.Steam.Remote.Dto;
 
 namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
 {
-    public class SteamPlayerSummaryProvider : ISteamPlayerSummaryProvider
+    public class SteamUserProvider : ISteamUserProvider
     {
         private const byte MAX_STEAM_IDS_PER_REQUEST = 100;
         private readonly ISteamWebClient _steamWebClient;
         private readonly ILogger _logger;
+        
+        // TODO: create/rename class SteamUserClient
 
-        public SteamPlayerSummaryProvider(ISteamWebClient steamWebClient, ILogger logger)
+        public SteamUserProvider(ISteamWebClient steamWebClient, ILogger logger)
         {
             _steamWebClient = steamWebClient;
             _logger = logger;
         }
+        
+        private RestRequest CreateRequest(string action, Method method) =>
+            new RestRequest(resource: $"ISteamUser/{action}", method);
 
-        public async Task<List<PlayerSummary>> GetSummaryAsync(params string[] steamIds)
+        public async Task<List<PlayerSummary>> GetSummariesAsync(params string[] steamIds)
         {
             if (steamIds.Length <= 0)
-                throw new InvalidSteamPlayerSummaryRequestException("You have to supply at least 1 steam id!");
-
-            
+                throw new IllegalSteamIdsCountException("You have to supply at least 1 steam id!");
             
             // we can only send a maximum of 100 steam ids per request, break it into smaller parts if that's the case
             var chunks = steamIds.Chunk(100);
@@ -36,7 +39,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
             {
                 var commaSeperatedSteamIds = string.Join(",", steamIdsChunk);
 
-                var request = new RestRequest(resource: "ISteamUser/GetPlayerSummaries/v0002", Method.Get);
+                var request = CreateRequest(action: "GetPlayerSummaries/v0002", Method.Get);
                 request.AddParameter(name: "steamids", value: commaSeperatedSteamIds, ParameterType.QueryString);
 
                 try
@@ -54,6 +57,30 @@ namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
             }
 
             return playerSummaries;
+        }
+
+        public async Task<List<PlayerBans>> GetPlayerBansAsync(params string[] steamIds)
+        {
+            if (steamIds.Length <= 0)
+                throw new IllegalSteamIdsCountException("You have to supply at least 1 steam id!");
+            
+            var commaSeperatedSteamIds = string.Join(",", steamIds);
+            
+            var request = CreateRequest(action: "GetPlayerBans/v1/", Method.Get);
+            request.AddParameter(name: "steamids", value: commaSeperatedSteamIds, ParameterType.QueryString);
+
+            try
+            {
+                var response = await _steamWebClient.ExecuteAsync<SteamPlayerBansDto>(request);
+                return response.Players;
+            }
+            catch (Exception e)
+            {
+                var exception = new FailedToRetrieveSteamPlayerBansException("Failed to retrieve player/s bans", e);
+                _logger.LogException("Failed to receive steam player bans", exception);
+
+                throw exception;
+            }
         }
     }
 }

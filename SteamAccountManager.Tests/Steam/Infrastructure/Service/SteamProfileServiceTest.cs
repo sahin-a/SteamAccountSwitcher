@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Moq;
+using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Model;
 using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.Infrastructure.Steam.Exceptions;
@@ -14,13 +14,15 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
 {
     public class SteamProfileServiceTest
     {
-        private readonly Mock<ISteamPlayerSummaryProvider> _steamPlayerSummaryProviderMock;
+        private readonly Mock<ISteamUserProvider> _steamPlayerSummaryProviderMock;
+        private readonly Mock<ILogger> _loggerMock;
         private readonly ISteamProfileService _sut;
 
         public SteamProfileServiceTest()
         {
-            _steamPlayerSummaryProviderMock = new Mock<ISteamPlayerSummaryProvider>(behavior: MockBehavior.Strict);
-            _sut = new SteamProfileService(_steamPlayerSummaryProviderMock.Object);
+            _steamPlayerSummaryProviderMock = new Mock<ISteamUserProvider>(behavior: MockBehavior.Strict);
+            _loggerMock = new Mock<ILogger>(behavior: MockBehavior.Loose);
+            _sut = new SteamProfileService(_steamPlayerSummaryProviderMock.Object, _loggerMock.Object);
         }
 
         [Fact]
@@ -37,31 +39,47 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
             var maffeiUsername = "Maffei";
 
             _steamPlayerSummaryProviderMock.Setup(provider =>
-                provider.GetSummaryAsync(peterId, maffeiId)
+                provider.GetSummariesAsync(peterId, maffeiId)
             ).ReturnsAsync(
                 new List<PlayerSummary>
                 {
                     new()
                     {
-                        SteamId = peterId, 
-                        Avatar = new Uri(peterAvatar), 
+                        SteamId = peterId,
+                        Avatar = new Uri(peterAvatar),
                         ProfileUrl = new Uri(peterUrl),
                         PersonaName = peterUsername
                     },
                     new()
                     {
-                        SteamId = maffeiId, 
-                        Avatar = new Uri(maffeiAvatar), 
+                        SteamId = maffeiId,
+                        Avatar = new Uri(maffeiAvatar),
                         ProfileUrl = new Uri(maffeiUrl),
                         PersonaName = maffeiUsername
                     }
                 }
             ).Verifiable();
 
+            _steamPlayerSummaryProviderMock.Setup(provider =>
+                provider.GetPlayerBansAsync(peterId, maffeiId)
+            ).ReturnsAsync(
+                new List<PlayerBans>
+                {
+                    new() {SteamId = peterId, CommunityBanned = false, VacBanned = false},
+                    new() {SteamId = maffeiId, CommunityBanned = false, VacBanned = false}
+                }
+            ).Verifiable();
+
+
             List<SteamProfile> profiles = await _sut.GetProfileDetails(peterId, maffeiId);
 
             _steamPlayerSummaryProviderMock.Verify(
-                provider => provider.GetSummaryAsync(peterId, maffeiId),
+                provider => provider.GetSummariesAsync(peterId, maffeiId),
+                Times.Once
+            );
+
+            _steamPlayerSummaryProviderMock.Verify(provider =>
+                    provider.GetPlayerBansAsync(peterId, maffeiId),
                 Times.Once
             );
 
@@ -80,19 +98,66 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
         }
 
         [Fact]
+        public async void WHEN_GetPlayerBans_empty_GetProfileDetails_returns_SteamProfiles_bans_set_false()
+        {
+            var peterId = "44156412312345";
+            var peterAvatar = "https://steamcommuntiy.com/id/peter/peter.jpg";
+            var peterUrl = "https://steamcommuntiy.com/id/peter";
+            var peterUsername = "Peter";
+
+            _steamPlayerSummaryProviderMock.Setup(provider =>
+                provider.GetSummariesAsync(peterId)
+            ).ReturnsAsync(
+                new List<PlayerSummary>
+                {
+                    new()
+                    {
+                        SteamId = peterId,
+                        Avatar = new Uri(peterAvatar),
+                        ProfileUrl = new Uri(peterUrl),
+                        PersonaName = peterUsername
+                    }
+                }
+            ).Verifiable();
+
+            _steamPlayerSummaryProviderMock.Setup(provider =>
+                    provider.GetPlayerBansAsync(peterId)
+                ).ReturnsAsync(new List<PlayerBans>())
+                .Verifiable();
+
+
+            List<SteamProfile> profiles = await _sut.GetProfileDetails(peterId);
+
+            _steamPlayerSummaryProviderMock.Verify(
+                provider => provider.GetSummariesAsync(peterId),
+                Times.Once
+            );
+
+            _steamPlayerSummaryProviderMock.Verify(provider =>
+                    provider.GetPlayerBansAsync(peterId),
+                Times.Once
+            );
+
+            var peterProfile = profiles[0];
+
+            Assert.False(peterProfile.IsVacBanned);
+            Assert.False(peterProfile.IsCommunityBanned);
+        }
+
+        [Fact]
         public async void GetProfileDetails_catches_FailedToRetrieveSteamProfileException()
         {
-            _steamPlayerSummaryProviderMock.Setup(provider => provider.GetSummaryAsync("1"))
+            _steamPlayerSummaryProviderMock.Setup(provider => provider.GetSummariesAsync("1"))
                 .ThrowsAsync(new FailedToRetrieveSteamProfileException());
 
             await _sut.GetProfileDetails("1");
         }
-        
+
         [Fact]
         public async void GetProfileDetails_catches_InvalidSteamPlayerSummaryRequestException()
         {
-            _steamPlayerSummaryProviderMock.Setup(provider => provider.GetSummaryAsync("1"))
-                .ThrowsAsync(new InvalidSteamPlayerSummaryRequestException());
+            _steamPlayerSummaryProviderMock.Setup(provider => provider.GetSummariesAsync("1"))
+                .ThrowsAsync(new IllegalSteamIdsCountException());
 
             await _sut.GetProfileDetails("1");
         }

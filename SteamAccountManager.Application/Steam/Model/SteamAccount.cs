@@ -8,6 +8,8 @@
         public string Avatar { get; set; } = string.Empty;
         public string Profile { get; set; } = string.Empty;
         public bool IsLoginValid { get; set; }
+        public bool IsVacBanned { get; set; }
+        public bool IsCommunityBanned { get; set; }
         
         private SteamAccount()
         {
@@ -29,6 +31,8 @@
                 _steamAccount.Profile = steamProfile.Url;
                 _steamAccount.Avatar = steamProfile.Avatar;
                 _steamAccount.Username = steamProfile.Username;
+                _steamAccount.IsVacBanned = steamProfile.IsVacBanned;
+                _steamAccount.IsCommunityBanned = steamProfile.IsCommunityBanned;
                 
                 return this;
             }

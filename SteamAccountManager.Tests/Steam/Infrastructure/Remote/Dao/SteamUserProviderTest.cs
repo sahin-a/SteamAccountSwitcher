@@ -11,17 +11,17 @@ using Xunit;
 
 namespace SteamAccountManager.Tests.Steam.Infrastructure.Remote.Dao
 {
-    public class SteamPlayerSummaryProviderTest
+    public class SteamUserProviderTest
     {
         private readonly Mock<ISteamWebClient> _steamWebClientMock;
         private readonly Mock<ILogger> _loggerMock;
-        private readonly SteamPlayerSummaryProvider _sut;
+        private readonly SteamUserProvider _sut;
 
-        public SteamPlayerSummaryProviderTest()
+        public SteamUserProviderTest()
         {
             _steamWebClientMock = new Mock<ISteamWebClient>(behavior: MockBehavior.Strict);
             _loggerMock = new Mock<ILogger>(behavior: MockBehavior.Loose);
-            _sut = new SteamPlayerSummaryProvider(_steamWebClientMock.Object, _loggerMock.Object);
+            _sut = new SteamUserProvider(_steamWebClientMock.Object, _loggerMock.Object);
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Remote.Dao
                 .ReturnsAsync(JsonConvert.DeserializeObject<SteamPlayerSummariesDto>(responseJson))
                 .Verifiable();
 
-            var profileSummaries = await _sut.GetSummaryAsync(steamId);
+            var profileSummaries = await _sut.GetSummariesAsync(steamId);
 
             _steamWebClientMock.Verify(client =>
                     client.ExecuteAsync<SteamPlayerSummariesDto>(It.IsAny<RestRequest>()),
@@ -58,9 +58,9 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Remote.Dao
         }
         
         [Fact]
-        public async void GetSummary_throws_InvalidSteamPlayerSummaryRequestException_if_no_steam_ids_supplied()
+        public async void GetSummary_throws_InvalidSteamIdsCountException_if_no_steam_ids_supplied()
         {
-            await Assert.ThrowsAsync<InvalidSteamPlayerSummaryRequestException>(() => _sut.GetSummaryAsync());
+            await Assert.ThrowsAsync<IllegalSteamIdsCountException>(() => _sut.GetSummariesAsync());
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Remote.Dao
             ).ThrowsAsync(new Exception());
 
             await Assert.ThrowsAsync<FailedToRetrieveSteamProfileException>(() =>
-                _sut.GetSummaryAsync("2")
+                _sut.GetSummariesAsync("2")
             );
         }
     }

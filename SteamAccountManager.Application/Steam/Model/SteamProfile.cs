@@ -6,5 +6,7 @@
         public string Avatar { get; set; }
         public string Username { get; set; }
         public string Url { get; set; }
+        public bool IsVacBanned { get; set; }
+        public bool IsCommunityBanned { get; set; }
     }
 }

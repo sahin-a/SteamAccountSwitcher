@@ -27,7 +27,7 @@ namespace SteamAccountManager.Console.Menu
             for (int i = 0; i < steamAccounts.Count; i++)
             {
                 var account = steamAccounts[i];
-                System.Console.WriteLine($"{i}. [Valid: {account.IsLoginValid}] {account.AccountName} ({account.Username})");
+                System.Console.WriteLine($"{i}. [VAC: {account.IsVacBanned}] [Valid: {account.IsLoginValid}] {account.AccountName} ({account.Username})");
             }
 
             System.Console.WriteLine("Enter Number to log in account, Habibi!!");

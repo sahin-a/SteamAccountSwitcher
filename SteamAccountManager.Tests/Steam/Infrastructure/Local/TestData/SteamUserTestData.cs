@@ -19,7 +19,9 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData
             Id = "415341232123",
             Avatar = "samfisher.jpg",
             Username = "Sam Fisher oof",
-            Url = "https://steamcommunity.com/id/samfisher"
+            Url = "https://steamcommunity.com/id/samfisher",
+            IsVacBanned = false,
+            IsCommunityBanned = false
         };
 
         public static SteamLoginUser GetSamFisherLoginUser() => createSteamLoginUser(
@@ -33,7 +35,9 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData
             Id = "4509234026243",
             Avatar = "rainer.jpg",
             Username = "Rainer Winkler",
-            Url = "https://steamcommunity.com/id/rainerwinkler"
+            Url = "https://steamcommunity.com/id/rainerwinkler",
+            IsVacBanned = true,
+            IsCommunityBanned = true
         };
 
         public static SteamLoginUser GetRainerLoginUser() => createSteamLoginUser(

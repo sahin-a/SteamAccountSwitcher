@@ -26,7 +26,7 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<SteamService>().As<ISteamService>().SingleInstance();
             builder.RegisterType<SteamProcessService>().As<ISteamProcessService>().SingleInstance();
             builder.RegisterType<SteamWebClient>().As<ISteamWebClient>().SingleInstance();
-            builder.RegisterType<SteamPlayerSummaryProvider>().As<ISteamPlayerSummaryProvider>().SingleInstance();
+            builder.RegisterType<SteamUserProvider>().As<ISteamUserProvider>().SingleInstance();
             builder.RegisterType<SteamProfileService>().As<ISteamProfileService>().SingleInstance();
         }
     }
