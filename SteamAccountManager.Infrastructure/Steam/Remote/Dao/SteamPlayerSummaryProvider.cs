@@ -40,7 +40,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
                 var commaSeperatedSteamIds = string.Join(",", steamIdsPerRequest);
 
                 var request = new RestRequest(resource: "ISteamUser/GetPlayerSummaries/v0002", Method.Get);
-                request.AddParameter(name: "steamids", value: commaSeperatedSteamIds);
+                request.AddParameter(name: "steamids", value: commaSeperatedSteamIds, ParameterType.QueryString);
 
                 try
                 {
