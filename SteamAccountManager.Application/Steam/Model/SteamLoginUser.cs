@@ -6,44 +6,40 @@
         public string AccountName { get; private set; }
         public bool IsLoginTokenValid { get; private set; }
 
-        private SteamLoginUser(string steamId, string accountName, bool isLoginTokenValid)
+        private SteamLoginUser()
         {
-            SteamId = steamId;
-            AccountName = accountName;
-            IsLoginTokenValid = isLoginTokenValid;
         }
 
         public class Builder
         {
-            private string _steamId = string.Empty;
-            private string _accountName = string.Empty;
-            private bool _isLoginTokenValid;
+            private SteamLoginUser _steamLoginUser;
+
+            public Builder()
+            {
+                _steamLoginUser = new();
+            }
 
             public Builder SetSteamId(string steamId)
             {
-                _steamId = steamId;
+                _steamLoginUser.SteamId = steamId;
                 return this;
             }
 
             public Builder SetAccountName(string accountName)
             {
-                _accountName = accountName;
+                _steamLoginUser.AccountName = accountName;
                 return this;
             }
 
             public Builder SetIsLoginTokenValid(bool isLoginTokenValid)
             {
-                _isLoginTokenValid = isLoginTokenValid;
+                _steamLoginUser.IsLoginTokenValid = isLoginTokenValid;
                 return this;
             }
 
             public SteamLoginUser Build()
             {
-                return new SteamLoginUser(
-                    steamId: _steamId, 
-                    accountName: _accountName, 
-                    isLoginTokenValid: _isLoginTokenValid
-                    );
+                return _steamLoginUser;
             }
         }
     }
