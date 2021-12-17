@@ -1,10 +1,11 @@
 using System;
+using System.Text;
 using Autofac;
 using SteamAccountManager.Application.Steam.Service;
 
 namespace SteamAccountManager.Console.Menu
 {
-    public class MainMenu : IMenu   
+    public class MainMenu : IMenu
     {
         private readonly ISteamService _steamService;
 
@@ -14,7 +15,7 @@ namespace SteamAccountManager.Console.Menu
 
             Show();
         }
-        
+
         public void Show()
         {
             ShowAccountSelection();
@@ -23,22 +24,30 @@ namespace SteamAccountManager.Console.Menu
         private void ShowAccountSelection()
         {
             var steamAccounts = _steamService.GetAccounts().Result;
-            
+
             for (int i = 0; i < steamAccounts.Count; i++)
             {
                 var account = steamAccounts[i];
-                System.Console.WriteLine($"{i}. [VAC: {account.IsVacBanned}] [Valid: {account.IsLoginValid}] {account.AccountName} ({account.Username})");
+                var accountDetails = new StringBuilder()
+                    .Append($"{account.AccountName} |")
+                    .Append($"| {account.Username} ")
+                    .Append($"[Valid: {account.IsLoginValid}] ")
+                    .Append($"[VAC: { account.IsVacBanned}] ")
+                    .Append($"[Community Ban: {account.IsCommunityBanned}]")
+                    .ToString();
+
+                System.Console.WriteLine($"{i}. {accountDetails}");
             }
 
             System.Console.WriteLine("Enter Number to log in account, Habibi!!");
 
             string? accountSelection = System.Console.ReadLine();
-        
-            if (Int32.TryParse(accountSelection, out int accountIndex))
+
+            if (int.TryParse(accountSelection, out int accountIndex))
             {
                 var selectedAccount = steamAccounts[accountIndex];
                 System.Console.WriteLine($"Selected Account: {selectedAccount.AccountName}");
-                
+
                 _steamService.SwitchAccount(selectedAccount.AccountName);
             }
 

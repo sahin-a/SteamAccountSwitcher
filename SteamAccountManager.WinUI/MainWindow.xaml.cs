@@ -1,10 +1,12 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Autofac;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using SteamAccountManager.WinUI.SAM.Steam.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,11 +28,8 @@ namespace SteamAccountManager.WinUI
         public MainWindow()
         {
             this.InitializeComponent();
-        }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
-        {
-            myButton.Content = "Clicked";
+            this.Title = "Steam Account Manager";
         }
     }
 }

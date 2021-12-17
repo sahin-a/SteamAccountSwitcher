@@ -2,10 +2,10 @@
 {
     public class SteamProfile
     {
-        public string Id { get; set; }
-        public string Avatar { get; set; }
-        public string Username { get; set; }
-        public string Url { get; set; }
+        public string Id { get; set; } = string.Empty;
+        public string Avatar { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
         public bool IsVacBanned { get; set; }
         public bool IsCommunityBanned { get; set; }
     }
