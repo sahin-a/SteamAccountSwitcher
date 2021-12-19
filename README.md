@@ -1,8 +1,10 @@
 # SteamAccountManager
-fresh steam acc manager (not useable yet)
+fresh steam acc manager (not complete yet)
 
+# Avalonia Build *(Avalonia Build (0.1 Alpha))
 Current Features:
-* Switch between accounts that were recently logged in without the need of a password
+* Switch Accounts
+* Shows Accounts Details (Account Name, Username, VAC/Game Ban Status, Avatar)
 
-TODO:
+TODOs:
 * refactoring
