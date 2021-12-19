@@ -25,7 +25,8 @@ namespace SteamAccountManager.AvaloniaUI.Views
 
         private void AccountSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _viewModel.OnAccountSelected((sender as ListBox).SelectedItem as Account);
+            var selectedAccount = (sender as ListBox).SelectedItem as Account;
+            _viewModel.OnAccountSelected(selectedAccount);
         }
     }
 }

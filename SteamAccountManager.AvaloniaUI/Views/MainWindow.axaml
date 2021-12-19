@@ -7,12 +7,15 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="SteamAccountManager.AvaloniaUI.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="SteamAccountManager.AvaloniaUI">
+        Title="SteamAccountManager.AvaloniaUI"
+		Width="800"
+		Height="430"
+		Background="#1C1B1B">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <view:AccountSwitcher />
+    <view:AccountSwitcher Padding="12" />
 
 </Window>

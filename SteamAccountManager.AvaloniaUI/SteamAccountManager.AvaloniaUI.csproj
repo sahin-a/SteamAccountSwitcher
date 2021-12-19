@@ -7,6 +7,7 @@
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
     <None Remove=".gitignore" />
+    <None Remove="Assets\avatar_placeholder.jpg" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.10" />
@@ -18,5 +19,10 @@
   <ItemGroup>
     <ProjectReference Include="..\DI\DI.csproj" />
     <ProjectReference Include="..\SteamAccountManager.Application\SteamAccountManager.Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\AccountSwitcher.axaml.cs">
+      <DependentUpon>AccountSwitcher.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

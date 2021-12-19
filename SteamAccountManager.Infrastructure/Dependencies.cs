@@ -28,6 +28,8 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<SteamWebClient>().As<ISteamWebClient>().SingleInstance();
             builder.RegisterType<SteamUserProvider>().As<ISteamUserProvider>().SingleInstance();
             builder.RegisterType<SteamProfileService>().As<ISteamProfileService>().SingleInstance();
+            builder.RegisterType<ImageClient>().SingleInstance();
+            builder.RegisterType<ImageService>().As<IImageService>().SingleInstance();
         }
     }
 }

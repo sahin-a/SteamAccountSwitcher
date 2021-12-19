@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SteamAccountManager.AvaloniaUI.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel
     {
         public string Greeting => "Welcome to Avalonia!";
 
