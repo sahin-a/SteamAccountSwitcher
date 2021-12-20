@@ -1,6 +1,8 @@
 # SteamAccountManager
 fresh steam acc manager (not complete yet)
 
+enter your api key here => [SteamWebClient.cs:18](https://github.com/sahin-a/SteamAccountManager/blob/fe847849e0e638e179794070bc605e50b65f8e9b/SteamAccountManager.Infrastructure/Steam/Remote/Dao/SteamWebClient.cs#L18)
+
 # AvaloniaUI Build *(Avalonia Build (0.1 Alpha))*
 Current Features:
 * Switch Accounts
