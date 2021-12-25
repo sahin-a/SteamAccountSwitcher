@@ -40,7 +40,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             Username = steamAccount.Username,
             ProfileUrl = steamAccount.ProfileUrl,
             IsVacBanned = steamAccount.IsVacBanned,
-            IsCommunityBanned = steamAccount.IsCommunityBanned
+            IsCommunityBanned = steamAccount.IsCommunityBanned,
+            LastLogin = steamAccount.LastLogin
         };
 
         public async void LoadAccounts()
@@ -55,6 +56,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public void OnAccountSelected(Account selectedAccount)
         {
             _steamService.SwitchAccount(selectedAccount.Name);
+            LoadAccounts();
         }
     }
 }
