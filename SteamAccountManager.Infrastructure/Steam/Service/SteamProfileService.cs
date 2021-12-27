@@ -14,11 +14,13 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
     public class SteamProfileService : ISteamProfileService
     {
         private readonly ISteamUserProvider _steamUserProvider;
+        private readonly ISteamPlayerServiceProvider _steamPlayerServiceProvider;
         private readonly ILogger _logger;
 
-        public SteamProfileService(ISteamUserProvider steamUserProvider, ILogger logger)
+        public SteamProfileService(ISteamUserProvider steamUserProvider, ISteamPlayerServiceProvider steamPlayerServiceProvider, ILogger logger)
         {
             _steamUserProvider = steamUserProvider;
+            _steamPlayerServiceProvider = steamPlayerServiceProvider;
             _logger = logger;
         }
 
@@ -31,12 +33,14 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
                 var playerSummaries = await _steamUserProvider.GetSummariesAsync(steamIds);
                 var playerBans = await _steamUserProvider.GetPlayerBansAsync(steamIds);
 
-                return playerSummaries.ConvertAll(profile =>
+                var steamProfileTasks = playerSummaries.ConvertAll(async profile =>
                 {
                     var playerBan = playerBans.FirstOrDefault(
                         playerBan => playerBan.SteamId == profile.SteamId,
                         new PlayerBans()
                     );
+
+                    var playerLevel = await _steamPlayerServiceProvider.GetPlayerLevelAsync(profile.SteamId);
 
                     return new SteamProfile
                     {
@@ -45,9 +49,12 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
                         Username = profile.PersonaName,
                         Id = profile.SteamId,
                         IsVacBanned = playerBan.VacBanned || playerBan.NumberOfGameBans > 0,
-                        IsCommunityBanned = playerBan.CommunityBanned
+                        IsCommunityBanned = playerBan.CommunityBanned,
+                        Level = playerLevel.PlayerLevel
                     };
                 });
+
+                return new List<SteamProfile>(await Task.WhenAll(steamProfileTasks));
             }
             catch (FailedToRetrieveSteamProfileException e)
             {

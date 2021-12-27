@@ -11,6 +11,7 @@
         public bool IsVacBanned { get; set; }
         public bool IsCommunityBanned { get; set; }
         public DateTime LastLogin { get; set; }
+        public int Level { get; set; }
         
         private SteamAccount()
         {
@@ -34,6 +35,7 @@
                 _steamAccount.Username = steamProfile.Username;
                 _steamAccount.IsVacBanned = steamProfile.IsVacBanned;
                 _steamAccount.IsCommunityBanned = steamProfile.IsCommunityBanned;
+                _steamAccount.Level = steamProfile.Level;
                 
                 return this;
             }

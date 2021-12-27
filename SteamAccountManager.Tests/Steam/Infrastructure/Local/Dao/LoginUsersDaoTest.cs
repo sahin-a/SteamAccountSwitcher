@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using Moq;
+using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
+using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 using SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData;
 using Xunit;
 

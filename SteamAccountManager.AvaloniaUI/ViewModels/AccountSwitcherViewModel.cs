@@ -8,6 +8,7 @@ using SteamAccountManager.AvaloniaUI.Services;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -19,6 +20,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private ISteamService _steamService;
         public ObservableCollection<Account> Accounts { get; }
         public ICommand ProfileClickedCommand { get; }
+        public ICommand RefreshAccountsCommand { get; }
         private AvatarService _avatarService;
 
         public AccountSwitcherViewModel(ISteamService steamService, AvatarService imageProvider)
@@ -27,30 +29,51 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _avatarService = imageProvider;
             Accounts = new ObservableCollection<Account>();
             ProfileClickedCommand = new ProfileClickedCommand();
+            RefreshAccountsCommand = new QuickCommand(LoadAccounts);
 
             LoadAccounts();
         }
 
-        // TODO: refactor else :vomit:
-        public async Task<Account> ToAccount(SteamAccount steamAccount) => new Account
+        // TODO: get it out of this class
+        public async Task<Account> ToAccount(SteamAccount steamAccount)
         {
-            SteamId = steamAccount.SteamId,
-            Name = steamAccount.AccountName,
-            ProfilePicture = await _avatarService.GetAvatarAsync(steamAccount.AvatarUrl),
-            Username = steamAccount.Username,
-            ProfileUrl = steamAccount.ProfileUrl,
-            IsVacBanned = steamAccount.IsVacBanned,
-            IsCommunityBanned = steamAccount.IsCommunityBanned,
-            LastLogin = steamAccount.LastLogin
-        };
+            var hoursPassed = Convert.ToUInt16(DateTime.UtcNow.Subtract(steamAccount.LastLogin).TotalHours);
+            var timePassedSinceLastLogin = (hoursPassed >= 24 ? $"{hoursPassed / 24} days" : $"{hoursPassed} hours") + " ago";
+
+            var account = new Account
+            {
+                SteamId = steamAccount.SteamId,
+                Name = steamAccount.AccountName,
+                ProfilePicture = await _avatarService.GetAvatarAsync(steamAccount.AvatarUrl),
+                Username = steamAccount.Username,
+                ProfileUrl = steamAccount.ProfileUrl,
+                IsVacBanned = steamAccount.IsVacBanned,
+                IsCommunityBanned = steamAccount.IsCommunityBanned,
+                LastLogin = timePassedSinceLastLogin,
+                Level = steamAccount.Level
+            };
+
+            return account;
+        }
 
         public async void LoadAccounts()
         {
-            Accounts.Clear();
-
             var steamAccounts = await _steamService.GetAccounts();
+            var accounts = await Task.WhenAll(steamAccounts.ConvertAll(x => ToAccount(x)));
 
-            steamAccounts.ForEach(async account => Accounts.Add(await ToAccount(account)));
+            foreach (var account in accounts)
+            {
+                // update entry if already exists
+                var currentAccount = Accounts.Where(x => x.SteamId == account.SteamId).FirstOrDefault();
+                if (currentAccount is Account)
+                {
+                    var index = Accounts.IndexOf(currentAccount);
+                    Accounts[index] = account;
+                    continue;
+                }
+
+                Accounts.Add(account);
+            }
         }
 
         public void OnAccountSelected(Account selectedAccount)
