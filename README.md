@@ -17,6 +17,7 @@ Current Features:
 TODOs:
 * refactoring
 * make the AvaloniaUI Build prettier
+* add linux support
 
 # Supported Plattforms
 * Windows
