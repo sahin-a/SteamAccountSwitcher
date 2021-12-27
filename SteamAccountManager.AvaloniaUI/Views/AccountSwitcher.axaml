@@ -28,8 +28,8 @@
 					</Style>
 				</StackPanel.Styles>
 
-				<Button Content="⟳" Command="{Binding RefreshAccountsCommand}" />
-				<Button Content="?">
+				<Button Content="⟳" Command="{Binding RefreshAccountsCommand}" ToolTip.Tip="Refresh" />
+				<Button Content="?" Command="{Binding ShowInfoCommand}" ToolTip.Tip="Info">
 					<!--<Button.Styles>
 						<Style Selector="Border">
 							<Setter Property="Border.CornerRadius" Value="10" />

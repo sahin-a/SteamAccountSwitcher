@@ -21,6 +21,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public ObservableCollection<Account> Accounts { get; }
         public ICommand ProfileClickedCommand { get; }
         public ICommand RefreshAccountsCommand { get; }
+        public ICommand ShowInfoCommand { get; }
         private AvatarService _avatarService;
 
         public AccountSwitcherViewModel(ISteamService steamService, AvatarService imageProvider)
@@ -30,6 +31,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             Accounts = new ObservableCollection<Account>();
             ProfileClickedCommand = new ProfileClickedCommand();
             RefreshAccountsCommand = new QuickCommand(LoadAccounts);
+            ShowInfoCommand = new QuickCommand(ShowInfo);
 
             LoadAccounts();
         }
@@ -79,6 +81,11 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public void OnAccountSelected(Account selectedAccount)
         {
             _steamService.SwitchAccount(selectedAccount.Name);
+        }
+
+        public void ShowInfo()
+        {
+            System.Diagnostics.Process.Start("explorer", "https://github.com/sahin-a/SteamAccountManager/");
         }
     }
 }
