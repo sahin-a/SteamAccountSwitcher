@@ -1,14 +1,14 @@
-﻿using Avalonia;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
-using SteamAccountManager.Application.Steam.Model;
+﻿using SteamAccountManager.Application.Steam.Model;
 using SteamAccountManager.Application.Steam.Service;
+using SteamAccountManager.AvaloniaUI.Common;
+using SteamAccountManager.AvaloniaUI.Common.Utils;
 using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.Services;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -36,11 +36,33 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             LoadAccounts();
         }
 
+        public string GetTimePassedFormatted(int minutesPassed)
+        {
+
+            var stringBuilder = new StringBuilder();
+
+            switch (minutesPassed)
+            {
+                case >= Time.DAY_IN_MINUTES:
+                    stringBuilder.Append($"{TimeConverter.ToDays(minutesPassed)} days");
+                    break;
+                case >= Time.HOUR_IN_MINUTES:
+                    stringBuilder.Append($"{TimeConverter.ToHours(minutesPassed)} hours");
+                    break;
+                default:
+                    stringBuilder.Append($"{minutesPassed} minutes");
+                    break;
+            }
+            stringBuilder.Append(" ago");
+
+            return stringBuilder.ToString();
+        }
+
         // TODO: get it out of this class
         public async Task<Account> ToAccount(SteamAccount steamAccount)
         {
-            var hoursPassed = Convert.ToUInt16(DateTime.UtcNow.Subtract(steamAccount.LastLogin).TotalHours);
-            var timePassedSinceLastLogin = (hoursPassed >= 24 ? $"{hoursPassed / 24} days" : $"{hoursPassed} hours") + " ago";
+            var minutesPassed = Convert.ToUInt16(DateTime.UtcNow.Subtract(steamAccount.LastLogin).TotalMinutes);
+            var timePassedSinceLastLogin = GetTimePassedFormatted(minutesPassed);
 
             var account = new Account
             {
