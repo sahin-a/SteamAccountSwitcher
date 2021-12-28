@@ -34,11 +34,13 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
             var peterAvatar = "https://steamcommuntiy.com/id/peter/peter.jpg";
             var peterUrl = "https://steamcommuntiy.com/id/peter";
             var peterUsername = "Peter";
+            var peterLevel = 1;
 
             var maffeiId = "53459345254242";
             var maffeiAvatar = "https://steamcommuntiy.com/id/maffei/maffei.jpg";
             var maffeiUrl = "https://steamcommuntiy.com/id/maffei";
             var maffeiUsername = "Maffei";
+            var maffeiLevel = 2;
 
             _steamPlayerSummaryProviderMock.Setup(provider =>
                 provider.GetSummariesAsync(peterId, maffeiId)
@@ -72,6 +74,14 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
                 }
             ).Verifiable();
 
+            _steamPlayerServiceProviderMock.Setup(provider => provider.GetPlayerLevelAsync(peterId))
+                .ReturnsAsync(new SteamPlayerLevel { PlayerLevel = peterLevel })
+                .Verifiable();
+
+            _steamPlayerServiceProviderMock.Setup(provider => provider.GetPlayerLevelAsync(maffeiId))
+                .ReturnsAsync(new SteamPlayerLevel { PlayerLevel = maffeiLevel })
+                .Verifiable();
+
 
             List<SteamProfile> profiles = await _sut.GetProfileDetails(peterId, maffeiId);
 
@@ -85,6 +95,16 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
                 Times.Once
             );
 
+            _steamPlayerServiceProviderMock.Verify(
+                provider => provider.GetPlayerLevelAsync(peterId),
+                Times.Once
+            );
+
+            _steamPlayerServiceProviderMock.Verify(
+                provider => provider.GetPlayerLevelAsync(maffeiId),
+                Times.Once
+            );
+
             var peterProfile = profiles.Find(profile => profile.Id == peterId);
             var maffeiProfile = profiles.Find(profile => profile.Id == maffeiId);
 
@@ -92,11 +112,13 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
             Assert.Equal(expected: peterAvatar, actual: peterProfile.Avatar);
             Assert.Equal(expected: peterUrl, actual: peterProfile.Url);
             Assert.Equal(expected: peterUsername, actual: peterProfile.Username);
+            Assert.Equal(expected: peterLevel, actual: peterProfile.Level);
 
             Assert.Equal(expected: maffeiId, actual: maffeiProfile.Id);
             Assert.Equal(expected: maffeiAvatar, actual: maffeiProfile.Avatar);
             Assert.Equal(expected: maffeiUrl, actual: maffeiProfile.Url);
             Assert.Equal(expected: maffeiUsername, actual: maffeiProfile.Username);
+            Assert.Equal(expected: maffeiLevel, actual: maffeiProfile.Level);
         }
 
         [Fact]
@@ -106,6 +128,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
             var peterAvatar = "https://steamcommuntiy.com/id/peter/peter.jpg";
             var peterUrl = "https://steamcommuntiy.com/id/peter";
             var peterUsername = "Peter";
+            var peterLevel = 1;
 
             _steamPlayerSummaryProviderMock.Setup(provider =>
                 provider.GetSummariesAsync(peterId)
@@ -122,11 +145,12 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
                 }
             ).Verifiable();
 
-            _steamPlayerSummaryProviderMock.Setup(provider =>
-                    provider.GetPlayerBansAsync(peterId)
-                ).ReturnsAsync(new List<PlayerBans>())
+            _steamPlayerSummaryProviderMock.Setup(provider => provider.GetPlayerBansAsync(peterId))
+                .ReturnsAsync(new List<PlayerBans>())
                 .Verifiable();
 
+            _steamPlayerServiceProviderMock.Setup(provider => provider.GetPlayerLevelAsync(It.IsAny<string>()))
+                .ReturnsAsync(new SteamPlayerLevel { PlayerLevel = peterLevel });
 
             List<SteamProfile> profiles = await _sut.GetProfileDetails(peterId);
 
