@@ -25,3 +25,4 @@ Current Features:
 
 # Supported Plattforms
 * Windows
+* Linux (Coming soon)
