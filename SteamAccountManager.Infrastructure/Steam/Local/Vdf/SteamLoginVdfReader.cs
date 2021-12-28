@@ -17,7 +17,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
             _logger = logger;
             _vdfPath = Path.Combine(
                 steamConfig.GetSteamPath(),
-                "Config",
+                "config",
                 "loginusers.vdf"
             );
         }
