@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using RestSharp;
 using SteamAccountManager.Application.Steam.Local.Logger;
+using SteamAccountManager.Infrastructure.Steam.Local.Storage;
 
 namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
 {
@@ -9,13 +10,13 @@ namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
     {
         private readonly ILogger _logger;
 
-        public SteamWebClient(ILogger logger) : base("https://api.steampowered.com")
+        public SteamWebClient(ILogger logger, SteamApiKeyStorage apiKeyStorage) : base("https://api.steampowered.com")
         {
             // TODO: retrieve the key from a file (I would do it now, but I don't wanna bother with it yet)
             AddDefaultParameter(
                 new Parameter(
                     name: "key",
-                    value: "REPLACE_WITH_UR_API_KEY",
+                    value: apiKeyStorage.Get(),
                     ParameterType.QueryString
                 )
             );

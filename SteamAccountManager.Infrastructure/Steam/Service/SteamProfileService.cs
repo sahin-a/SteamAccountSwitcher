@@ -14,20 +14,20 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
     public class SteamProfileService : ISteamProfileService
     {
         private readonly ISteamUserProvider _steamUserProvider;
-        private readonly ISteamPlayerServiceProvider _steamPlayerServiceProvider;
+        private readonly ISteamPlayerService _steamPlayerService;
         private readonly ILogger _logger;
 
-        public SteamProfileService(ISteamUserProvider steamUserProvider, ISteamPlayerServiceProvider steamPlayerServiceProvider, ILogger logger)
+        public SteamProfileService(ISteamUserProvider steamUserProvider, ISteamPlayerService steamPlayerService, ILogger logger)
         {
             _steamUserProvider = steamUserProvider;
-            _steamPlayerServiceProvider = steamPlayerServiceProvider;
+            _steamPlayerService = steamPlayerService;
             _logger = logger;
         }
 
         public async Task<List<SteamProfile>> GetProfileDetails(params string[] steamIds)
         {
             var steamProfiles = new List<SteamProfile>();
-            
+            // TODO: if one fails, the other data is ignored. that kinda sucks. should fix this
             try
             {
                 var playerSummaries = await _steamUserProvider.GetSummariesAsync(steamIds);
@@ -40,7 +40,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
                         new PlayerBans()
                     );
 
-                    var playerLevel = await _steamPlayerServiceProvider.GetPlayerLevelAsync(profile.SteamId);
+                    var playerLevel = await _steamPlayerService.GetPlayerLevelAsync(profile.SteamId);
 
                     return new SteamProfile
                     {
@@ -50,7 +50,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
                         Id = profile.SteamId,
                         IsVacBanned = playerBan.VacBanned || playerBan.NumberOfGameBans > 0,
                         IsCommunityBanned = playerBan.CommunityBanned,
-                        Level = playerLevel.PlayerLevel
+                        Level = playerLevel.Level
                     };
                 });
 
@@ -67,6 +67,10 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             catch (IllegalSteamIdsCountException e)
             {
                 _logger.LogException("Illegal Steam Ids count", e);
+            }
+            catch (FailedToRetrieveSteamPlayerLevelException e)
+            {
+                _logger.LogException("Couldn't retrieve steam player level", e);
             }
 
             return steamProfiles;

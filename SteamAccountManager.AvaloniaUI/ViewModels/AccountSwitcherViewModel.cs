@@ -91,15 +91,6 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
 
             foreach (var account in accounts)
             {
-                // update entry if already exists
-                var currentAccount = Accounts.Where(x => x.SteamId == account.SteamId).FirstOrDefault();
-                if (currentAccount is Account)
-                {
-                    var index = Accounts.IndexOf(currentAccount);
-                    Accounts[index] = account;
-                    continue;
-                }
-
                 Accounts.Add(account);
             }
         }
