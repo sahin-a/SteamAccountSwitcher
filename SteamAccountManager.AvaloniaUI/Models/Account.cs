@@ -18,10 +18,10 @@ namespace SteamAccountManager.AvaloniaUI.Models
         public bool IsVacBanned { get; set; }
         public bool IsCommunityBanned { get; set; }
         public string LastLogin { get; set; }
-        public int Level { get; set; }
+        public Rank Rank { get; set; }
         public bool ShowLevel
         {
-            get { return Level >= 0; }
+            get { return Rank.Level >= 0; }
         }
 
 
