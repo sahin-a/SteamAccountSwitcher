@@ -29,7 +29,6 @@
 
             public Builder SetData(SteamProfile steamProfile)
             {
-                _steamAccount.SteamId = steamProfile.Id;
                 _steamAccount.ProfileUrl = steamProfile.Url;
                 _steamAccount.AvatarUrl = steamProfile.Avatar;
                 _steamAccount.Username = steamProfile.Username;
@@ -42,6 +41,7 @@
 
             public Builder SetData(SteamLoginUser steamLoginUser)
             {
+                _steamAccount.SteamId = steamLoginUser.SteamId;
                 _steamAccount.AccountName = steamLoginUser.AccountName;
                 _steamAccount.IsLoginValid = steamLoginUser.IsLoginTokenValid;
                 _steamAccount.LastLogin = steamLoginUser.LastLogin;
