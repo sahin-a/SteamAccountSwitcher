@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using SteamAccountManager.Infrastructure.Steam.Local.Dto;
+﻿using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
 {
@@ -11,7 +11,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
         private readonly ISteamLoginVdfParser _steamLoginVdfParser;
 
         public LoginUsersDao(
-            ISteamLoginVdfReader steamLoginVdfReader, 
+            ISteamLoginVdfReader steamLoginVdfReader,
             ISteamLoginVdfParser steamLoginVdfParser
         )
         {

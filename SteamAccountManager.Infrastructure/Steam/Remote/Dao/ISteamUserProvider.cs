@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using SteamAccountManager.Infrastructure.Steam.Remote.Dto;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using SteamAccountManager.Infrastructure.Steam.Remote.Dto;
 
 namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
 {

@@ -13,7 +13,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Vdf
 
         private readonly Mock<ILogger> _logger;
         private readonly ISteamLoginVdfParser _sut;
-        
+
         public SteamLoginVdfParserTest()
         {
             _logger = new Mock<ILogger>(behavior: MockBehavior.Loose);
@@ -24,7 +24,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Vdf
         public void Parses_Valid_Login_Vdf_Correctly()
         {
             var loginUsers = _sut.ParseLoginUsers(ValidLoginUsersVdf);
-            
+
             Assert.True(loginUsers.Count == 2);
 
             var firstAccount = loginUsers[0];
@@ -36,7 +36,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Vdf
             Assert.Equal("1635552555", firstAccount.Timestamp);
             Assert.True(firstAccount.MostRecent);
             Assert.True(firstAccount.PasswordRemembered);
-            
+
             Assert.Equal("45674374567", secondAccount.SteamId);
             Assert.Equal("ApfelsalatPeter", secondAccount.AccountName);
             Assert.Equal("peternussNickname", secondAccount.PersonaName);

@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using Moq;
-using SteamAccountManager.Application.Steam.Local.Logger;
+﻿using Moq;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
-using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 using SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData;
+using System.Collections.Generic;
 using Xunit;
 
 namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Dao
@@ -20,7 +18,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Dao
         {
             _steamVdfReader = new Mock<ISteamLoginVdfReader>(behavior: MockBehavior.Strict);
             _steamVdfParser = new Mock<ISteamLoginVdfParser>(behavior: MockBehavior.Strict);
-            
+
             _sut = new LoginUsersDao(_steamVdfReader.Object, _steamVdfParser.Object);
         }
 

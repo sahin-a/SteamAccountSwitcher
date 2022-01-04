@@ -1,9 +1,9 @@
-﻿using System;
+﻿using SteamAccountManager.Application.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Exception.Vdf;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
+using System;
 using System.IO;
 using System.Threading.Tasks;
-using SteamAccountManager.Application.Steam.Local.Logger;
-using SteamAccountManager.Domain.Steam.Exception.Vdf;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
 {

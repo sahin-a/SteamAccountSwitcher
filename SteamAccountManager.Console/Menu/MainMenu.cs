@@ -1,7 +1,6 @@
-using System;
-using System.Text;
 using Autofac;
 using SteamAccountManager.Application.Steam.Service;
+using System.Text;
 
 namespace SteamAccountManager.Console.Menu
 {

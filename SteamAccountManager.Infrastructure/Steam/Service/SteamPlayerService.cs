@@ -21,8 +21,8 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             {
                 var steamPlayerLevel = await _playerServiceProvider.GetPlayerLevelAsync(steamId);
 
-                return new SteamLevel 
-                { 
+                return new SteamLevel
+                {
                     Level = steamPlayerLevel.PlayerLevel
                 };
             }

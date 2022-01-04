@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RestSharp;
 using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Local.Storage;
+using System.Threading.Tasks;
 
 namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
 {

@@ -1,5 +1,4 @@
 using Autofac;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using SteamAccountManager.AvaloniaUI.Models;

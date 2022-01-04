@@ -4,7 +4,6 @@ using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using System;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
 {

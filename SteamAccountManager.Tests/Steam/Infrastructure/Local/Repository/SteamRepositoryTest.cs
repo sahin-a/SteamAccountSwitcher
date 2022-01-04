@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Moq;
+﻿using Moq;
 using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Model;
@@ -8,6 +7,7 @@ using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using SteamAccountManager.Infrastructure.Steam.Local.Repository;
 using SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData;
+using System.Collections.Generic;
 using Xunit;
 
 namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
@@ -62,7 +62,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
 
             _localSteamDataSourceMock.Verify(ds => ds.GetUsersFromLoginHistory(), Times.Once);
         }
-        
+
         [Fact]
         public void UpdateAutoLoginUser_passes_correct_accountName()
         {
@@ -83,7 +83,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
                 times: Times.Once
             );
         }
-        
+
         [Fact]
         public void GetCurrentAutoLoginUser_calls_GetCurrentAutoLoginUser()
         {
@@ -123,7 +123,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
             Assert.Equal(expected: expectedSteamLoginUser.AccountName, actual: steamLoginUser.AccountName);
             Assert.Equal(expected: expectedSteamLoginUser.IsLoginTokenValid, actual: steamLoginUser.IsLoginTokenValid);
         }
-        
+
         [Fact]
         public async void GetCurrentAutoLoginUser_Throws_Exception_If_User_Not_Found()
         {

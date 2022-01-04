@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using SteamAccountManager.Infrastructure.Steam.Local.Dto;
+﻿using SteamAccountManager.Infrastructure.Steam.Local.Dto;
+using System.Collections.Generic;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
 {

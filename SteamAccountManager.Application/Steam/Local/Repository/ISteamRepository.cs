@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using SteamAccountManager.Application.Steam.Model;
+﻿using SteamAccountManager.Application.Steam.Model;
 
 namespace SteamAccountManager.Application.Steam.Local.Repository
 {

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using SteamAccountManager.Infrastructure.Steam.Local.Dao;
+﻿using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.DataSource
 {

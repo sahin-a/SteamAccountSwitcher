@@ -29,7 +29,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData
             accountName: "SamFisher",
             isLoginTokenValid: true
         );
-        
+
         public static SteamProfile GetRainerProfile() => new SteamProfile
         {
             Id = "4509234026243",

@@ -16,7 +16,7 @@ namespace SteamAccountManager.AvaloniaUI.Services
         public AvatarService(IImageService imageService)
         {
             _imageService = imageService;
-            _assetLoader  = AvaloniaLocator.Current.GetService<IAssetLoader>();
+            _assetLoader = AvaloniaLocator.Current.GetService<IAssetLoader>();
         }
 
         public async Task<Bitmap> GetAvatarAsync(string url)

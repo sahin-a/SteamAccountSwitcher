@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using Moq;
+﻿using Moq;
 using Newtonsoft.Json;
 using RestSharp;
 using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Exceptions;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dto;
+using System;
+using System.Linq;
 using Xunit;
 
 namespace SteamAccountManager.Tests.Steam.Infrastructure.Remote.Dao
@@ -56,7 +56,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Remote.Dao
             Assert.Equal(expected: -1L, actual: profileSummary.LastLogOff);
             Assert.Equal(expected: 1063407589L, actual: profileSummary.TimeCreated);
         }
-        
+
         [Fact]
         public async void GetSummary_throws_InvalidSteamIdsCountException_if_no_steam_ids_supplied()
         {

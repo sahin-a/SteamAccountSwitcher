@@ -12,12 +12,12 @@
         public bool IsCommunityBanned { get; set; }
         public DateTime LastLogin { get; set; }
         public int Level { get; set; }
-        
+
         private SteamAccount()
         {
-            
+
         }
-        
+
         public class Builder
         {
             private SteamAccount _steamAccount { get; set; }
@@ -35,7 +35,7 @@
                 _steamAccount.IsVacBanned = steamProfile.IsVacBanned;
                 _steamAccount.IsCommunityBanned = steamProfile.IsCommunityBanned;
                 _steamAccount.Level = steamProfile.Level;
-                
+
                 return this;
             }
 

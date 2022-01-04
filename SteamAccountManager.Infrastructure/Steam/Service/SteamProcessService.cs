@@ -1,9 +1,9 @@
-﻿using SteamAccountManager.Infrastructure.Steam.Local.Dao;
+﻿using SteamAccountManager.Application.Steam.Local.Logger;
+using SteamAccountManager.Application.Steam.Service;
+using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using SteamAccountManager.Application.Steam.Local.Logger;
-using SteamAccountManager.Application.Steam.Service;
 
 namespace SteamAccountManager.Infrastructure.Steam.Service
 {
