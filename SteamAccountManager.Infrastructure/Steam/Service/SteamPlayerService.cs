@@ -15,16 +15,13 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             _playerServiceProvider = playerServiceProvider;
         }
 
-        public async Task<SteamLevel> GetPlayerLevelAsync(string steamId)
+        public async Task<int> GetPlayerLevelAsync(string steamId)
         {
             try
             {
                 var steamPlayerLevel = await _playerServiceProvider.GetPlayerLevelAsync(steamId);
 
-                return new SteamLevel
-                {
-                    Level = steamPlayerLevel.PlayerLevel
-                };
+                return steamPlayerLevel.PlayerLevel;
             }
             catch (RequestNotSuccessfulException)
             {

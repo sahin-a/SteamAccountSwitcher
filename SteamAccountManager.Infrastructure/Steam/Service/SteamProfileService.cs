@@ -23,9 +23,9 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             _logger = logger;
         }
 
-        public async Task<List<SteamProfile>> GetProfileDetails(params string[] steamIds)
+        public async Task<List<Profile>> GetProfileDetails(params string[] steamIds)
         {
-            var steamProfiles = new List<SteamProfile>();
+            var steamProfiles = new List<Profile>();
             // TODO: if one fails, the other data is ignored. that kinda sucks. should fix this
             try
             {
@@ -41,19 +41,19 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
 
                     var playerLevel = await _steamPlayerService.GetPlayerLevelAsync(profile.SteamId);
 
-                    return new SteamProfile
+                    return new Profile
                     {
                         Url = profile.ProfileUrl.AbsoluteUri,
-                        Avatar = profile.Avatar.AbsoluteUri,
+                        AvatarUrl = profile.Avatar.AbsoluteUri,
                         Username = profile.PersonaName,
                         Id = profile.SteamId,
                         IsVacBanned = playerBan.VacBanned || playerBan.NumberOfGameBans > 0,
                         IsCommunityBanned = playerBan.CommunityBanned,
-                        Level = playerLevel.Level
+                        Level = playerLevel
                     };
                 });
 
-                return new List<SteamProfile>(await Task.WhenAll(steamProfileTasks));
+                return new List<Profile>(await Task.WhenAll(steamProfileTasks));
             }
             catch (FailedToRetrieveSteamProfileException e)
             {

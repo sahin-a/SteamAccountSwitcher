@@ -4,6 +4,6 @@ namespace SteamAccountManager.Application.Steam.Service
 {
     public interface ISteamProfileService
     {
-        public Task<List<SteamProfile>> GetProfileDetails(params string[] steamIds);
+        public Task<List<Profile>> GetProfileDetails(params string[] steamIds);
     }
 }

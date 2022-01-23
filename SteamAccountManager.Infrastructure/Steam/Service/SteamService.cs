@@ -3,6 +3,7 @@ using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Model;
 using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.Domain.Steam.Exception;
+using SteamAccountManager.Domain.Steam.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             _logger = logger;
         }
 
-        public async Task<List<SteamAccount>> GetAccounts()
+        public async Task<List<Account>> GetAccounts()
         {
             try
             {
@@ -38,13 +39,22 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
                 {
                     var steamProfile = steamProfiles.FirstOrDefault(
                         profile => profile.Id == steamLoginUser.SteamId,
-                        new SteamProfile()
+                        new Profile()
                     );
 
-                    return new SteamAccount.Builder()
-                        .SetData(steamLoginUser)
-                        .SetData(steamProfile)
-                        .Build();
+                    return new Account()
+                    {
+                        Id = steamLoginUser.SteamId,
+                        Name = steamLoginUser.AccountName,
+                        Username = steamProfile.Username,
+                        AvatarUrl = steamProfile.AvatarUrl,
+                        ProfileUrl = steamProfile.Url,
+                        IsVacBanned = steamProfile.IsVacBanned,
+                        IsCommunityBanned = steamProfile.IsCommunityBanned,
+                        LastLogin = steamLoginUser.LastLogin,
+                        IsLoginValid = steamLoginUser.IsLoginTokenValid,
+                        Level = steamProfile.Level
+                    };
                 });
 
                 return steamAccounts;
@@ -53,8 +63,8 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             {
                 _logger.LogException("Failed to retrieve steam profile data", e);
             }
-
-            return new List<SteamAccount>();
+             
+            return new List<Account>();
         }
 
         public bool SwitchAccount(string accountName)

@@ -8,11 +8,11 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Mapping
     public static class SteamLoginUserMapper
     {
         /* LoginUserDto <=> SteamLoginUser */
-        public static SteamLoginUser ToSteamLoginUser(this LoginUserDto dto)
+        public static LoginUser ToSteamLoginUser(this LoginUserDto dto)
         {
             var lastLogin = DateTimeOffset.FromUnixTimeSeconds(long.Parse(dto.Timestamp));
 
-            return new SteamLoginUser.Builder()
+            return new LoginUser.Builder()
                 .SetSteamId(dto.SteamId)
                 .SetAccountName(dto.AccountName)
                 .SetIsLoginTokenValid(dto.PasswordRemembered)
@@ -20,7 +20,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Mapping
                 .Build();
         }
 
-        public static List<SteamLoginUser> ToSteamLoginUsers(this List<LoginUserDto> dtos)
+        public static List<LoginUser> ToSteamLoginUsers(this List<LoginUserDto> dtos)
         {
             return dtos.ConvertAll(dto => dto.ToSteamLoginUser());
         }
