@@ -21,7 +21,7 @@ Current Features:
 * Shows Accounts Details (Account Name, Username, VAC/Game Ban Status, Avatar, Level)
 * Offline Functionality
 
-![avalonia_0 2_preview_screenshot](https://user-images.githubusercontent.com/55054756/147849648-7f9735bb-4c5d-475a-b367-1524e1377831.png)
+![avalonia_0 2_preview_screenshot](https://user-images.githubusercontent.com/55054756/159127350-ff66a1fc-f427-43cf-9edf-5bcc9a9915ce.png)
 
 
 # You wanna see all the data that's visible on the screenshot?
