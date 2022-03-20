@@ -1,5 +1,4 @@
-﻿using SteamAccountManager.Application.Steam.Model;
-using SteamAccountManager.Domain.Steam.Model;
+﻿using SteamAccountManager.Domain.Steam.Model;
 
 namespace SteamAccountManager.Application.Steam.Service
 {

@@ -2,7 +2,7 @@
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
-using SteamAccountManager.Domain.Common.Observer;
+using SteamAccountManager.Domain.Steam.Observables;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
