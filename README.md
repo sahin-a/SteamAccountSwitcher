@@ -16,7 +16,7 @@ No data is being stored by this application.
 App not launching?
 - [Install .NET 6 Runtime](https://dotnet.microsoft.com/en-us/download)
 
-# AvaloniaUI Build *(Avalonia Build)*
+# AvaloniaUI Build
 Current Features:
 * Switch Accounts
 * Open Profile when clicking the Avatar
