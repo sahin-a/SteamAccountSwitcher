@@ -2,9 +2,12 @@
 using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Service;
+using SteamAccountManager.Domain.Common.Observer;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
+using SteamAccountManager.Infrastructure.Steam.Local.FileWatcher;
 using SteamAccountManager.Infrastructure.Steam.Local.Logger;
+using SteamAccountManager.Infrastructure.Steam.Local.Observer;
 using SteamAccountManager.Infrastructure.Steam.Local.Repository;
 using SteamAccountManager.Infrastructure.Steam.Local.Storage;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
@@ -42,6 +45,7 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<SteamPlayerServiceProvider>().As<ISteamPlayerServiceProvider>().SingleInstance();
             builder.RegisterType<SteamPlayerService>().As<ISteamPlayerService>().SingleInstance();
             builder.RegisterType<SteamApiKeyStorage>().SingleInstance();
+            builder.RegisterType<LoginVdfFileWatcher>().As<IAccountStorageObserver>().SingleInstance();
         }
     }
 }

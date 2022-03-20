@@ -15,11 +15,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
         public SteamLoginVdfReader(ISteamConfig steamConfig, ILogger logger)
         {
             _logger = logger;
-            _vdfPath = Path.Combine(
-                steamConfig.GetSteamPath(),
-                "config",
-                "loginusers.vdf"
-            );
+            _vdfPath = steamConfig.GetLoginUsersVdfPath();
         }
 
         public async Task<string> GetLoginUsersVdfContent()
