@@ -45,7 +45,7 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<SteamPlayerServiceProvider>().As<ISteamPlayerServiceProvider>().SingleInstance();
             builder.RegisterType<SteamPlayerService>().As<ISteamPlayerService>().SingleInstance();
             builder.RegisterType<SteamApiKeyStorage>().SingleInstance();
-            builder.RegisterType<LoginVdfFileWatcher>().As<IAccountStorageObserver>().SingleInstance();
+            builder.RegisterType<LoginVdfFileWatcher>().As<IAccountStorageObservable>().SingleInstance();
         }
     }
 }

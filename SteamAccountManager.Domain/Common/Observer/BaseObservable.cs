@@ -1,6 +1,6 @@
 ﻿namespace SteamAccountManager.Domain.Common.Observer
 {
-    internal abstract class BaseObserveable<T> : IObserveable<T>
+    public abstract class BaseObservable<T> : IObserveable<T>
     {
         private List<Action<T?>> _observers { get; set; } = new();
 

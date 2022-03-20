@@ -24,7 +24,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public ICommand AddAccountCommand { get; }
 
 
-        public AccountSwitcherViewModel(ISteamService steamService, AccountMapper accountMapper, IAccountStorageObserver accountStorageObserver)
+        public AccountSwitcherViewModel(ISteamService steamService, AccountMapper accountMapper, IAccountStorageObservable accountStorageObserver)
         {
             _steamService = steamService;
             _accountMapper = accountMapper;

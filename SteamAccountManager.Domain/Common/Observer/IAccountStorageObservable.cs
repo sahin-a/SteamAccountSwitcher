@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SteamAccountManager.Domain.Common.Observer
 {
-    public interface IAccountStorageObserver : IObserveable<List<Account>?>
+    public interface IAccountStorageObservable : IObserveable<List<Account>?>
     {
     }
 }
