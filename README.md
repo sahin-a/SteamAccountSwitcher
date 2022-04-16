@@ -22,6 +22,7 @@ Current Features:
 * Open Profile when clicking the Avatar
 * Shows Accounts Details (Account Name, Username, VAC/Game Ban Status, Avatar, Level)
 * Offline Functionality
+* Auto. Refresh on change
 
 ![avalonia_0 2_preview_screenshot](https://user-images.githubusercontent.com/55054756/159127350-ff66a1fc-f427-43cf-9edf-5bcc9a9915ce.png)
 
