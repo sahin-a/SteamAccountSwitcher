@@ -32,8 +32,8 @@ Current Features:
 
 # Todos
 * refactoring
-* make the AvaloniaUI Build prettier
 * add linux support
+* switch from AvaloniaUI to .NET MAUI
 
 # Supported Plattforms
 * Windows
