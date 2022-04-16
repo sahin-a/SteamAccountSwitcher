@@ -9,8 +9,7 @@
 ![Zedawdsaichenflache_1](https://user-images.githubusercontent.com/55054756/159175015-63893f00-f258-4040-818e-2abfccc4638c.png)
 
 # Steam Account Manager
-It lets you switch between accounts seamlessly if their password has been remembered by the steam client. 
-No data is being stored by this application.
+It lets you switch between your steam accounts seamlessly. No Credentials are required, it works based on remembered logins from your steam client.
 
 # Known Issues
 App not launching?
