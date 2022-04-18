@@ -15,6 +15,10 @@ It lets you switch between your steam accounts seamlessly. No Credentials are re
 App not launching?
 - [Install .NET 6 Runtime](https://dotnet.microsoft.com/en-us/download)
 
+Profile Picture, Level etc. not showing?
+- After you launch the app for the first time, you should have a 'api_key.json' file in the root directory. 
+- Enter the api key you get from here https://steamcommunity.com/dev/apikey in 'api_key.json'
+
 # AvaloniaUI Build
 Current Features:
 * Switch Accounts
@@ -24,11 +28,6 @@ Current Features:
 * Auto. Refresh on change
 
 ![avalonia_0 2_preview_screenshot](https://user-images.githubusercontent.com/55054756/159127350-ff66a1fc-f427-43cf-9edf-5bcc9a9915ce.png)
-
-
-# You wanna see all the data that's visible on the screenshot?
-- After you launch the app for the first time, you should have a 'api_key.json' file in the root directory. 
-- Enter the api key you get from here https://steamcommunity.com/dev/apikey in 'api_key.json'
 
 # Todos
 * refactoring
