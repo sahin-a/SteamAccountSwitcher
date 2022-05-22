@@ -27,7 +27,8 @@ Current Features:
 * Offline Functionality
 * Auto. Refresh on change
 
-![avalonia_0 2_preview_screenshot](https://user-images.githubusercontent.com/55054756/159127350-ff66a1fc-f427-43cf-9edf-5bcc9a9915ce.png)
+![Screenshot](https://user-images.githubusercontent.com/55054756/169713656-890fae80-9381-4bff-a220-a5b133f5dcac.png)
+
 
 # Todos
 * refactoring
