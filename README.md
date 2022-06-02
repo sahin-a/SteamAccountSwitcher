@@ -12,7 +12,7 @@
 It lets you switch between your steam accounts seamlessly. No Credentials are required, it works based on remembered logins from your steam client.
 
 # Any suggestions or issues found?
-- Feel free to open a new issue to share your suggestions or bug findings. Thankful for any contribution! :)
+- Feel free to [open a new issue](https://github.com/sahin-a/SteamAccountManager/issues) to share your suggestions or bug findings. Thankful for any contribution! :)
 
 # Known Issues
 App not launching?
