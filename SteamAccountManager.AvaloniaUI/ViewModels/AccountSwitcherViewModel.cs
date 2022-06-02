@@ -49,23 +49,32 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _steamService.SwitchAccount(string.Empty);
         }
 
-        public async void LoadAccounts()
-        {
-            var steamAccounts = await _steamService.GetAccounts();
-            var accounts = await Task.WhenAll(steamAccounts.ConvertAll(x => _accountMapper.FromSteamAccount(x)));
+        private IOrderedEnumerable<Account> SortAccounts(Account[] accounts) => accounts.OrderByDescending(x => x.Rank.Level)
+                .ThenBy(x => x.Name)
+                .ThenBy(x => x.IsVacBanned);
 
+        private void UpdateEntries(IEnumerable<Account> accounts)
+        {
             foreach (var account in accounts)
             {
-                var currentAccount = Accounts.Where(x => x.SteamId == account.SteamId).FirstOrDefault();
-                if (currentAccount is Account)
+                var currentAccount = Accounts.Where(x => x.SteamId == account.SteamId)
+                    .FirstOrDefault(defaultValue: null);
+
+                if (currentAccount is not null)
                 {
                     var index = Accounts.IndexOf(currentAccount);
                     Accounts[index] = account;
                     continue;
                 }
-
                 Accounts.Add(account);
             }
+        }
+
+        public async void LoadAccounts()
+        {
+            var steamAccounts = await _steamService.GetAccounts();
+            var accounts = await Task.WhenAll(steamAccounts.ConvertAll(x => _accountMapper.FromSteamAccount(x)));
+            UpdateEntries(SortAccounts(accounts));
         }
 
         public void OnAccountSelected(Account selectedAccount)
