@@ -7,7 +7,6 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/sahin-a/SteamAccountManager)
 
 ![transparent_sam_github_banner](https://user-images.githubusercontent.com/55054756/171961459-0955e8ee-a4bd-4d4d-9109-ce275833305b.png)
-
 # Steam Account Manager
 It lets you switch between your steam accounts seamlessly. No Credentials are required, it works based on remembered logins from your steam client.
 
