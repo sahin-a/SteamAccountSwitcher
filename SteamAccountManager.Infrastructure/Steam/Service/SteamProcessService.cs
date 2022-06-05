@@ -4,6 +4,7 @@ using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SteamAccountManager.Infrastructure.Steam.Service
 {
@@ -39,11 +40,11 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             }
         }
 
-        public void StartSteam()
+        public async Task StartSteam()
         {
             try
             {
-                Process.Start(_steamConfig.GetSteamExecutablePath());
+                await Task.Run(() => Process.Start(_steamConfig.GetSteamExecutablePath()));
             }
             catch (Exception e)
             {

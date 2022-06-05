@@ -3,6 +3,6 @@
     public interface ISteamProcessService
     {
         public bool KillSteam();
-        public void StartSteam();
+        public Task StartSteam();
     }
 }
