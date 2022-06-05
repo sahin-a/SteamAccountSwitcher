@@ -2,14 +2,15 @@
 [![GitHub forks](https://img.shields.io/github/forks/sahin-a/SteamAccountManager)](https://github.com/sahin-a/SteamAccountManager/network)
 [![GitHub stars](https://img.shields.io/github/stars/sahin-a/SteamAccountManager)](https://github.com/sahin-a/SteamAccountManager/stargazers)
 ![GitHub contributors](https://img.shields.io/github/contributors/sahin-a/SteamAccountManager)
-![GitHub all releases](https://img.shields.io/github/downloads/sahin-a/SteamAccountManager/total)
 ![Lines of code](https://img.shields.io/tokei/lines/github.com/sahin-a/SteamAccountManager)
 ![GitHub repo size](https://img.shields.io/github/repo-size/sahin-a/SteamAccountManager)
 
-![159175015-63893f00-f258-4040-818e-2abfccc4638c (1)](https://user-images.githubusercontent.com/55054756/164322651-7c36a25f-5e89-4f78-9871-64e4f8005ee1.png)
-
+![transparent_sam_github_banner](https://user-images.githubusercontent.com/55054756/171961459-0955e8ee-a4bd-4d4d-9109-ce275833305b.png)
 # Steam Account Manager
 It lets you switch between your steam accounts seamlessly. No Credentials are required, it works based on remembered logins from your steam client.
+
+# Any suggestions or issues found?
+- Feel free to [open a new issue](https://github.com/sahin-a/SteamAccountManager/issues) to share your suggestions or bug findings. Thankful for any contribution! :)
 
 # Known Issues
 App not launching?
