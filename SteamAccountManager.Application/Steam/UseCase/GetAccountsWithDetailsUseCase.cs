@@ -2,38 +2,32 @@
 using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Model;
 using SteamAccountManager.Application.Steam.Service;
-using SteamAccountManager.Domain.Steam.Exception;
 using SteamAccountManager.Domain.Steam.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace SteamAccountManager.Infrastructure.Steam.Service
+namespace SteamAccountManager.Application.Steam.UseCase
 {
-    public class SteamService : ISteamService
+    public class GetAccountsWithDetailsUseCase
     {
         private readonly ISteamRepository _steamRepository;
-        private readonly ISteamProcessService _steamProcessService;
-        private readonly ILogger _logger;
         private readonly ISteamProfileService _steamProfileService;
+        private readonly ILogger _logger;
 
-        public SteamService(ISteamRepository steamRepository, ISteamProcessService steamProcessService,
-            ISteamProfileService steamProfileService, ILogger logger)
+        public GetAccountsWithDetailsUseCase(ISteamRepository steamRepository, ISteamProfileService steamProfileService, ILogger logger)
         {
             _steamRepository = steamRepository;
-            _steamProcessService = steamProcessService;
             _steamProfileService = steamProfileService;
             _logger = logger;
         }
 
-        public async Task<List<Account>> GetAccounts()
+        public ISteamProfileService SteamProfileService => _steamProfileService;
+
+        public async Task<List<Account>> Execute()
         {
             try
             {
                 var steamLoginUsers = await _steamRepository.GetSteamLoginHistoryUsers();
                 var steamIds = steamLoginUsers.Select(user => user.SteamId);
-                var steamProfiles = await _steamProfileService.GetProfileDetails(steamIds.ToArray());
+                var steamProfiles = await SteamProfileService.GetProfileDetails(steamIds.ToArray());
 
                 var steamAccounts = steamLoginUsers.ConvertAll(steamLoginUser =>
                 {
@@ -65,24 +59,6 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             }
 
             return new List<Account>();
-        }
-
-        public bool SwitchAccount(string accountName)
-        {
-            try
-            {
-                _steamRepository.UpdateAutoLoginUser(accountName);
-            }
-            catch (UpdateAutoLoginUserFailedException e)
-            {
-                _logger.LogException("Failed to update autologin account :(", e);
-                return false;
-            }
-
-            if (_steamProcessService.KillSteam())
-                _steamProcessService.StartSteam();
-
-            return true;
         }
     }
 }

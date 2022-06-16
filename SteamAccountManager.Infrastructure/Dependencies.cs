@@ -2,6 +2,7 @@
 using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Service;
+using SteamAccountManager.Application.Steam.UseCase;
 using SteamAccountManager.Domain.Steam.Observables;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
@@ -34,7 +35,8 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<LoginUsersDao>().As<ILoginUsersDao>().SingleInstance();
             builder.RegisterType<LocalSteamDataSource>().As<ILocalSteamDataSource>().SingleInstance();
             builder.RegisterType<SteamRepository>().As<ISteamRepository>().SingleInstance();
-            builder.RegisterType<SteamService>().As<ISteamService>().SingleInstance();
+            builder.RegisterType<SwitchAccountUseCase>().SingleInstance();
+            builder.RegisterType<GetAccountsWithDetailsUseCase>().SingleInstance();
             builder.RegisterType<SteamProcessService>().As<ISteamProcessService>().SingleInstance();
             builder.RegisterType<SteamWebClient>().As<ISteamWebClient>().SingleInstance();
             builder.RegisterType<SteamUserProvider>().As<ISteamUserProvider>().SingleInstance();

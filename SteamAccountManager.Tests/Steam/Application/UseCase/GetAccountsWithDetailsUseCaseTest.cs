@@ -3,57 +3,31 @@ using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Model;
 using SteamAccountManager.Application.Steam.Service;
-using SteamAccountManager.Domain.Steam.Exception;
+using SteamAccountManager.Application.Steam.UseCase;
 using SteamAccountManager.Domain.Steam.Model;
-using SteamAccountManager.Infrastructure.Steam.Service;
 using SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData;
 using System.Collections.Generic;
 using Xunit;
 
-namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
+namespace SteamAccountManager.Tests.Steam.Application.UseCase
 {
-    public class SteamServiceTest
+    public class GetAccountsWithDetailsUseCaseTest
     {
         private readonly Mock<ISteamRepository> _steamRepositoryMock;
-        private readonly Mock<ISteamProcessService> _steamProcessServiceMock;
         private readonly Mock<ISteamProfileService> _steamProfileServiceMock;
         private readonly Mock<ILogger> _loggerMock;
-        private readonly ISteamService _sut;
+        private readonly GetAccountsWithDetailsUseCase _sut;
 
-        public SteamServiceTest()
+        public GetAccountsWithDetailsUseCaseTest()
         {
             _steamRepositoryMock = new Mock<ISteamRepository>(behavior: MockBehavior.Strict);
-            _steamProcessServiceMock = new Mock<ISteamProcessService>(behavior: MockBehavior.Strict);
             _steamProfileServiceMock = new Mock<ISteamProfileService>(behavior: MockBehavior.Strict);
             _loggerMock = new Mock<ILogger>(behavior: MockBehavior.Loose);
-            _sut = new SteamService(
+            _sut = new GetAccountsWithDetailsUseCase(
                 _steamRepositoryMock.Object,
-                _steamProcessServiceMock.Object,
                 _steamProfileServiceMock.Object,
                 _loggerMock.Object
             );
-        }
-
-        [Fact]
-        public void SwitchAccount_catches_UpdateAutoLoginUserFailedException()
-        {
-            var samFisherLoginUser = SteamUserTestData.GetSamFisherLoginUser();
-
-            _steamRepositoryMock.Setup(repo => repo.UpdateAutoLoginUser(samFisherLoginUser.AccountName))
-                .Throws<UpdateAutoLoginUserFailedException>();
-
-            _sut.SwitchAccount(samFisherLoginUser.AccountName);
-        }
-
-        [Fact]
-        public void SwitchAccount_returns_false_UpdateAutoLoginUserFailedException_is_thrown()
-        {
-            var samFisherLoginUser = SteamUserTestData.GetSamFisherLoginUser();
-
-            _steamRepositoryMock.Setup(repo => repo.UpdateAutoLoginUser(samFisherLoginUser.AccountName))
-                .Throws<UpdateAutoLoginUserFailedException>();
-
-            Assert.False(_sut.SwitchAccount(samFisherLoginUser.AccountName));
         }
 
         [Fact]
@@ -88,7 +62,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
                 )
                 .Verifiable();
 
-            var result = await _sut.GetAccounts();
+            var result = await _sut.Execute();
 
             var samFisherAccount = new Account
             {
