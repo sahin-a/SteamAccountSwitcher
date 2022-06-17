@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.OUTPUT_ARTIFACT_FILENAME }}
-          path: ./output
+          path: ${{ env.OUTPUT_ARTIFACT_FILENAME }}
 
       - name: Create Release
         id: create_release
