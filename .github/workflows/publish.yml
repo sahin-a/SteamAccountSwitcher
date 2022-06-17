@@ -42,8 +42,8 @@ jobs:
         id: releaseTag
         run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H-%M-%S')"
         env:
-          TAG_NAME: release-${{ steps.date.outputs.releaseTag }}
-          RELEASE_NAME: release-${{ steps.date.outputs.releaseTag }}
+          TAG_NAME: release-${{ steps.releaseTag.outputs.releaseTag }}
+          RELEASE_NAME: release-${{ steps.releaseTag.outputs.releaseTag }}
 
       - name: Create Release
         id: create_release
