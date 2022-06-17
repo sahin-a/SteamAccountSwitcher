@@ -34,7 +34,7 @@ jobs:
         run: dir
 
       - name: Create Artifacts
-        run: zip -r ${{ env.OUTPUT_ARTIFACT_FILENAME }} ./output
+        run: 7z a -tzip ${{ env.OUTPUT_ARTIFACT_FILENAME }} build_artifacts/*
 
       - name: 🔮 Upload Build Artifacts
         uses: actions/upload-artifact@v3
