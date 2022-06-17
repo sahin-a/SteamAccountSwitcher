@@ -6,6 +6,7 @@ on:
 env:
   DOTNET_VERSION: '6.x'
   OUTPUT_ARTIFACT_FILENAME: 'SteamAccountSwitcher_Win-x86.zip'
+  TAG_NAME: 'AvaloniaUI'
 
 jobs:
   build:
@@ -47,8 +48,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: Release ${{ env.TAG_NAME }}
           draft: false
           prerelease: false
 
