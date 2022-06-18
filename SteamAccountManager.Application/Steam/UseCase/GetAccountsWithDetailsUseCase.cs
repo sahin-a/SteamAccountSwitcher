@@ -34,6 +34,10 @@ namespace SteamAccountManager.Application.Steam.UseCase
                     var steamProfile = steamProfiles.FirstOrDefault(
                         profile => profile.Id == steamLoginUser.SteamId,
                         new Profile()
+                        {
+                            Username = steamLoginUser.Username,
+                            Level = -1
+                        }
                     );
 
                     return new Account()

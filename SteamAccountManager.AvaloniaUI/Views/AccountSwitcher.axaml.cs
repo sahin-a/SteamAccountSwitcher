@@ -18,7 +18,7 @@ namespace SteamAccountManager.AvaloniaUI.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            _viewModel = Dependencies.Container?.Resolve<AccountSwitcherViewModel>() 
+            _viewModel = Dependencies.Container?.Resolve<AccountSwitcherViewModel>()
                 ?? throw new System.Exception("Failed to resolve AccountSwitcherViewModel");
             DataContext = _viewModel;
         }

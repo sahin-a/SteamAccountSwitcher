@@ -7,10 +7,12 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData
         private static LoginUser createSteamLoginUser(
             string steamId,
             string accountName,
+            string username,
             bool isLoginTokenValid
         ) => new LoginUser.Builder()
             .SetSteamId(steamId)
             .SetAccountName(accountName)
+            .SetUsername(username)
             .SetIsLoginTokenValid(isLoginTokenValid)
             .Build();
 
@@ -27,6 +29,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData
         public static LoginUser GetSamFisherLoginUser() => createSteamLoginUser(
             steamId: "415341232123",
             accountName: "SamFisher",
+            username: "Sam",
             isLoginTokenValid: true
         );
 
@@ -43,6 +46,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData
         public static LoginUser GetRainerLoginUser() => createSteamLoginUser(
             steamId: "4509234026243",
             accountName: "RainerW",
+            username: "Übermensch",
             isLoginTokenValid: false
         );
     }

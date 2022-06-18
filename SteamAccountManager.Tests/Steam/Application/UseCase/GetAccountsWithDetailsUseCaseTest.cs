@@ -64,37 +64,26 @@ namespace SteamAccountManager.Tests.Steam.Application.UseCase
 
             var result = await _sut.Execute();
 
-            var samFisherAccount = new Account
-            {
-                Id = samFisherLoginUser.SteamId,
-                Name = samFisherLoginUser.AccountName,
-                Username = samFisherProfile.Username,
-                AvatarUrl = samFisherProfile.AvatarUrl,
-                ProfileUrl = samFisherProfile.Url,
-                IsCommunityBanned = samFisherProfile.IsCommunityBanned,
-                IsVacBanned = samFisherProfile.IsVacBanned,
-                IsLoginValid = samFisherLoginUser.IsLoginTokenValid,
-                LastLogin = samFisherLoginUser.LastLogin,
-                Level = samFisherProfile.Level
-            };
-
-            var rainerAccount = new Account
-            {
-                Id = rainerLoginUser.SteamId,
-                Name = rainerLoginUser.AccountName,
-                Username = rainerProfile.Username,
-                AvatarUrl = rainerProfile.AvatarUrl,
-                ProfileUrl = rainerProfile.Url,
-                IsCommunityBanned = rainerProfile.IsCommunityBanned,
-                IsVacBanned = rainerProfile.IsVacBanned,
-                IsLoginValid = rainerLoginUser.IsLoginTokenValid,
-                LastLogin = rainerLoginUser.LastLogin,
-                Level = rainerProfile.Level
-            };
+            var samFisherAccount = ToAccount(samFisherLoginUser, samFisherProfile);
+            var rainerAccount = ToAccount(rainerLoginUser, rainerProfile);
 
             AssertSteamAccount(expected: samFisherAccount, actual: result[0]);
             AssertSteamAccount(expected: rainerAccount, actual: result[1]);
         }
+
+        private Account ToAccount(LoginUser loginUser, Profile profile) => new Account
+        {
+            Id = loginUser.SteamId,
+            Name = loginUser.AccountName,
+            Username = profile.Username,
+            AvatarUrl = profile.AvatarUrl,
+            ProfileUrl = profile.Url,
+            IsCommunityBanned = profile.IsCommunityBanned,
+            IsVacBanned = profile.IsVacBanned,
+            IsLoginValid = loginUser.IsLoginTokenValid,
+            LastLogin = loginUser.LastLogin,
+            Level = profile.Level
+        };
 
         private void AssertSteamAccount(Account expected, Account actual)
         {

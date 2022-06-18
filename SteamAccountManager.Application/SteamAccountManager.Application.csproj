@@ -7,8 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Steam\Command\**" />
+      <EmbeddedResource Remove="Steam\Command\**" />
+      <None Remove="Steam\Command\**" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Folder Include="Steam\Local" />
-      <Folder Include="Steam\Command\" />
     </ItemGroup>
 
     <ItemGroup>

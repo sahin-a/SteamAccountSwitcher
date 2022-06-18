@@ -115,13 +115,12 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
                 .SetAccountName(VdfTestData.loginUserDto1.AccountName)
                 .SetSteamId(VdfTestData.loginUserDto1.SteamId)
                 .SetIsLoginTokenValid(VdfTestData.loginUserDto1.PasswordRemembered)
+                .SetUsername(VdfTestData.loginUserDto1.PersonaName)
                 .Build();
 
             var steamLoginUser = await _sut.GetCurrentAutoLoginUser();
 
-            Assert.Equal(expected: expectedSteamLoginUser.SteamId, actual: steamLoginUser.SteamId);
-            Assert.Equal(expected: expectedSteamLoginUser.AccountName, actual: steamLoginUser.AccountName);
-            Assert.Equal(expected: expectedSteamLoginUser.IsLoginTokenValid, actual: steamLoginUser.IsLoginTokenValid);
+            Assert.Equal(expected: expectedSteamLoginUser, actual: steamLoginUser);
         }
 
         [Fact]
@@ -137,12 +136,6 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
 
             _localSteamDataSourceMock.Setup(ds => ds.GetCurrentAutoLoginUser())
                 .Returns("fsdf");
-
-            var steamLoginUser = new LoginUser.Builder()
-                .SetAccountName("Peter Lol")
-                .SetSteamId("42342352634")
-                .SetIsLoginTokenValid(false)
-                .Build();
 
             await Assert.ThrowsAsync<SteamAutoLoginUserNotFoundException>(() =>
                 _sut.GetCurrentAutoLoginUser()
