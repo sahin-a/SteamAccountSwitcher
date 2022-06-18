@@ -1,5 +1,5 @@
 name: create-release
-on: [workflow_dispatch]
+on: [push, workflow_dispatch]
 
 env:
   DOTNET_VERSION: '6.x'

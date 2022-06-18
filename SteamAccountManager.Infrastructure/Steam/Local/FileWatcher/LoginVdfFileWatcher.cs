@@ -14,14 +14,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.FileWatcher
         public LoginVdfFileWatcher(ISteamConfig steamConfig)
         {
             watcher = new FileSystemWatcher(Path.GetDirectoryName(steamConfig.GetLoginUsersVdfPath()));
-            watcher.NotifyFilter = NotifyFilters.Attributes
-                                 | NotifyFilters.CreationTime
-                                 | NotifyFilters.DirectoryName
-                                 | NotifyFilters.FileName
-                                 | NotifyFilters.LastAccess
-                                 | NotifyFilters.LastWrite
-                                 | NotifyFilters.Security
-                                 | NotifyFilters.Size;
+            watcher.NotifyFilter = NotifyFilters.Attributes;
 
             watcher.Changed += OnChanged;
             watcher.Filter = Path.GetFileName(steamConfig.GetLoginUsersVdfPath());
