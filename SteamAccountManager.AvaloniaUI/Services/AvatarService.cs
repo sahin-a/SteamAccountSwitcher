@@ -23,7 +23,7 @@ namespace SteamAccountManager.AvaloniaUI.Services
                            ?? throw new Exception("Failed to resolve AssetLoader");
         }
 
-        private static Bitmap CreateBitmap(byte[] imagePayload)
+        private Bitmap CreateBitmap(byte[] imagePayload)
         {
             Stream stream = new MemoryStream(imagePayload);
             return new Bitmap(stream);
