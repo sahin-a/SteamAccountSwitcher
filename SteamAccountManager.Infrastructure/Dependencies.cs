@@ -49,7 +49,7 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<SteamApiKeyStorage>().SingleInstance();
             builder.RegisterType<LoginVdfFileWatcher>().As<IAccountStorageObservable>().SingleInstance();
             builder.RegisterType<AvatarStorage>().SingleInstance();
-            builder.RegisterType<AvatarService>().SingleInstance();
+            builder.RegisterType<AvatarService>().As<IAvatarService>().SingleInstance();
         }
     }
 }

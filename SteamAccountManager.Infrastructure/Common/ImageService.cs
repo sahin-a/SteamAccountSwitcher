@@ -22,6 +22,7 @@ namespace SteamAccountManager.Infrastructure.Common
         {
             try
             {
+                _logger.LogDebug($"Starting image download for {url}");
                 return await _imageClient.DownloadImage(url);
             }
             catch (ImageDownloadFailedException e)

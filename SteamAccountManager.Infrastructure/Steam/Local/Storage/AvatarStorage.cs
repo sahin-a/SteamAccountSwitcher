@@ -21,7 +21,7 @@ public class AvatarStorage : CacheStorage
     {
         var path = GetPath(id);
 
-        if (string.IsNullOrEmpty(path))
+        if (!File.Exists(path) || string.IsNullOrEmpty(path))
             return null;
 
         return new Uri(Path.GetFullPath(path), UriKind.Absolute);
@@ -32,9 +32,9 @@ public class AvatarStorage : CacheStorage
         var path = GetPath(id);
         byte[] bytes = null;
 
-        if (File.Exists(path))
+        if (!File.Exists(path))
             return null;
-        
+
         try
         {
             bytes = await File.ReadAllBytesAsync(path!);
@@ -51,5 +51,6 @@ public class AvatarStorage : CacheStorage
     {
         var path = GetPath(id);
         File.WriteAllBytesAsync(path, bytes);
+        _logger.LogDebug($"New Avatar has been stored | {id}");
     }
 }
