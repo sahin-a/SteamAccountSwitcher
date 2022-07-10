@@ -10,7 +10,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Service;
 
 public class AvatarService : IAvatarService
 {
-    private const string STEAM_AVATAR_DOMAIN = @"https://avatars.akamai.steamstatic.com/";
+    private const string STEAM_AVATAR_URL_SCHEME = @"https://avatars.akamai.steamstatic.com/";
     
     private readonly AvatarStorage _avatarStorage;
     private readonly ILogger _logger;
@@ -24,7 +24,7 @@ public class AvatarService : IAvatarService
     }
     
     private string ExtractFileName(string url) 
-        => url.Replace(STEAM_AVATAR_DOMAIN, "");
+        => url.Replace(STEAM_AVATAR_URL_SCHEME, "");
 
     private async Task<AvatarResponse?> DownloadAvatarAsync(string url, string fileName)
     {
@@ -36,35 +36,30 @@ public class AvatarService : IAvatarService
         _avatarStorage.Store(fileName, imagePayload);
         var uri = _avatarStorage.GetUri(fileName);
         
-        return uri is null ? null : new AvatarResponse(uri, imagePayload);
+        return new AvatarResponse(uri!, imagePayload);
     }
 
-    private async Task<AvatarResponse> GetFallbackAvatar()
-    {
-        var uri = new Uri("", UriKind.Absolute);
-        var payload = await File.ReadAllBytesAsync(uri.AbsolutePath);
-        return new AvatarResponse(uri, payload);
-    }
-    
-    public async Task<AvatarResponse> GetAvatarAsync(string url)
+    public async Task<AvatarResponse?> GetAvatarAsync(string url)
     {
         var id = ExtractFileName(url);
         
-        if (!Regex.IsMatch(STEAM_AVATAR_DOMAIN, $"^{STEAM_AVATAR_DOMAIN}"))
+        switch (Regex.IsMatch(STEAM_AVATAR_URL_SCHEME, $"^{STEAM_AVATAR_URL_SCHEME}"))
         {
-            _logger.LogWarning($"Url didn't match pattern: {url}");
-            return await GetFallbackAvatar();
+            case false:
+                _logger.LogWarning($"Url didn't match pattern: {url}");
+                return null;
         }
 
         var cachedAvatar = _avatarStorage.GetUri(id);
-        var isCachedAvatarAvailable = cachedAvatar is not null;
-
-        if (isCachedAvatarAvailable)
+        switch (cachedAvatar is not null)
         {
-            var payload = await _avatarStorage.GetBytesAsync(id);
-            return payload is null ? null : new AvatarResponse(cachedAvatar, payload);
+            case true:
+            {
+                var payload = await _avatarStorage.GetBytesAsync(id);
+                return new AvatarResponse(cachedAvatar, payload!);
+            }
+            default:
+                return await DownloadAvatarAsync(url, id);
         }
-        
-        return await DownloadAvatarAsync(url, id) ?? await GetFallbackAvatar();
     }
 }

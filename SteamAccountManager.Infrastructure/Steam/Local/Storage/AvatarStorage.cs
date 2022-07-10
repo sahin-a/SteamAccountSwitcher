@@ -4,20 +4,18 @@ using System.Threading.Tasks;
 using SteamAccountManager.Application.Steam.Local.Logger;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage;
-// TODO: create base class CacheStorage that creates "Cache" Folder and takes additional dir name for child cache dir Cache/Avatars
+
 // TODO: Abstract File.Write.. away to get rid off dependencies
-public class AvatarStorage
+public class AvatarStorage : CacheStorage
 {
-    private readonly string _cacheDir = Path.Combine("Cache", "Avatar");
     private readonly ILogger _logger;
 
-    public AvatarStorage(ILogger logger)
+    public AvatarStorage(ILogger logger) : base(dir: "Avatars")
     {
         _logger = logger;
-        Directory.CreateDirectory(_cacheDir);
     }
 
-    private string GetPath(string id) => Path.Combine(_cacheDir, id);
+    private string GetPath(string id) => Path.Combine(Dir, id);
 
     public Uri? GetUri(string id)
     {
@@ -39,7 +37,7 @@ public class AvatarStorage
         
         try
         {
-            bytes = await File.ReadAllBytesAsync(path);
+            bytes = await File.ReadAllBytesAsync(path!);
         }
         catch (Exception e)
         {

@@ -47,13 +47,13 @@ namespace SteamAccountManager.AvaloniaUI.Mappers
             {
                 Level = steamAccount.Level
             };
-            var profilePicture = await _avatarService.GetAvatarAsync(steamAccount.AvatarUrl);
+            var avatar = await _avatarService.GetAvatarAsync(steamAccount.AvatarUrl);
             var account = new Account
             {
                 SteamId = steamAccount.Id,
                 Name = steamAccount.Name,
-                ProfilePicture = profilePicture?.Item2,
-                ProfilePictureUrl = profilePicture?.Item1,
+                ProfilePicture = avatar?.Item2,
+                ProfilePictureUrl = avatar?.Item1,
                 Username = steamAccount.Username,
                 ProfileUrl = steamAccount.ProfileUrl,
                 IsVacBanned = steamAccount.IsVacBanned,

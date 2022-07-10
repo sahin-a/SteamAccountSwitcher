@@ -1,48 +1,44 @@
-﻿// using Avalonia;
-// using Avalonia.Media.Imaging;
-// using Avalonia.Platform;
-// using SteamAccountManager.Application.Steam.Service;
-// using System;
-// using System.Diagnostics;
-// using System.IO;
-// using System.Threading.Tasks;
-//
-// namespace SteamAccountManager.AvaloniaUI.Services
-// {
-//     // TODO: REEEFAAAAAAAAAAACTOR no way I'll merge this in this state to master
-//
-//     // TODO: REEEFAAAAAAAAAAACTOR no way I'll merge this in this state to master
-//     internal class AvatarService
-//     {
-//         private readonly IAssetLoader _assetLoader;
-//
-//         public AvatarService(IImageService imageService)
-//         {
-//             _assetLoader = AvaloniaLocator.Current.GetService<IAssetLoader>()
-//                            ?? throw new Exception("Failed to resolve AssetLoader");
-//         }
-//
-//         private Bitmap CreateBitmap(byte[] payload)
-//             {
-//                 Stream stream = new MemoryStream(payload);
-//                 return new Bitmap(stream);
-//             }
-//
-//         public async Task<Tuple<Uri?, Bitmap?>> GetAvatarAsync(string url)
-//         {
-//             var fileName = ExtractFileName(url);
-//             var cachedImage = await GetFromCache(fileName);
-//             var imagePayload = cachedImage?.Image ?? await _imageService.GetImageAsync(url);
-//
-//             if (string.IsNullOrEmpty(url) || imagePayload.Length == 0)
-//             {
-//                 var placeholderImage = ;
-//                 return Tuple.Create(placeholderImage, new Bitmap(_assetLoader.Open(placeholderImage)));
-//             }
-//
-//
-//
-//             return Tuple.Create((await _avatarStorage.Retrieve(fileName))?.Path, image);
-//         }
-//     }
-// }
+﻿using Avalonia;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
+using SteamAccountManager.Application.Steam.Service;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace SteamAccountManager.AvaloniaUI.Services
+{
+    internal class AvatarService
+    {
+        private IAssetLoader _assetLoader;
+        private readonly IAvatarService _avatarService;
+
+        private readonly Uri FALLBACK_AVATAR_URI =
+            new Uri("avares://SteamAccountManager.AvaloniaUI/Assets/avatar_placeholder.jpg", UriKind.Absolute);
+
+        public AvatarService(IAvatarService avatarService)
+        {
+            _avatarService = avatarService;
+            _assetLoader = AvaloniaLocator.Current.GetService<IAssetLoader>()
+                           ?? throw new Exception("Failed to resolve AssetLoader");
+        }
+
+        private static Bitmap CreateBitmap(byte[] imagePayload)
+        {
+            Stream stream = new MemoryStream(imagePayload);
+            return new Bitmap(stream);
+        }
+
+        private Bitmap GetFallbackAvatar() => new(_assetLoader.Open(FALLBACK_AVATAR_URI));
+
+        public async Task<Tuple<Uri, IBitmap>> GetAvatarAsync(string url)
+        {
+            var image = await _avatarService.GetAvatarAsync(url);
+
+            if (string.IsNullOrEmpty(url) || image is null)
+                return new Tuple<Uri, IBitmap>(FALLBACK_AVATAR_URI, GetFallbackAvatar());
+
+            return new Tuple<Uri, IBitmap>(image.Path, CreateBitmap(image.Payload));
+        }
+    }
+}

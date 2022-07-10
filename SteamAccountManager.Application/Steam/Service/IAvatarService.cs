@@ -14,5 +14,5 @@ public class AvatarResponse
 
 public interface IAvatarService
 {
-    public Task<AvatarResponse> GetAvatarAsync(string url);
+    public Task<AvatarResponse?> GetAvatarAsync(string url);
 }

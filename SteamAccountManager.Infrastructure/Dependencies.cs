@@ -48,6 +48,8 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<SteamPlayerService>().As<ISteamPlayerService>().SingleInstance();
             builder.RegisterType<SteamApiKeyStorage>().SingleInstance();
             builder.RegisterType<LoginVdfFileWatcher>().As<IAccountStorageObservable>().SingleInstance();
+            builder.RegisterType<AvatarStorage>().SingleInstance();
+            builder.RegisterType<AvatarService>().SingleInstance();
             //builder.RegisterType<LocalNotificationService>().As<ILocalNotificationService>().SingleInstance();
         }
     }
