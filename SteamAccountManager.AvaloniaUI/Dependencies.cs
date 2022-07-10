@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DI;
+using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Services;
 using SteamAccountManager.AvaloniaUI.ViewModels;
@@ -24,6 +25,7 @@ namespace SteamAccountManager.AvaloniaUI
         {
             builder.RegisterType<AvatarService>().SingleInstance();
             builder.RegisterType<AccountMapper>().SingleInstance();
+            builder.RegisterType<LocalNotificationService>().As<ILocalNotificationService>().SingleInstance();
         }
 
         public static void RegisterViewModels(this ContainerBuilder builder)

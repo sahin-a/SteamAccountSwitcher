@@ -6,7 +6,7 @@ using SteamAccountManager.Domain.Steam.Model;
 
 namespace SteamAccountManager.Application.Steam.UseCase
 {
-    public class GetAccountsWithDetailsUseCase
+    public class GetAccountsWithDetailsUseCase : IGetAccountsWithDetailsUseCase
     {
         private readonly ISteamRepository _steamRepository;
         private readonly ISteamProfileService _steamProfileService;
@@ -19,15 +19,13 @@ namespace SteamAccountManager.Application.Steam.UseCase
             _logger = logger;
         }
 
-        public ISteamProfileService SteamProfileService => _steamProfileService;
-
         public async Task<List<Account>> Execute()
         {
             try
             {
                 var steamLoginUsers = await _steamRepository.GetSteamLoginHistoryUsers();
                 var steamIds = steamLoginUsers.Select(user => user.SteamId);
-                var steamProfiles = await SteamProfileService.GetProfileDetails(steamIds.ToArray());
+                var steamProfiles = await _steamProfileService.GetProfileDetails(steamIds.ToArray());
 
                 var steamAccounts = steamLoginUsers.ConvertAll(steamLoginUser =>
                 {
