@@ -14,6 +14,7 @@ using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 using SteamAccountManager.Infrastructure.Steam.Service;
 using System.Runtime.InteropServices;
+using SteamAccountManager.Infrastructure.Common;
 
 namespace SteamAccountManager.Infrastructure
 {
