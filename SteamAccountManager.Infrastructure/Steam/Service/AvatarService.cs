@@ -34,7 +34,6 @@ public class AvatarService : IAvatarService
             return null;
 
         _avatarStorage.Store(fileName, imagePayload);
-        _userAvatarMapStorage.Store(steamId, fileName);
         var uri = _avatarStorage.GetUri(fileName);
 
         return new AvatarResponse(uri!, imagePayload);
