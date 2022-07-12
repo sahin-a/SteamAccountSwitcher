@@ -6,6 +6,7 @@ using SteamAccountManager.Application.Steam.Local.Logger;
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage;
 
 // TODO: Abstract File.Write.. away to get rid off dependencies
+// TODO: Save avatarId and steamId together to provide offline functionality
 public class AvatarStorage : CacheStorage
 {
     private readonly ILogger _logger;
