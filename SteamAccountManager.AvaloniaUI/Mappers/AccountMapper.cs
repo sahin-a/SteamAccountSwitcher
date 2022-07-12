@@ -43,12 +43,13 @@ namespace SteamAccountManager.AvaloniaUI.Mappers
         {
             var minutesPassed = Convert.ToInt64(DateTime.UtcNow.Subtract(steamAccount.LastLogin).TotalMinutes);
             var timePassedSinceLastLogin = GetTimePassedFormatted(minutesPassed);
+            var avatar = await _avatarService.GetAvatarAsync(steamAccount.Id, steamAccount.AvatarUrl);
             var rank = new Rank
             {
                 Level = steamAccount.Level
             };
-            var avatar = await _avatarService.GetAvatarAsync(steamAccount.AvatarUrl);
-            var account = new Account
+
+            return new Account
             {
                 SteamId = steamAccount.Id,
                 Name = steamAccount.Name,
@@ -61,8 +62,6 @@ namespace SteamAccountManager.AvaloniaUI.Mappers
                 LastLogin = timePassedSinceLastLogin,
                 Rank = rank
             };
-
-            return account;
         }
     }
 }

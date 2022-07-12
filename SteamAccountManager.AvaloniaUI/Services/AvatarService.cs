@@ -31,11 +31,11 @@ namespace SteamAccountManager.AvaloniaUI.Services
 
         private Bitmap GetFallbackAvatar() => new(_assetLoader.Open(FALLBACK_AVATAR_URI));
 
-        public async Task<Tuple<Uri, IBitmap>> GetAvatarAsync(string url)
+        public async Task<Tuple<Uri, IBitmap>> GetAvatarAsync(string steamId, string url)
         {
-            var image = await _avatarService.GetAvatarAsync(url);
+            var image = await _avatarService.GetAvatarAsync(steamId, url);
 
-            if (string.IsNullOrEmpty(url) || image is null)
+            if (image is null)
                 return new Tuple<Uri, IBitmap>(FALLBACK_AVATAR_URI, GetFallbackAvatar());
 
             return new Tuple<Uri, IBitmap>(image.Path, CreateBitmap(image.Payload));
