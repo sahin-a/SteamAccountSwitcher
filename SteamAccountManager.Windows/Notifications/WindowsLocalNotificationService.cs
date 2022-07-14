@@ -1,7 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
 using SteamAccountManager.Application.Steam.Service;
 
-namespace SteamAccountManager.Windows
+namespace SteamAccountManager.Windows.Notifications
 {
     public class WindowsLocalNotificationService : ILocalNotificationService
     {

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using SteamAccountManager.Infrastructure;
 using SteamAccountManager.Windows;
+using System.Runtime.InteropServices;
 
 namespace DI
 {
@@ -9,9 +10,8 @@ namespace DI
         public static void RegisterModules(this ContainerBuilder builder)
         {
             builder.RegisterInfrastructureModule();
-#if WINDOWS10_0_17763_0_OR_GREATER
-            builder.RegisterWindowsModule();
-#endif
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                builder.RegisterWindowsModule();
         }
     }
 }

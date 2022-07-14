@@ -1,11 +1,6 @@
 ﻿using Autofac;
 using SteamAccountManager.Application.Steam.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using SteamAccountManager.Windows.Notifications;
 
 namespace SteamAccountManager.Windows
 {
@@ -13,7 +8,11 @@ namespace SteamAccountManager.Windows
     {
         public static void RegisterWindowsModule(this ContainerBuilder builder)
         {
-                builder.RegisterType<WindowsLocalNotificationService>().As<ILocalNotificationService>().SingleInstance();
+#if WINDOWS10_0_17763_0_OR_GREATER
+            builder.RegisterType<WindowsLocalNotificationService>().As<ILocalNotificationService>().SingleInstance();
+#else
+            builder.RegisterType<LegacyWindowsLocalNotificationService>().As<ILocalNotificationService>().SingleInstance();
+#endif
         }
     }
 }
