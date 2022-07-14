@@ -1,14 +1,15 @@
-﻿using SteamAccountManager.Domain.Steam.Model;
+﻿using SteamAccountManager.Application.Steam.UseCase;
+using SteamAccountManager.Domain.Steam.Model;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace SteamAccountManager.AvaloniaUI.DemoMock
 {
-    internal class GetAccountWithDetailsUseCaseMock
+    internal class GetAccountWithDetailsUseCaseMock : IGetAccountsWithDetailsUseCase
     {
 #pragma warning disable CS1998 // Bei der asynchronen Methode fehlen "await"-Operatoren. Die Methode wird synchron ausgeführt.
-        public async Task<List<Account>> GetAccounts()
+        public async Task<List<Account>> Execute()
 #pragma warning restore CS1998 // Bei der asynchronen Methode fehlen "await"-Operatoren. Die Methode wird synchron ausgeführt.
         {
             return new List<Account>()

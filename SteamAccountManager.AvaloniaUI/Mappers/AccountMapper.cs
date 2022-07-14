@@ -43,16 +43,18 @@ namespace SteamAccountManager.AvaloniaUI.Mappers
         {
             var minutesPassed = Convert.ToInt64(DateTime.UtcNow.Subtract(steamAccount.LastLogin).TotalMinutes);
             var timePassedSinceLastLogin = GetTimePassedFormatted(minutesPassed);
+            var avatar = await _avatarService.GetAvatarAsync(steamAccount.Id, steamAccount.AvatarUrl);
             var rank = new Rank
             {
                 Level = steamAccount.Level
             };
 
-            var account = new Account
+            return new Account
             {
                 SteamId = steamAccount.Id,
                 Name = steamAccount.Name,
-                ProfilePicture = await _avatarService.GetAvatarAsync(steamAccount.AvatarUrl),
+                ProfilePicture = avatar?.Item2,
+                ProfilePictureUrl = avatar?.Item1,
                 Username = steamAccount.Username,
                 ProfileUrl = steamAccount.ProfileUrl,
                 IsVacBanned = steamAccount.IsVacBanned,
@@ -60,8 +62,6 @@ namespace SteamAccountManager.AvaloniaUI.Mappers
                 LastLogin = timePassedSinceLastLogin,
                 Rank = rank
             };
-
-            return account;
         }
     }
 }

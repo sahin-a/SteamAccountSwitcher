@@ -49,6 +49,11 @@
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<Grid>
+						<Grid.Styles>
+							<Style Selector="TextBlock">
+								<Setter Property="FontSize" Value="15" />
+							</Style>
+						</Grid.Styles>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition SharedSizeGroup="A" />
 							<ColumnDefinition SharedSizeGroup="A"  />
@@ -90,10 +95,8 @@
 
 						<!-- Steam Level -->
 						<Grid Grid.Column="2" HorizontalAlignment="Right" IsVisible="{Binding ShowLevel}">
-							<Grid HorizontalAlignment="Center">
-								<Ellipse Width="35" Height="35" Stroke="{Binding Rank.Color}" StrokeThickness="2" />
-								<TextBlock Text="{Binding Rank.Level}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-							</Grid>
+							<Ellipse Width="40" Height="40" Stroke="{Binding Rank.Color}" StrokeThickness="2" VerticalAlignment="Center" HorizontalAlignment="Left" />
+							<TextBlock Text="{Binding Rank.Level}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 						</Grid>
 					</Grid>
 				</DataTemplate>

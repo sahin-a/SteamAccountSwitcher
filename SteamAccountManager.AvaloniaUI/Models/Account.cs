@@ -1,4 +1,5 @@
 ﻿using Avalonia.Media.Imaging;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -7,6 +8,7 @@ namespace SteamAccountManager.AvaloniaUI.Models
     internal class Account : INotifyPropertyChanged
     {
         public IBitmap? ProfilePicture { get; set; }
+        public Uri? ProfilePictureUrl { get; set; }
         public string SteamId { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
