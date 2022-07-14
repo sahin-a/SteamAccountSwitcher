@@ -1,10 +1,9 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
 using SteamAccountManager.Application.Steam.Service;
-using System;
 
-namespace SteamAccountManager.AvaloniaUI
+namespace SteamAccountManager.Windows
 {
-    public class LocalNotificationService : ILocalNotificationService
+    public class WindowsLocalNotificationService : ILocalNotificationService
     {
         public void Send(Notification notification)
         {
@@ -23,3 +22,4 @@ namespace SteamAccountManager.AvaloniaUI
         }
     }
 }
+

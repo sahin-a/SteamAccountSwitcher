@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="SteamAccountManager.AvaloniaUI.Views.MainWindow"
         Icon="/Assets/sam.ico"
-        Title="SteamAccountManager.AvaloniaUI"
+        Title="Steam Account Switcher (AvaloniaUI)"
 		Width="800"
 		Height="450"
 		MinWidth="800"

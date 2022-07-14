@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using SteamAccountManager.Infrastructure;
+using SteamAccountManager.Windows;
 
 namespace DI
 {
@@ -8,6 +9,7 @@ namespace DI
         public static void RegisterModules(this ContainerBuilder builder)
         {
             builder.RegisterInfrastructureModule();
+            builder.RegisterWindowsModule();
         }
     }
 }
