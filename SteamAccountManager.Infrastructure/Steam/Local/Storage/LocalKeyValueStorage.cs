@@ -7,6 +7,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
 {
     public abstract class LocalKeyValueStorage<TValue> : IKeyValueDataSource<TValue> where TValue : class
     {
+        private readonly object _lock = new object();
         private readonly string _fileName;
         private readonly Dictionary<string, TValue> _keyValuePairs;
 
@@ -30,7 +31,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
             }
             catch (Exception)
             {
-                
+
             }
 
             return new();
@@ -38,9 +39,12 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
 
         private void Save()
         {
-            using (var sw = new StreamWriter(_fileName))
+            lock (_lock)
             {
-                sw.WriteLine(JsonConvert.SerializeObject(_keyValuePairs, Formatting.Indented));
+                using (var sw = new StreamWriter(_fileName))
+                {
+                    sw.WriteLine(JsonConvert.SerializeObject(_keyValuePairs, Formatting.Indented));
+                }
             }
         }
 
