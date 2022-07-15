@@ -6,7 +6,7 @@ on:
       - 'develop'
 
 env:
-  DOTNET_VERSION: '6.0-windows10.0.17763.0'
+  DOTNET_VERSION: '6.x'
   OUTPUT_ARTIFACT_FILENAME: 'SteamAccountSwitcher_Win-x86.zip'
   TAG_NAME: ${{ github.run_id }}-${{ github.run_number }}
 
