@@ -54,9 +54,9 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
             Save();
         }
 
-        public TValue? Get(string key)
+        public TValue? Get(string key, TValue? defaultValue = null)
         {
-            return _keyValuePairs.GetValueOrDefault(key, null);
+            return _keyValuePairs.GetValueOrDefault(key, defaultValue);
         }
     }
 }
