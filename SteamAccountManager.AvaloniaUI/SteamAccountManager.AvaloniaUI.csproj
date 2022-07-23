@@ -28,7 +28,14 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.16" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.16" />
-    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Condition="'$(TargetFramework)' != 'net6.0'" Version="7.1.2" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
+      <Compile Remove="NullImpl_WindowsLocalNotificationService.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(OS)' != 'Windows_NT'">
+      <Compile Remove="WindowsLocalNotificationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DI\DI.csproj" />

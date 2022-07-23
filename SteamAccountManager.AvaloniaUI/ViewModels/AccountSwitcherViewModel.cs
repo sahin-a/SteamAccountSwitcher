@@ -96,7 +96,14 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
 
         public void ShowInfo()
         {
-            System.Diagnostics.Process.Start("explorer", "https://github.com/sahin-a/SteamAccountManager/");
+            if(System.OperatingSystem.IsWindows())
+            {
+                System.Diagnostics.Process.Start("explorer", "https://github.com/sahin-a/SteamAccountManager/");
+            }
+            else 
+            {
+                System.Diagnostics.Process.Start("xdg-open", "https://github.com/sahin-a/SteamAccountManager/");
+            }
         }
     }
 }
