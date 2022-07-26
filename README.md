@@ -14,7 +14,7 @@ Simply press the 'Add' button (+), check remember me and press login. 🧙‍♂
 - Feel free to [open a new issue](https://github.com/sahin-a/SteamAccountManager/issues) to share your suggestions or bug findings. Thankful for any contribution! :)
 
 # Known Issues 🙉
-App not launching?
+Application not launching?
 - [Install .NET 6 Runtime](https://dotnet.microsoft.com/en-us/download)
 
 Profile Picture, Level etc. not showing? 🌍
