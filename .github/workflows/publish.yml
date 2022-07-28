@@ -27,7 +27,7 @@ jobs:
       - name: 🛠️ Build
         run: |
             dotnet build --configuration Release --no-restore
-            dotnet publish --self-contained -c Release -f "net6.0-windows10.0.17763.0" -o ./output -r win-x86 -p:PublishReadyToRun=true
+            dotnet publish --self-contained -c Release -o ./output -r win-x86 -p:PublishReadyToRun=true
 
       - name: 👨‍⚕️ Run Unit Tests
         run: dotnet test --no-restore --verbosity normal
