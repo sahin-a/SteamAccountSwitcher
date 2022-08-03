@@ -33,7 +33,7 @@ Avalonia Build Features:
 * Currently provides endpoint for fetching and switching accounts
 ** is required for the android app to work
 
-# [Android (WIP) 🥹](https://github.com/sahin-a/SteamAccountSwitcherAndroid)
+# [Android (WIP) 💕](https://github.com/sahin-a/SteamAccountSwitcherAndroid)
 * The REST Service has to be running in order for the app to work
 
 # [AvaloniaUI 😉](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.AvaloniaUI)
