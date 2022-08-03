@@ -29,14 +29,22 @@ Avalonia Build Features:
 * Auto. Refresh on change
 * Popup Notifications 🤭
 
+Android App Features:
+* Switch Accounts 🧠
+* Open Profile when clicking the Avatar
+* Shows Accounts Details (Account Name, Username, VAC/Game Ban Status 😳, Avatar, Level)
+
 # [REST API (WIP) 🥸](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.WebAPI)
 * Currently provides endpoint for fetching and switching accounts
 ** is required for the android app to work
 
 # [Android (WIP) 💕](https://github.com/sahin-a/SteamAccountSwitcherAndroid)
 * The REST Service has to be running in order for the app to work
+<img src="https://user-images.githubusercontent.com/55054756/182717676-a66bd912-b89e-46ce-9abd-fc4071b9d25f.jpg" width="250">
 
 # [AvaloniaUI 😉](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.AvaloniaUI)
+* Standalone
+
 ![Screenshot](https://user-images.githubusercontent.com/55054756/169713656-890fae80-9381-4bff-a220-a5b133f5dcac.png)
 
 # Todos 🛠️
