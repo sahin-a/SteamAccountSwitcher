@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace SteamAccountManager.Infrastructure.Steam.Exceptions
+﻿namespace SteamAccountManager.Infrastructure.Steam.Exceptions
 {
-    public class IllegalSteamIdsCountException : Exception
+    public class IllegalSteamIdsCountException : System.Exception
     {
         public IllegalSteamIdsCountException()
         {
@@ -12,7 +10,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Exceptions
         {
         }
 
-        public IllegalSteamIdsCountException(string message, Exception inner) : base(message, inner)
+        public IllegalSteamIdsCountException(string message, System.Exception inner) : base(message, inner)
         {
         }
     }

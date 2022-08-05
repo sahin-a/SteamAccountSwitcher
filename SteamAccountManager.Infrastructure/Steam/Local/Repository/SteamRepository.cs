@@ -1,7 +1,7 @@
 ﻿using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Model;
-using SteamAccountManager.Domain.Steam.Exception;
+using SteamAccountManager.Application.Steam.Exceptions;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Mapping;
 using System;

@@ -4,6 +4,7 @@ using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.Infrastructure.Steam.Exceptions;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
+using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 
 namespace SteamAccountManager.Infrastructure.Common
 {

@@ -2,13 +2,13 @@
 using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Model;
-using SteamAccountManager.Domain.Steam.Exception;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using SteamAccountManager.Infrastructure.Steam.Local.Repository;
 using SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData;
 using System;
 using System.Collections.Generic;
+using SteamAccountManager.Application.Steam.Exceptions;
 using Xunit;
 
 namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository

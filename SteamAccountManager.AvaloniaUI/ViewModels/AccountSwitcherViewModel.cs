@@ -4,12 +4,12 @@ using SteamAccountManager.AvaloniaUI.Common;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
-using SteamAccountManager.Domain.Steam.Observables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using SteamAccountManager.Application.Steam.Observables;
 
 namespace SteamAccountManager.AvaloniaUI.ViewModels
 {

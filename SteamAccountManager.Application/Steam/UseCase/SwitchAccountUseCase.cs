@@ -1,7 +1,7 @@
-﻿using SteamAccountManager.Application.Steam.Local.Logger;
+﻿using SteamAccountManager.Application.Steam.Exceptions;
+using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Service;
-using SteamAccountManager.Domain.Steam.Exception;
 
 namespace SteamAccountManager.Application.Steam.UseCase
 {
