@@ -48,7 +48,7 @@ Android App Features:
 ![Screenshot](https://user-images.githubusercontent.com/55054756/169713656-890fae80-9381-4bff-a220-a5b133f5dcac.png)
 
 # Todos 🛠️
-[Project](https://github.com/sahin-a/SteamAccountSwitcher/projects/2)
+[Project](https://github.com/users/sahin-a/projects/3/views/1?layout=board)
 
 # Supported Plattforms
 * Windows 🤓
