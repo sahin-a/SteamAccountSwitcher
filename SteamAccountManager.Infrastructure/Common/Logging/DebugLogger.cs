@@ -1,9 +1,9 @@
-﻿using SteamAccountManager.Application.Steam.Local.Logger;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using SteamAccountManager.Application.Steam.Local.Logger;
 
-namespace SteamAccountManager.Infrastructure.Steam.Local.Logger
+namespace SteamAccountManager.Infrastructure.Common.Logging
 {
     public class DebugLogger : ILogger
     {
