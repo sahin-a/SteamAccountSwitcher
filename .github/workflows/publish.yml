@@ -31,7 +31,7 @@ jobs:
             dotnet publish --self-contained -c Release -f "net6.0-windows10.0.17763.0" -o ./output -r win-x86 -p:PublishReadyToRun=true
 
       - name: 👨‍⚕️ Run Unit Tests
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test --no-restore -f "net6.0-windows10.0.17763.0" --verbosity normal
 
       - name: Create Artifacts
         run: 7z a -tzip ${{ env.OUTPUT_ARTIFACT_FILENAME }} output/*
