@@ -5,7 +5,12 @@ using SteamAccountManager.Application.Steam.Service;
 
 namespace SteamAccountManager.Application.Steam.UseCase
 {
-    public class SwitchAccountUseCase
+    public interface ISwitchAccountUseCase
+    {
+        public Task<bool> Execute(string accountName);
+    }
+
+    public class SwitchAccountUseCase : ISwitchAccountUseCase
     {
         private readonly ISteamRepository _steamRepository;
         private readonly ISteamProcessService _steamProcessService;

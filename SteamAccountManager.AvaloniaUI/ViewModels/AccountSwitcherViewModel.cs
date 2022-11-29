@@ -17,7 +17,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
     internal class AccountSwitcherViewModel
     {
         private readonly IGetAccountsWithDetailsUseCase _getAccountsUseCase;
-        private readonly SwitchAccountUseCase _switchAccountUseCase;
+        private readonly ISwitchAccountUseCase _switchAccountUseCase;
         private readonly AccountMapper _accountMapper;
         private readonly ILocalNotificationService _notificationService;
 
@@ -32,7 +32,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public AccountSwitcherViewModel
         (
             IGetAccountsWithDetailsUseCase getAccountsUseCase,
-            SwitchAccountUseCase switchAccountUseCase,
+            ISwitchAccountUseCase switchAccountUseCase,
             AccountMapper accountMapper,
             IAccountStorageObservable accountStorageObserver,
             ILocalNotificationService notificationService

@@ -40,7 +40,7 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<LoginUsersDao>().As<ILoginUsersDao>().SingleInstance();
             builder.RegisterType<LocalSteamDataSource>().As<ILocalSteamDataSource>().SingleInstance();
             builder.RegisterType<SteamRepository>().As<ISteamRepository>().SingleInstance();
-            builder.RegisterType<SwitchAccountUseCase>().SingleInstance();
+            builder.RegisterType<SwitchAccountUseCase>().As<ISwitchAccountUseCase>().SingleInstance();
             builder.RegisterType<GetAccountsWithDetailsUseCase>().As<IGetAccountsWithDetailsUseCase>().SingleInstance();
             builder.RegisterType<SteamProcessService>().As<ISteamProcessService>().SingleInstance();
             builder.RegisterType<SteamWebClient>().As<ISteamWebClient>().SingleInstance();
