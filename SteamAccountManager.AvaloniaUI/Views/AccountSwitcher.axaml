@@ -13,7 +13,7 @@
 		</Grid.ColumnDefinitions>
 
 		<!-- Side Bar -->
-		<Grid Background="#131313">
+		<Grid Background="#1c1b1b">
 			<UniformGrid VerticalAlignment="Center" Rows="3">
 				<UniformGrid.Styles>
 					<Style Selector="Button">
@@ -36,14 +36,14 @@
 			</UniformGrid>
 		</Grid>
 
-		<ListBox Grid.Column="1" Items="{Binding Accounts}" SelectionMode="Single" SelectionChanged="AccountSelection_SelectionChanged" Background="Transparent">
+		<ListBox Margin="0,25,0,0" Grid.Column="1" Items="{Binding Accounts}" SelectionMode="Single" SelectionChanged="AccountSelection_SelectionChanged" Background="Transparent">
 			<ListBox.Styles>
 				<Style Selector="ListBoxItem">
 					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 					<Setter Property="Margin" Value="8" />
 					<Setter Property="CornerRadius" Value="10" />
 					<Setter Property="BorderThickness" Value="2" />
-					<Setter Property="Background" Value="#414141" />
+					<Setter Property="Background" Value="#292828" />
 				</Style>
 			</ListBox.Styles>
 			<ListBox.ItemTemplate>

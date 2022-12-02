@@ -12,12 +12,13 @@
 		Height="450"
 		MinWidth="800"
 		MinHeight="450"
-		Background="#1C1B1B">
+		Background="#1C1B1B"
+		ExtendClientAreaToDecorationsHint="True">
 
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
 
-    <view:AccountSwitcher />
+	<view:AccountSwitcher />
 
 </Window>

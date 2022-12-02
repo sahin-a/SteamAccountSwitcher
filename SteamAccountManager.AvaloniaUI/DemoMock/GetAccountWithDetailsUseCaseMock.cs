@@ -21,7 +21,8 @@ namespace SteamAccountManager.AvaloniaUI.DemoMock
                     Username = "SpongeBob",
                     AvatarUrl = "https://thypix.com/wp-content/uploads/2021/11/sponge-bob-profile-picture-thypix-m.jpg",
                     Level = 25,
-                    LastLogin= System.DateTime.Parse("2022-02-21 13:26")
+                    LastLogin= System.DateTime.Parse("2022-02-21 13:26"),
+                    IsVacBanned = true
                 },
                 new Account()
                 {
