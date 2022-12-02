@@ -9,6 +9,6 @@ namespace SteamAccountManager.CLI
     public enum ExitCode
     {
         Success = 0,
-        Failure = -1
+        Failure = 1
     }
 }

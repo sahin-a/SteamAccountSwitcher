@@ -23,10 +23,10 @@ namespace SteamAccountManager.CLI.Steam
             if (!result)
             {
                 Console.WriteLine("Failed to switch account!");
-                return -1;
+                return (int)ExitCode.Failure;
             }
 
-            return 0;
+            return (int)ExitCode.Success;
         }
     }
 }

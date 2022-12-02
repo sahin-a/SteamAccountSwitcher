@@ -80,7 +80,7 @@ namespace SteamAccountManager.CLI.Tests.Steam.Commands
             // THEN
             _switchAccountUseCase.Verify(x => x.Execute(It.IsAny<string>()), times: Times.Once);
             Assert.Equal(expected: "Failed to switch account!\r\n", actual: _output.ToString());
-            Assert.Equal(expected: (int)ExitCode.Failure, actual: result);
+            Assert.Equal(expected: 1, actual: result);
         }
     }
 }

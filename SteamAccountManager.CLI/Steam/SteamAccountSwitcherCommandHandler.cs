@@ -1,4 +1,5 @@
 ﻿using CLAP;
+using SteamAccountManager.CLI;
 using SteamAccountManager.CLI.Steam;
 using SteamAccountManager.CLI.Steam.Exceptions;
 
@@ -17,13 +18,13 @@ public class SteamAccountSwitcherCommandHandler
     public int List()
     {
         _listCommand.ListAccounts().Wait();
-        return 0;
+        return (int)ExitCode.Success;
     }
 
     [Verb(Description = "Switches to the specified account name")]
     public int Switch([Required][Aliases("n")][Description("account name to switch to")] string accountName)
     {
-        var result = -1;
+        var result = (int)ExitCode.Failure;
         try
         {
             result = _switchCommand.Switch(accountName).Result;

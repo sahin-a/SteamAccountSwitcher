@@ -37,7 +37,7 @@ namespace SteamAccountManager.CLI.Tests.Steam.Commands
             var result = await _sut.ListAccounts();
             // THEN
             Assert.Equal(expected: "No Accounts found!\r\n", actual: _output.ToString());
-            Assert.Equal(expected: (int)ExitCode.Failure, actual: result);
+            Assert.Equal(expected: 1, actual: result);
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace SteamAccountManager.CLI.Tests.Steam.Commands
                 $"Account Name: JuliaAlt, Username: ailuJ111\r\n",
                 actual: _output.ToString()
             );
-            Assert.Equal(expected: (int)ExitCode.Success, actual: result);
+            Assert.Equal(expected: 1, actual: result);
         }
     }
 }

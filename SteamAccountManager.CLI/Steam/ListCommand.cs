@@ -18,13 +18,13 @@ namespace SteamAccountManager.CLI.Steam
             if (accounts.Count == 0)
             {
                 Console.WriteLine("No Accounts found!");
-                return -1;
+                return (int)ExitCode.Failure;
             }
 
             var accountRows = accounts.ConvertAll(x => $"Account Name: {x.Name}, Username: {x.Username}");
             Console.WriteLine(string.Join("\r\n", accountRows));
 
-            return 0;
+            return (int)ExitCode.Success;
         }
     }
 }
