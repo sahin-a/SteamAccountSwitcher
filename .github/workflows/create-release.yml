@@ -24,10 +24,13 @@ jobs:
       - name: 🛠️ Build
         run: |
             dotnet build --configuration Release --no-restore
-            dotnet publish -c Release -o ../output -r win-x86
+            dotnet publish -c Release -o ./output -r win-x86
 
       - name: 👨‍⚕️ Run Unit Tests
         run: dotnet test --no-restore --verbosity normal
+
+      - name: Print dir
+        run: dir
 
       - name: 🔮 Upload Build Artifacts
         uses: actions/upload-artifact@v3
