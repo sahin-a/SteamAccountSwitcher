@@ -19,43 +19,46 @@
 		<ListBox.ItemTemplate>
 			<DataTemplate>
 				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition Width="0" />
-						<ColumnDefinition Width="*"  />
-					</Grid.ColumnDefinitions>
+					<TextBlock Text="{Binding LastLogin}" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-					<StackPanel Orientation="Horizontal" Grid.Column="0" >
-						
-						<!-- Profile Picture -->
-						<Button Command="{Binding Path=DataContext.ProfileClickedCommand, 
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*"  />
+						</Grid.ColumnDefinitions>
+
+						<StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Stretch">
+
+							<!-- Profile Picture -->
+							<Button Command="{Binding Path=DataContext.ProfileClickedCommand, 
 									RelativeSource={RelativeSource Mode=FindAncestor, 
 									AncestorType={x:Type UserControl}}}"
-								CommandParameter="{Binding ProfileUrl}" ClipToBounds="True">
-							<Button.Styles>
-								<Style Selector="Border">
-									<Setter Property="Border.CornerRadius" Value="10" />
-								</Style>
-							</Button.Styles>
-							<Button.Template>
-								<ControlTemplate>
-									<Image Source="{Binding ProfilePicture}" Width="40" Height="40" />
-								</ControlTemplate>
-							</Button.Template>
-						</Button>
+									CommandParameter="{Binding ProfileUrl}" ClipToBounds="True">
+								<Button.Styles>
+									<Style Selector="Border">
+										<Setter Property="Border.CornerRadius" Value="10" />
+									</Style>
+								</Button.Styles>
+								<Button.Template>
+									<ControlTemplate>
+										<Image Source="{Binding ProfilePicture}" Width="40" Height="40" />
+									</ControlTemplate>
+								</Button.Template>
+							</Button>
 
-						<!-- Main Information-->
-						<StackPanel Orientation="Horizontal">
-							<TextBlock VerticalAlignment="Center" IsVisible="{Binding IsVacBanned}" Text="🛡️" FontSize="28" Margin="12,0,0,0" />
+							<!-- Main Information-->
+							<StackPanel Orientation="Horizontal">
+								<TextBlock VerticalAlignment="Center" IsVisible="{Binding IsVacBanned}" Text="🛡️" FontSize="28" Margin="12,0,0,0" />
 
-							<StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="12,0,0,0">
-								<TextBlock Text="{Binding Name}" />
-								<TextBlock Text="{Binding Username}" />
+								<StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="12,0,0,0">
+									<TextBlock Text="{Binding Name}" />
+									<TextBlock Text="{Binding Username}" />
+								</StackPanel>
 							</StackPanel>
+
 						</StackPanel>
 
-					</StackPanel>
-
+					</Grid>
 				</Grid>
 			</DataTemplate>
 		</ListBox.ItemTemplate>

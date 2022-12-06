@@ -14,14 +14,14 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels.Commands
 
         public bool CanExecute(object? parameter)
         {
-            return parameter is string && (parameter as string).Length > 0;
+            return parameter is string url && url.Length > 0;
         }
 
         public void Execute(object? parameter)
         {
-            if (parameter is string)
+            if (parameter is string url)
             {
-                Process.Start("explorer", parameter as string);
+                Process.Start("explorer", url);
             }
         }
     }

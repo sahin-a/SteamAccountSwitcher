@@ -10,6 +10,7 @@
         public bool IsLoginValid { get; set; }
         public bool IsVacBanned { get; set; }
         public bool IsCommunityBanned { get; set; }
+        public DateTime LastLogin { get; set; }
         
         private SteamAccount()
         {
@@ -41,6 +42,7 @@
             {
                 _steamAccount.AccountName = steamLoginUser.AccountName;
                 _steamAccount.IsLoginValid = steamLoginUser.IsLoginTokenValid;
+                _steamAccount.LastLogin = steamLoginUser.LastLogin;
 
                 return this;
             }
