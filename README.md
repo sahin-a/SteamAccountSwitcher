@@ -4,6 +4,7 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/sahin-a/SteamAccountManager)
 ![Lines of code](https://img.shields.io/tokei/lines/github.com/sahin-a/SteamAccountManager)
 ![GitHub repo size](https://img.shields.io/github/repo-size/sahin-a/SteamAccountManager)
+![Downloads](https://img.shields.io/github/downloads/sahin-a/SteamAccountSwitcher/total)
 
 ![transparent_sam_github_banner](https://user-images.githubusercontent.com/55054756/171961459-0955e8ee-a4bd-4d4d-9109-ce275833305b.png)
 # Steam Account Switcher 🔮
