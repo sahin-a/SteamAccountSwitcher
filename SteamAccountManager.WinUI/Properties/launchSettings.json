@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SteamAccountManager.WinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "SteamAccountManager.WinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
