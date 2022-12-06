@@ -1,4 +1,6 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Autofac;
+using DI;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -24,7 +26,7 @@ namespace SteamAccountManager.WinUI
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public partial class App : Application
+    public partial class App : Microsoft.UI.Xaml.Application
     {
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -33,6 +35,7 @@ namespace SteamAccountManager.WinUI
         public App()
         {
             this.InitializeComponent();
+            Dependencies.RegisterDependencies();
         }
 
         /// <summary>

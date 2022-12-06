@@ -9,6 +9,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
     {
         private readonly RegistryKey _steamRegistryKey;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Plattformkompatibilität überprüfen", Justification = "<Ausstehend>")]
         public SteamWinRegistryConfig()
         {
             try
@@ -24,6 +25,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Plattformkompatibilität überprüfen", Justification = "<Ausstehend>")]
         private string GetValue(string key)
         {
             var value = _steamRegistryKey?.GetValue(key);
@@ -40,6 +42,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
             return GetValue("SteamPath");
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Plattformkompatibilität überprüfen", Justification = "<Ausstehend>")]
         public void SetAutoLoginUser(string accountName)
         {
             try

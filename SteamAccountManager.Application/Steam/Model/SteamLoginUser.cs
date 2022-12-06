@@ -2,8 +2,8 @@
 {
     public class SteamLoginUser
     {
-        public string SteamId { get; private set; }
-        public string AccountName { get; private set; }
+        public string SteamId { get; private set; } = string.Empty;
+        public string AccountName { get; private set; } = string.Empty;
         public bool IsLoginTokenValid { get; private set; }
 
         private SteamLoginUser()

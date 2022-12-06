@@ -11,10 +11,11 @@ namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
 
         public SteamWebClient(ILogger logger) : base("https://api.steampowered.com")
         {
+            // TODO: retrieve the key from a file (I would do it now, but I don't wanna bother with it yet)
             AddDefaultParameter(
                 new Parameter(
                     name: "key",
-                    value: "STEAM_API_TOKEN_HERE",
+                    value: "SET_YOUR_API_KEY_HERE",
                     ParameterType.QueryString
                 )
             );
