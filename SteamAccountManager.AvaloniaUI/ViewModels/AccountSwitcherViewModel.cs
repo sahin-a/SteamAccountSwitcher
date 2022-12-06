@@ -2,6 +2,8 @@
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
+using SteamAccountManager.Domain.Common.Observer;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +24,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public ICommand AddAccountCommand { get; }
 
 
-        public AccountSwitcherViewModel(ISteamService steamService, AccountMapper accountMapper)
+        public AccountSwitcherViewModel(ISteamService steamService, AccountMapper accountMapper, IAccountStorageObserver accountStorageObserver)
         {
             _steamService = steamService;
             _accountMapper = accountMapper;
@@ -32,7 +34,13 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             RefreshAccountsCommand = new QuickCommand(LoadAccounts);
             ShowInfoCommand = new QuickCommand(ShowInfo);
             AddAccountCommand = new QuickCommand(AddAccount);
+            accountStorageObserver.Subscribe(Accounts_Changed);
 
+            LoadAccounts();
+        }
+
+        private void Accounts_Changed(List<Domain.Steam.Model.Account>? accounts)
+        {
             LoadAccounts();
         }
 

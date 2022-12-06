@@ -52,5 +52,14 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
 
             var matches = regex.Matches(vdfContent);
         }
+
+        public string GetLoginUsersVdfPath()
+        {
+            return Path.Combine(
+                GetSteamPath(),
+                "config",
+                "loginusers.vdf"
+            );
+        }
     }
 }

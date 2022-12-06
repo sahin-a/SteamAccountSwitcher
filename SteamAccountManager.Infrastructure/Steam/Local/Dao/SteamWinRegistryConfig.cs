@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using SteamAccountManager.Domain.Steam.Exception;
 using System;
+using System.IO;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
 {
@@ -59,6 +60,15 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
         public string GetAutoLoginUser()
         {
             return GetValue("AutoLoginUser");
+        }
+
+        public string GetLoginUsersVdfPath()
+        {
+            return Path.Combine(
+                GetSteamPath(),
+                "config",
+                "loginusers.vdf"
+            );
         }
     }
 }
