@@ -15,7 +15,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
             AddDefaultParameter(
                 new Parameter(
                     name: "key",
-                    value: "REPLACE_WITH_API_KEY",
+                    value: "12A1D1DE83F9932934EDD6DF2BA00463",
                     ParameterType.QueryString
                 )
             );
