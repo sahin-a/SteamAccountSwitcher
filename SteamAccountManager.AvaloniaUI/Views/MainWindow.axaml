@@ -6,10 +6,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="SteamAccountManager.AvaloniaUI.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/sam.ico"
         Title="SteamAccountManager.AvaloniaUI"
 		Width="800"
-		Height="430"
+		Height="450"
 		Background="#1C1B1B">
 
     <Design.DataContext>
