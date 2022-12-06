@@ -8,9 +8,9 @@ namespace SteamAccountManager.WebAPI.Controllers;
 [ApiController]
 public class SwitcherController : ControllerBase
 {
-    private readonly SwitchAccountUseCase _switchAccountUseCase;
+    private readonly ISwitchAccountUseCase _switchAccountUseCase;
 
-    public SwitcherController(SwitchAccountUseCase switchAccountUseCase)
+    public SwitcherController(ISwitchAccountUseCase switchAccountUseCase)
     {
         _switchAccountUseCase = switchAccountUseCase;
     }

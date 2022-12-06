@@ -14,7 +14,7 @@ namespace SteamAccountManager.Tests.Steam.Application.UseCase
         private readonly Mock<ISteamRepository> _steamRepositoryMock;
         private readonly Mock<ISteamProcessService> _steamProcessServiceMock;
         private readonly Mock<ILogger> _loggerMock;
-        private readonly SwitchAccountUseCase _sut;
+        private readonly ISwitchAccountUseCase _sut;
 
         public SwitchAccountUseCaseTest()
         {

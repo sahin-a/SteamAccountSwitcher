@@ -21,7 +21,8 @@ namespace SteamAccountManager.AvaloniaUI.DemoMock
                     Username = "SpongeBob",
                     AvatarUrl = "https://thypix.com/wp-content/uploads/2021/11/sponge-bob-profile-picture-thypix-m.jpg",
                     Level = 25,
-                    LastLogin= System.DateTime.Parse("2022-02-21 13:26")
+                    LastLogin= System.DateTime.Parse("2022-02-21 13:26"),
+                    IsVacBanned = true
                 },
                 new Account()
                 {
@@ -39,6 +40,34 @@ namespace SteamAccountManager.AvaloniaUI.DemoMock
                     Username = "NikoLiberty",
                     AvatarUrl = "https://pbs.twimg.com/profile_images/1373612243888218115/INPHOoZK_400x400.jpg",
                     Level = 60,
+                    LastLogin= System.DateTime.Parse("2011-03-21 13:26")
+                },
+                new Account()
+                {
+                    Id = "0",
+                    Name = "spongebob_1999",
+                    Username = "SpongeBob",
+                    AvatarUrl = "https://thypix.com/wp-content/uploads/2021/11/sponge-bob-profile-picture-thypix-m.jpg",
+                    Level = 25,
+                    LastLogin= System.DateTime.Parse("2022-02-21 13:26"),
+                    IsVacBanned = true
+                },
+                new Account()
+                {
+                    Id = "1",
+                    Name = "sam_fisher",
+                    Username = "Mr. Fisher",
+                    AvatarUrl = "https://steamuserimages-a.akamaihd.net/ugc/780749025467440214/E0244A02E538EA1287241F3F5C97DB5DA9748906/",
+                    Level = 999,
+                    LastLogin = System.DateTime.UtcNow
+                },
+                new Account()
+                {
+                    Id = "2",
+                    Name = "niko_bellic1978",
+                    Username = "NikoLiberty",
+                    AvatarUrl = "https://pbs.twimg.com/profile_images/1373612243888218115/INPHOoZK_400x400.jpg",
+                    Level = 432,
                     LastLogin= System.DateTime.Parse("2011-03-21 13:26")
                 }
             };
