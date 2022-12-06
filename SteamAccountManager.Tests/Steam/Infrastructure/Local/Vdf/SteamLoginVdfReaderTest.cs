@@ -1,4 +1,4 @@
-﻿namespace SteamAccountManager.Tests.Steam.Local.Vdf
+﻿namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Vdf
 {
     public class SteamLoginVdfReaderTest
     {

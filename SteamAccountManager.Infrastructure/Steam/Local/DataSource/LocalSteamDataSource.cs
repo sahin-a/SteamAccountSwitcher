@@ -16,7 +16,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.DataSource
             _loginUsersDao = loginUsersDao;
         }
 
-        public async Task<List<LoginUserDto>> GetLoggedInUsers()
+        public async Task<List<LoginUserDto>> GetUsersFromLoginHistory()
         {
             return await _loginUsersDao.GetLoggedUsers();
         }

@@ -3,16 +3,16 @@ using Moq;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
-using SteamAccountManager.Tests.Steam.Local.TestData;
+using SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData;
 using Xunit;
 
-namespace SteamAccountManager.Tests.Steam.Local.Dao
+namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Dao
 {
     public class LoginUsersDaoTest
     {
         private readonly Mock<ISteamLoginVdfReader> _steamVdfReader;
         private readonly Mock<ISteamLoginVdfParser> _steamVdfParser;
-        private readonly LoginUsersDao _sut;
+        private readonly ILoginUsersDao _sut;
 
         public LoginUsersDaoTest()
         {

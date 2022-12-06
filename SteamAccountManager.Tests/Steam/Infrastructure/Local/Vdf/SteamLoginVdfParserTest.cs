@@ -4,7 +4,7 @@ using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
 using Xunit;
 
-namespace SteamAccountManager.Tests.Steam.Local.Vdf
+namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Vdf
 {
     public class SteamLoginVdfParserTest
     {
@@ -12,7 +12,7 @@ namespace SteamAccountManager.Tests.Steam.Local.Vdf
             "\"users\"\r\n{\r\n\t\"646324523432\"\r\n\t{\r\n\t\t\"AccountName\"\t\t\"DieterSteamAccount\"\r\n\t\t\"PersonaName\"\t\t\"dieterApfelNickname\"\r\n\t\t\"RememberPassword\"\t\t\"1\"\r\n\t\t\"MostRecent\"\t\t\"1\"\r\n\t\t\"Timestamp\"\t\t\"1635552555\"\r\n\t}\r\n\t\"45674374567\"\r\n\t{\r\n\t\t\"AccountName\"\t\t\"ApfelsalatPeter\"\r\n\t\t\"PersonaName\"\t\t\"peternussNickname\"\r\n\t\t\"RememberPassword\"\t\t\"0\"\r\n\t\t\"MostRecent\"\t\t\"0\"\r\n\t\t\"Timestamp\"\t\t\"1627750152\"\r\n\t}\r\n}\r\n";
 
         private readonly Mock<ILogger> _logger;
-        private readonly SteamLoginVdfParser _sut;
+        private readonly ISteamLoginVdfParser _sut;
         
         public SteamLoginVdfParserTest()
         {

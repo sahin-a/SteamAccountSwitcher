@@ -72,9 +72,9 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
 
                 return loginUsersDto;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw new InvalidVdfException();
+                throw new InvalidVdfException("Failed to parse vdf string", e);
             }
         }
 

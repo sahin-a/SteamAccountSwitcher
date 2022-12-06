@@ -26,7 +26,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
 
         public async Task<List<SteamLoginUser>> GetAccounts()
         {
-            return await _steamRepository.GetSteamLoginUsers();
+            return await _steamRepository.GetSteamLoginHistoryUsers();
         }
 
         public bool SwitchAccount(SteamLoginUser steamLoginUser)

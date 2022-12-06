@@ -5,7 +5,7 @@ using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using Xunit;
 
-namespace SteamAccountManager.Tests.Steam.Local.DataSource
+namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.DataSource
 {
     public class LocalSteamDataSourceTest
     {
@@ -64,7 +64,7 @@ namespace SteamAccountManager.Tests.Steam.Local.DataSource
             _loginUsersDaoMock.Setup(dao => dao.GetLoggedUsers())
                 .ReturnsAsync(users);
             
-            await _sut.GetLoggedInUsers();
+            await _sut.GetUsersFromLoginHistory();
             
             _loginUsersDaoMock.Verify(dao => dao.GetLoggedUsers(), Times.Once);
         }
@@ -86,7 +86,7 @@ namespace SteamAccountManager.Tests.Steam.Local.DataSource
             _loginUsersDaoMock.Setup(dao => dao.GetLoggedUsers())
                 .ReturnsAsync(users);
             
-            var result = await _sut.GetLoggedInUsers();
+            var result = await _sut.GetUsersFromLoginHistory();
             
             Assert.True(result.Count == 1);
             Assert.Equal(expected: peterUser, actual: result[0]);
