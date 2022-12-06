@@ -6,6 +6,7 @@ using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.Services;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -86,11 +87,20 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
 
         public async void LoadAccounts()
         {
-            var steamAccounts = await _steamService.GetAccounts();
-            var accounts = await Task.WhenAll(steamAccounts.ConvertAll(x => ToAccount(x)));
+            List<SteamAccount> steamAccounts = await _steamService.GetAccounts();
+            Account[] accounts = await Task.WhenAll(steamAccounts.ConvertAll(x => ToAccount(x)));
 
             foreach (var account in accounts)
             {
+                // update entry if already exists
+                var currentAccount = Accounts.Where(x => x.SteamId == account.SteamId).FirstOrDefault();
+                if (currentAccount is Account)
+                {
+                    var index = Accounts.IndexOf(currentAccount);
+                    Accounts[index] = account;
+                    continue;
+                }
+
                 Accounts.Add(account);
             }
         }
