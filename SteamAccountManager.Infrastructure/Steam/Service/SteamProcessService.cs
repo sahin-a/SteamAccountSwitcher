@@ -34,7 +34,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             }
             catch (Exception e)
             {
-                _logger.LogException(GetType().Name, "Failed to kill steam process", e);
+                _logger.LogException("Failed to kill steam process", e);
                 return false;
             }
         }
@@ -47,7 +47,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             }
             catch (Exception e)
             {
-                _logger.LogException(GetType().Name, "Failed to start steam :(", e);
+                _logger.LogException("Failed to start steam :(", e);
             }
         }
     }

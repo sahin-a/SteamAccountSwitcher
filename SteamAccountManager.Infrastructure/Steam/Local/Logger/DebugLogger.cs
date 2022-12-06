@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,24 +11,24 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Logger
 {
     public class DebugLogger : ILogger
     {
-        public void LogDebug(string tag, string message)
+        public void LogDebug(string message, [CallerMemberName] string callerMemberName = "")
         {
-            Debug.WriteLine($"[DEBUG] {tag} {message}");
+            Debug.WriteLine($"[DEBUG] [{callerMemberName}] {message}");
         }
 
-        public void LogException(string tag, string message, Exception exception = null)
+        public void LogException(string message, Exception exception, [CallerMemberName] string callerMemberName = "")
         {
-            Debug.WriteLine($"[EXCEPTION] {tag} {message} {exception}");
+            Debug.WriteLine($"[EXCEPTION] [{callerMemberName}] {message} {exception}");
         }
 
-        public void LogInformation(string tag, string message)
+        public void LogInformation(string message, [CallerMemberName] string callerMemberName = "")
         {
-            Debug.WriteLine($"[INFORMATION] {tag} {message}");
+            Debug.WriteLine($"[INFORMATION] [{callerMemberName}] {message}");
         }
 
-        public void LogWarning(string tag, string message, Exception exception = null)
+        public void LogWarning(string message, Exception exception = null, [CallerMemberName] string callerMemberName = "")
         {
-            Debug.WriteLine($"[WARNING] {tag} {message} {exception}");
+            Debug.WriteLine($"[WARNING] [{callerMemberName}] {message} {exception}");
         }
     }
 }

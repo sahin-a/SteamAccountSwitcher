@@ -47,7 +47,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
             catch (Exception e)
             {
                 var exception = new SteamAutoLoginUserNotFoundException("Steam Auto Login User not found", e);
-                _logger.LogException(GetType().Name, "User not found", exception);
+                _logger.LogException("User not found", exception);
                 
                 throw exception;
             }

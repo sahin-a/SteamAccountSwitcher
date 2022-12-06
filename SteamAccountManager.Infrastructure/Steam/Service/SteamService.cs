@@ -37,7 +37,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             }
             catch (UpdateAutoLoginUserFailedException e)
             {
-                _logger.LogException(GetType().Name, "Failed to update autologin account :(", e);
+                _logger.LogException("Failed to update autologin account :(", e);
                 return false;
             }
 
