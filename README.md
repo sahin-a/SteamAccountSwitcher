@@ -21,7 +21,7 @@ Profile Picture, Level etc. not showing? 🌍
 - After you launch the app for the first time, you should have a 'api_key.json' file in the root directory. 
 - Enter the WebAPI key you get from here https://steamcommunity.com/dev/apikey in 'api_key.json'
 
-Current Features:
+Avalonia Build Features:
 * Switch Accounts 🧠
 * Open Profile when clicking the Avatar
 * Shows Accounts Details (Account Name, Username, VAC/Game Ban Status 😳, Avatar, Level)
@@ -29,9 +29,15 @@ Current Features:
 * Auto. Refresh on change
 * Popup Notifications 🤭
 
-# AvaloniaUI 😉
-![Screenshot](https://user-images.githubusercontent.com/55054756/169713656-890fae80-9381-4bff-a220-a5b133f5dcac.png)
+# [REST API 🥸](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.WebAPI)
+* Currently provides endpoint for fetching and switching accounts
+** is required for the android app to work
 
+# [Android WIP 🥹](https://github.com/sahin-a/SteamAccountSwitcherAndroid)
+* The REST Service has to be running in order for the app to work
+
+# [AvaloniaUI 😉](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.AvaloniaUI)
+![Screenshot](https://user-images.githubusercontent.com/55054756/169713656-890fae80-9381-4bff-a220-a5b133f5dcac.png)
 
 # Todos 🛠️
 [Project](https://github.com/sahin-a/SteamAccountSwitcher/projects/2)
