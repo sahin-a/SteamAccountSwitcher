@@ -63,7 +63,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             {
                 _logger.LogException("Failed to retrieve steam profile data", e);
             }
-             
+
             return new List<Account>();
         }
 

@@ -1,6 +1,4 @@
-﻿using SteamAccountManager.Application.Steam.Model;
-
-namespace SteamAccountManager.Application.Steam.Service
+﻿namespace SteamAccountManager.Application.Steam.Service
 {
     public interface ISteamPlayerService
     {

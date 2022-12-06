@@ -1,4 +1,4 @@
-﻿namespace SteamAccountManager.Domain.Common.Observer
+﻿namespace SteamAccountManager.Domain.Common.Observable
 {
     public class Unsubscriber<T> : IDisposable
     {
