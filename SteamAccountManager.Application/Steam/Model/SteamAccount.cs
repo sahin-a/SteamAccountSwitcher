@@ -5,8 +5,8 @@
         public string SteamId { get; set; } = string.Empty;
         public string AccountName { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
-        public string Avatar { get; set; } = string.Empty;
-        public string Profile { get; set; } = string.Empty;
+        public string AvatarUrl { get; set; } = string.Empty;
+        public string ProfileUrl { get; set; } = string.Empty;
         public bool IsLoginValid { get; set; }
         public bool IsVacBanned { get; set; }
         public bool IsCommunityBanned { get; set; }
@@ -28,8 +28,8 @@
             public Builder SetData(SteamProfile steamProfile)
             {
                 _steamAccount.SteamId = steamProfile.Id;
-                _steamAccount.Profile = steamProfile.Url;
-                _steamAccount.Avatar = steamProfile.Avatar;
+                _steamAccount.ProfileUrl = steamProfile.Url;
+                _steamAccount.AvatarUrl = steamProfile.Avatar;
                 _steamAccount.Username = steamProfile.Username;
                 _steamAccount.IsVacBanned = steamProfile.IsVacBanned;
                 _steamAccount.IsCommunityBanned = steamProfile.IsCommunityBanned;

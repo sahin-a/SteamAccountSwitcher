@@ -108,8 +108,8 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
             Assert.Equal(expected.SteamId, actual.SteamId);
             Assert.Equal(expected.AccountName, actual.AccountName);
             Assert.Equal(expected.Username, actual.Username);
-            Assert.Equal(expected.Avatar, actual.Avatar);
-            Assert.Equal(expected.Profile, actual.Profile);
+            Assert.Equal(expected.AvatarUrl, actual.AvatarUrl);
+            Assert.Equal(expected.ProfileUrl, actual.ProfileUrl);
             Assert.Equal(expected.IsLoginValid, actual.IsLoginValid);
         }
     }

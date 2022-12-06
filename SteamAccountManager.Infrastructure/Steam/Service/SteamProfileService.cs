@@ -44,7 +44,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
                         Avatar = profile.Avatar.AbsoluteUri,
                         Username = profile.PersonaName,
                         Id = profile.SteamId,
-                        IsVacBanned = playerBan.CommunityBanned,
+                        IsVacBanned = playerBan.VacBanned || playerBan.NumberOfGameBans > 0,
                         IsCommunityBanned = playerBan.CommunityBanned
                     };
                 });

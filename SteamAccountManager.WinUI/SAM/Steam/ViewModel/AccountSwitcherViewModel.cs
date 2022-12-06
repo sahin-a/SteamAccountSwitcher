@@ -31,7 +31,7 @@ namespace SteamAccountManager.WinUI.SAM.Steam.ViewModel
             {
                 SteamId = steamAccount.SteamId,
                 Name = steamAccount.AccountName,
-                ProfilePicture = steamAccount.Profile
+                ProfilePicture = steamAccount.ProfileUrl
             });
 
             accounts.ForEach(account => Accounts.Add(account));
