@@ -38,21 +38,14 @@ jobs:
           name: ${{ env.OUTPUT_ARTIFACT_FILENAME }}
           path: ${{ env.OUTPUT_ARTIFACT_FILENAME }}
 
-      - name: Generate Release Tag
-        id: releaseTag
-        run: echo "::set-output name=releaseTag::$(date +'%Y-%m-%d_%H-%M-%S')"
-        env:
-          TAG_NAME: release-${{ steps.releaseTag.outputs.releaseTag }}
-          RELEASE_NAME: release-${{ steps.releaseTag.outputs.releaseTag }}
-
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.TAG_NAME }}
-          release_name: ${{ env.RELEASE_NAME }}
+          tag_name: ${{ github.sha }}
+          release_name: SteamAccountSwitcher
           draft: false
           prerelease: false
 
