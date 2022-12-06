@@ -29,11 +29,11 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             return await _steamRepository.GetSteamLoginUsers();
         }
 
-        public bool SwitchAccount(string accountName)
+        public bool SwitchAccount(SteamLoginUser steamLoginUser)
         {
             try
             {
-                _steamRepository.UpdateAutoLoginUser(accountName);
+                _steamRepository.UpdateAutoLoginUser(steamLoginUser);
             }
             catch (UpdateAutoLoginUserFailedException e)
             {

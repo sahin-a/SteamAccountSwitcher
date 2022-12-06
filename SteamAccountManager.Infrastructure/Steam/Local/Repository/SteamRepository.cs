@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using SteamAccountManager.Domain.Steam.Local.POCO;
 using SteamAccountManager.Domain.Steam.Local.Repository;
@@ -10,7 +11,8 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
     public class SteamRepository : ISteamRepository
     {
         private readonly ILocalSteamDataSource _steamDataSource;
-
+        private List<SteamLoginUser> _steamLoginUsers;
+        
         public SteamRepository(ILocalSteamDataSource steamDataSource)
         {
             _steamDataSource = steamDataSource;
@@ -18,13 +20,22 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
         
         public async Task<List<SteamLoginUser>> GetSteamLoginUsers()
         {
-            return (await _steamDataSource.GetLoggedInUsers())
+            _steamLoginUsers = (await _steamDataSource.GetLoggedInUsers())
                 .ToSteamLoginUsers();
+
+            return _steamLoginUsers;
         }
 
-        public void UpdateAutoLoginUser(string accountName)
+        public void UpdateAutoLoginUser(SteamLoginUser steamLoginUser)
         {
-            _steamDataSource.UpdateAutoLoginUser(accountName);
+            _steamDataSource.UpdateAutoLoginUser(steamLoginUser.AccountName);
+        }
+
+        public SteamLoginUser GetCurrentAutoLoginUser()
+        {
+            string currentUser = _steamDataSource.GetCurrentAutoLoginUser();
+            // TODO: throw exception if user not found
+            return _steamLoginUsers.FirstOrDefault(user => user.AccountName == currentUser);
         }
     }
 }

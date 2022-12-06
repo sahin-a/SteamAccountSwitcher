@@ -7,6 +7,6 @@ namespace SteamAccountManager.Domain.Steam.Service
     public interface ISteamService
     {
         public Task<List<SteamLoginUser>> GetAccounts();
-        public bool SwitchAccount(string accountName);
+        public bool SwitchAccount(SteamLoginUser steamLoginUser);
     }
 }
