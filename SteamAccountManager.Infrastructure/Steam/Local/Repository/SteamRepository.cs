@@ -22,10 +22,9 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
                 .ToSteamLoginUsers();
         }
 
-        public bool UpdateAutoLoginUser(string steamId)
+        public bool UpdateAutoLoginUser(string accountName)
         {
-            // TODO: stopped here
-            return _steamDataSource.UpdateAutoLoginUser(steamId);
+            return _steamDataSource.UpdateAutoLoginUser(accountName);
         }
     }
 }

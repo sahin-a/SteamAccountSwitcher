@@ -4,7 +4,7 @@ using SteamAccountManager.Domain.Steam.Exception;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
 {
-#pragma warning disable 1416
+    // TODO: create MacOs equivalent
     public class SteamWinRegistryConfig : ISteamConfig
     {
         private readonly RegistryKey _steamRegistryKey;

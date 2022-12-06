@@ -9,28 +9,19 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
     {
         private readonly ISteamLoginVdfReader _steamLoginVdfReader;
         private readonly ISteamLoginVdfParser _steamLoginVdfParser;
-        private readonly ISteamLoginVdfWriter _steamLoginVdfWriter;
-
         public LoginUsersDao(
             ISteamLoginVdfReader steamLoginVdfReader, 
-            ISteamLoginVdfParser steamLoginVdfParser,
-            ISteamLoginVdfWriter steamLoginVdfWriter
+            ISteamLoginVdfParser steamLoginVdfParser
         )
         {
             _steamLoginVdfReader = steamLoginVdfReader;
             _steamLoginVdfParser = steamLoginVdfParser;
-            _steamLoginVdfWriter = steamLoginVdfWriter;
         }
 
         public async Task<List<LoginUserDto>> GetLoggedUsers()
         {
             var vdfContent = await _steamLoginVdfReader.GetLoginUsersVdfContent();
             return _steamLoginVdfParser.ParseLoginUsers(vdfContent);
-        }
-
-        public bool SetAutoLoginUser(string steamId)
-        {
-            return false;
         }
     }
 }

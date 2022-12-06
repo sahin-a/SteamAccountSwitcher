@@ -7,6 +7,5 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
     public interface ILoginUsersDao
     {
         public Task<List<LoginUserDto>> GetLoggedUsers();
-        public bool SetAutoLoginUser(string steamId);
     }
 }

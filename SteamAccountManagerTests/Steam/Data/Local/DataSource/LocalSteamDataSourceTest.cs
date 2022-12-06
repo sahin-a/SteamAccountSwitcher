@@ -48,20 +48,6 @@ namespace SteamAccountManager.Tests.Steam.Data.Local.DataSource
         }
 
         [Fact]
-        public void Update_Auto_Login_User_Calls_Set_Auto_Login_User()
-        {
-            const string steamId = "4156434124314";
-            
-            _loginUsersDaoMock.Setup(dao => dao.SetAutoLoginUser(steamId))
-                .Returns(true)
-                .Verifiable();
-
-            _sut.UpdateAutoLoginUser(steamId);
-            
-            _loginUsersDaoMock.Verify(dao => dao.SetAutoLoginUser(steamId), Times.Once);
-        }
-
-        [Fact]
         public async void Get_Logged_In_Users_calls_Get_Logged_In_Users()
         {
             var peterUser = new LoginUserDto()
