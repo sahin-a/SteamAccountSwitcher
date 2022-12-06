@@ -6,7 +6,6 @@ on:
 env:
   DOTNET_VERSION: '6.x'
   OUTPUT_ARTIFACT_FILENAME: 'SteamAccountSwitcher_Win-x86.zip'
-  TAG_NAME: 'AvaloniaUI'
 
 jobs:
   build:
@@ -30,9 +29,6 @@ jobs:
       - name: 👨‍⚕️ Run Unit Tests
         run: dotnet test --no-restore --verbosity normal
 
-      - name: Print dir
-        run: dir
-
       - name: Create Artifacts
         run: 7z a -tzip ${{ env.OUTPUT_ARTIFACT_FILENAME }} output/*
 
@@ -42,6 +38,13 @@ jobs:
           name: ${{ env.OUTPUT_ARTIFACT_FILENAME }}
           path: ${{ env.OUTPUT_ARTIFACT_FILENAME }}
 
+      - name: Generate Release Tag
+        id: releaseTag
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H-%M-%S')"
+        env:
+          TAG_NAME: release-${{ steps.date.outputs.releaseTag }}
+          RELEASE_NAME: release-${{ steps.date.outputs.releaseTag }}
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -49,7 +52,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.TAG_NAME }}
-          release_name: Release ${{ env.TAG_NAME }}
+          release_name: ${{ env.RELEASE_NAME }}
           draft: false
           prerelease: false
 
