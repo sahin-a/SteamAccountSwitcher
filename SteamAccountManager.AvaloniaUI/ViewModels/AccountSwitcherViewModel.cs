@@ -1,4 +1,4 @@
-﻿using SteamAccountManager.Application.Steam.Service;
+﻿using SteamAccountManager.Application.Steam.UseCase;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
@@ -14,8 +14,9 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
     // TODO: looks ridicilous, I should refactor all of this but I don't feel bored enough yet
     internal class AccountSwitcherViewModel
     {
-        private ISteamService _steamService;
-        private AccountMapper _accountMapper;
+        private readonly GetAccountsWithDetailsUseCase _getAccountsUseCase;
+        private readonly SwitchAccountUseCase _switchAccountUseCase;
+        private readonly AccountMapper _accountMapper;
 
         public ObservableCollection<Account> Accounts { get; }
         public ICommand ProfileClickedCommand { get; }
@@ -24,9 +25,10 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public ICommand AddAccountCommand { get; }
 
 
-        public AccountSwitcherViewModel(ISteamService steamService, AccountMapper accountMapper, IAccountStorageObservable accountStorageObserver)
+        public AccountSwitcherViewModel(GetAccountsWithDetailsUseCase getAccountsUseCase, SwitchAccountUseCase switchAccountUseCase, AccountMapper accountMapper, IAccountStorageObservable accountStorageObserver)
         {
-            _steamService = steamService;
+            _getAccountsUseCase = getAccountsUseCase;
+            _switchAccountUseCase = switchAccountUseCase;
             _accountMapper = accountMapper;
 
             Accounts = new ObservableCollection<Account>();
@@ -44,9 +46,9 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             LoadAccounts();
         }
 
-        private void AddAccount()
+        private async void AddAccount()
         {
-            _steamService.SwitchAccount(string.Empty);
+            await _switchAccountUseCase.Execute(string.Empty);
         }
 
         private IOrderedEnumerable<Account> SortAccounts(Account[] accounts) => accounts.OrderByDescending(x => x.Rank.Level)
@@ -72,14 +74,14 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
 
         public async void LoadAccounts()
         {
-            var steamAccounts = await _steamService.GetAccounts();
+            var steamAccounts = await _getAccountsUseCase.Execute();
             var accounts = await Task.WhenAll(steamAccounts.ConvertAll(x => _accountMapper.FromSteamAccount(x)));
             UpdateEntries(SortAccounts(accounts));
         }
 
-        public void OnAccountSelected(Account selectedAccount)
+        public async void OnAccountSelected(Account selectedAccount)
         {
-            _steamService.SwitchAccount(selectedAccount.Name);
+            await _switchAccountUseCase.Execute(selectedAccount.Name);
         }
 
         public void ShowInfo()

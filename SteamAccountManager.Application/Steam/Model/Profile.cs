@@ -8,6 +8,6 @@
         public string Url { get; set; } = string.Empty;
         public bool IsVacBanned { get; set; }
         public bool IsCommunityBanned { get; set; }
-        public int Level { get; set; }
+        public int Level { get; set; } = -1;
     }
 }

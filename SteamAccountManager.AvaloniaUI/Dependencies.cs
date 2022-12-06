@@ -8,7 +8,7 @@ namespace SteamAccountManager.AvaloniaUI
 {
     internal static class Dependencies
     {
-        public static IContainer Container { get; set; }
+        public static IContainer? Container { get; set; }
 
         public static void RegisterDependencies()
         {
