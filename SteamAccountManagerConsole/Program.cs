@@ -2,6 +2,7 @@
 using System;
 using Autofac;
 using DI;
+using SteamAccountManager.Domain.Steam.Local.POCO;
 using SteamAccountManager.Domain.Steam.Service;
 
 class Program
@@ -25,33 +26,35 @@ class Program
 public class MainMenu
 {
     private readonly ISteamService _steamService;
-    
+    private List<SteamLoginUser> SteamAccounts { get; set; } = new List<SteamLoginUser>();
+
     public MainMenu()
     {
-        try
-        {
-            _steamService = Program.Container.Resolve<ISteamService>();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        _steamService = Program.Container.Resolve<ISteamService>();
+        SteamAccounts = _steamService.GetAccounts().Result;
 
-        Console.WriteLine("Wait2ing..");
         ShowAccountSelection();
     }
-    
-    private async void ShowAccountSelection()
+
+    private void ShowAccountSelection()
     {
-        var accounts = await _steamService.GetAccounts();
-        
-        foreach (var account in accounts)
+        Console.Clear();
+
+        for (int i = 0; i < SteamAccounts.Count; i++)
         {
-            Console.WriteLine($"[Valid: {account.IsLoginTokenValid}] {account.AccountName}");
+            var account = SteamAccounts[i];
+            Console.WriteLine($"{i}. [Valid: {account.IsLoginTokenValid}] {account.AccountName}");
         }
 
-        Console.WriteLine("Waiting..");
-        Console.ReadLine();
+        Console.WriteLine("Enter Number to log in account, Habibi!!");
+
+        string? accountSelection = Console.ReadLine();
+        
+        if (Int32.TryParse(accountSelection, out int accountIndex))
+        {
+            _steamService.LogInAccount(SteamAccounts[accountIndex].AccountName);
+        }
+        
+        ShowAccountSelection();
     }
 }

@@ -16,7 +16,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
                 _steamRegistryKey = Registry.CurrentUser
                     .OpenSubKey("Software")?
                     .OpenSubKey("Valve")?
-                    .OpenSubKey("Steam");
+                    .OpenSubKey("Steam", true);
             }
             catch (Exception)
             {
@@ -27,7 +27,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
         private string GetValue(string key)
         {
             var value = _steamRegistryKey?.GetValue(key);
-            return value == null ? string.Empty : (string) value;
+            return value == null ? string.Empty : (string)value;
         }
 
         public string GetSteamExecutablePath()
@@ -40,21 +40,10 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
             return GetValue("SteamPath");
         }
 
-        public bool SetAutoLoginUser(string accountName)
+        public void SetAutoLoginUser(string accountName)
         {
-            if (_steamRegistryKey == null)
-                return false;
-
-            try
-            {
-                _steamRegistryKey.SetValue("AutoLoginUser", accountName);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-            return true;
+            // TODO: catch and throw custom exception
+            _steamRegistryKey.SetValue("AutoLoginUser", accountName);
         }
     }
 }

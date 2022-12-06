@@ -9,6 +9,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
     {
         private readonly ISteamLoginVdfReader _steamLoginVdfReader;
         private readonly ISteamLoginVdfParser _steamLoginVdfParser;
+
         public LoginUsersDao(
             ISteamLoginVdfReader steamLoginVdfReader, 
             ISteamLoginVdfParser steamLoginVdfParser
