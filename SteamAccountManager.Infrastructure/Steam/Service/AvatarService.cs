@@ -51,7 +51,7 @@ public class AvatarService : IAvatarService
         }
 
         if (string.IsNullOrEmpty(avatarId))
-            avatarId = _userAvatarMapStorage.Get(steamId);
+            avatarId = _userAvatarMapStorage.Get(steamId, string.Empty);
 
         var cachedAvatar = _avatarStorage.GetUri(avatarId);
         AvatarResponse response;
