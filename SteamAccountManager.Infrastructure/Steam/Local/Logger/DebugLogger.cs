@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Logger
 {
-    public class Logger : ILogger
+    public class DebugLogger : ILogger
     {
         public void LogDebug(string tag, string message)
         {
-#if DEBUG
             Debug.WriteLine($"[DEBUG] {tag} {message}");
-#endif
         }
 
         public void LogException(string tag, string message, Exception exception = null)

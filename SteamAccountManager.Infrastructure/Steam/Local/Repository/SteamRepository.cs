@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SteamAccountManager.Domain.Steam.Exception;
+using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Domain.Steam.Local.POCO;
 using SteamAccountManager.Domain.Steam.Local.Repository;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
@@ -11,19 +14,18 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
     public class SteamRepository : ISteamRepository
     {
         private readonly ILocalSteamDataSource _steamDataSource;
-        private List<SteamLoginUser> _steamLoginUsers;
-        
-        public SteamRepository(ILocalSteamDataSource steamDataSource)
+        private readonly ILogger _logger;
+
+        public SteamRepository(ILocalSteamDataSource steamDataSource, ILogger logger)
         {
             _steamDataSource = steamDataSource;
+            _logger = logger;
         }
-        
+
         public async Task<List<SteamLoginUser>> GetSteamLoginUsers()
         {
-            _steamLoginUsers = (await _steamDataSource.GetLoggedInUsers())
+            return (await _steamDataSource.GetLoggedInUsers())
                 .ToSteamLoginUsers();
-
-            return _steamLoginUsers;
         }
 
         public void UpdateAutoLoginUser(SteamLoginUser steamLoginUser)
@@ -31,12 +33,24 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
             _steamDataSource.UpdateAutoLoginUser(steamLoginUser.AccountName);
         }
 
-        public SteamLoginUser GetCurrentAutoLoginUser()
+        public async Task<SteamLoginUser> GetCurrentAutoLoginUser()
         {
-            // TODO: fix this; if GetSteamLoginUsers never gets called, the list will be uninitialized so there will be no finding
-            string currentUser = _steamDataSource.GetCurrentAutoLoginUser();
-            // TODO: throw exception if user not found
-            return _steamLoginUsers.FirstOrDefault(user => user.AccountName == currentUser);
+            var currentAutoLoginAccountName = _steamDataSource.GetCurrentAutoLoginUser();
+            try
+            {
+                var currentSteamLoginUser = (await _steamDataSource.GetLoggedInUsers())
+                    .First(dto => dto.AccountName == currentAutoLoginAccountName)
+                    .ToSteamLoginUser();
+
+                return currentSteamLoginUser;
+            }
+            catch (Exception e)
+            {
+                var exception = new SteamAutoLoginUserNotFoundException("Steam Auto Login User not found", e);
+                _logger.LogException(GetType().Name, "User not found", exception);
+                
+                throw exception;
+            }
         }
     }
 }

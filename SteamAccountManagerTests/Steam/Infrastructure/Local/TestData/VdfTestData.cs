@@ -1,11 +1,6 @@
 ﻿using SteamAccountManager.Infrastructure.Steam.Local.Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SteamAccountManager.Tests.Steam.Data.Local.TestData
+namespace SteamAccountManager.Tests.Steam.Local.TestData
 {
     public static class VdfTestData
     {

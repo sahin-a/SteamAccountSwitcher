@@ -4,7 +4,7 @@ using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
 using Xunit;
 
-namespace SteamAccountManager.Tests.Steam.Data.Local.Vdf
+namespace SteamAccountManager.Tests.Steam.Local.Vdf
 {
     public class SteamLoginVdfParserTest
     {

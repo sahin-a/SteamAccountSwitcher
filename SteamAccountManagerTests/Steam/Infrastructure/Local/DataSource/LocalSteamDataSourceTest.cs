@@ -5,7 +5,7 @@ using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using Xunit;
 
-namespace SteamAccountManager.Tests.Steam.Data.Local.DataSource
+namespace SteamAccountManager.Tests.Steam.Local.DataSource
 {
     public class LocalSteamDataSourceTest
     {

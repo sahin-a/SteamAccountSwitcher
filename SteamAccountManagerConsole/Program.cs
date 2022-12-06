@@ -1,19 +1,20 @@
 ﻿using Autofac;
 using DI;
+using SteamAccountManagerConsole.Menu;
 
 class Program
 {
-    public static IContainer Container { get; set; }
+    public static IContainer Container { get; private set; }
 
     public static void Main()
     {
         RegisterDependencies();
-        new MainMenu();
+        new MainMenu().Show();
     }
 
     private static void RegisterDependencies()
     {
-        Autofac.ContainerBuilder builder = new();
+        ContainerBuilder builder = new();
         builder.RegisterModules();
         Container = builder.Build();
     }

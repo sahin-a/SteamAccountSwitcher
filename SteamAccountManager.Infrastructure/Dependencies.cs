@@ -15,7 +15,7 @@ namespace SteamAccountManager.Infrastructure
     {
         public static void RegisterInfrastructureModule(this ContainerBuilder builder)
         {
-            builder.RegisterType<Logger>().As<ILogger>().SingleInstance();
+            builder.RegisterType<DebugLogger>().As<ILogger>().SingleInstance();
             builder.RegisterType<SteamWinRegistryConfig>().As<ISteamConfig>().SingleInstance();
             builder.RegisterType<SteamLoginVdfParser>().As<ISteamLoginVdfParser>().SingleInstance();
             builder.RegisterType<SteamLoginVdfReader>().As<ISteamLoginVdfReader>().SingleInstance();
