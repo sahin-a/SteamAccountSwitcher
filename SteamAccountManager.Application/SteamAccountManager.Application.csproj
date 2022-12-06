@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Steam\Local" />
+      <Folder Include="Steam\Remote" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SteamAccountManager.Domain\SteamAccountManager.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
