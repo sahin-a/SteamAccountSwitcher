@@ -1,9 +1,11 @@
-﻿using SteamAccountManager.Application.Steam.UseCase;
+﻿using SteamAccountManager.Application.Steam.Service;
+using SteamAccountManager.Application.Steam.UseCase;
 using SteamAccountManager.AvaloniaUI.Common;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
 using SteamAccountManager.Domain.Steam.Observables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,22 +16,32 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
     // TODO: looks ridicilous, I should refactor all of this but I don't feel bored enough yet
     internal class AccountSwitcherViewModel
     {
-        private readonly GetAccountsWithDetailsUseCase _getAccountsUseCase;
+        private readonly IGetAccountsWithDetailsUseCase _getAccountsUseCase;
         private readonly SwitchAccountUseCase _switchAccountUseCase;
         private readonly AccountMapper _accountMapper;
+        private readonly ILocalNotificationService _notificationService;
 
         public AdvancedObservableCollection<Account> Accounts { get; private set; }
         public ICommand ProfileClickedCommand { get; }
         public ICommand RefreshAccountsCommand { get; }
         public ICommand ShowInfoCommand { get; }
         public ICommand AddAccountCommand { get; }
+        public Account? SelectedAccount { get; set; }
 
 
-        public AccountSwitcherViewModel(GetAccountsWithDetailsUseCase getAccountsUseCase, SwitchAccountUseCase switchAccountUseCase, AccountMapper accountMapper, IAccountStorageObservable accountStorageObserver)
+        public AccountSwitcherViewModel
+        (
+            IGetAccountsWithDetailsUseCase getAccountsUseCase,
+            SwitchAccountUseCase switchAccountUseCase,
+            AccountMapper accountMapper,
+            IAccountStorageObservable accountStorageObserver,
+            ILocalNotificationService notificationService
+        )
         {
             _getAccountsUseCase = getAccountsUseCase;
             _switchAccountUseCase = switchAccountUseCase;
             _accountMapper = accountMapper;
+            _notificationService = notificationService;
 
             Accounts = new AdvancedObservableCollection<Account>();
             ProfileClickedCommand = new ProfileClickedCommand();
@@ -70,6 +82,16 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public async void OnAccountSelected(Account selectedAccount)
         {
             await _switchAccountUseCase.Execute(selectedAccount.Name);
+            SelectedAccount = selectedAccount;
+            _notificationService.Send
+            (
+                new Notification
+                (
+                    selectedAccount.Name,
+                    selectedAccount.Username,
+                    selectedAccount.ProfilePictureUrl
+                )
+            );
         }
 
         public void ShowInfo()

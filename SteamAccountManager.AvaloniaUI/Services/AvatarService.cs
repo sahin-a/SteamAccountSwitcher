@@ -10,29 +10,35 @@ namespace SteamAccountManager.AvaloniaUI.Services
 {
     internal class AvatarService
     {
-        private IImageService _imageService;
         private IAssetLoader _assetLoader;
+        private readonly IAvatarService _avatarService;
 
-        public AvatarService(IImageService imageService)
+        private readonly Uri FALLBACK_AVATAR_URI =
+            new Uri("avares://SteamAccountManager.AvaloniaUI/Assets/avatar_placeholder.jpg", UriKind.Absolute);
+
+        public AvatarService(IAvatarService avatarService)
         {
-            _imageService = imageService;
+            _avatarService = avatarService;
             _assetLoader = AvaloniaLocator.Current.GetService<IAssetLoader>()
-                ?? throw new Exception("Failed to resolve AssetLoader");
+                           ?? throw new Exception("Failed to resolve AssetLoader");
         }
 
-        public async Task<Bitmap> GetAvatarAsync(string url)
+        private Bitmap CreateBitmap(byte[] imagePayload)
         {
-            var imageBytes = await _imageService.GetImageAsync(url);
+            Stream stream = new MemoryStream(imagePayload);
+            return new Bitmap(stream);
+        }
 
-            if (string.IsNullOrEmpty(url) || imageBytes.Length == 0)
-            {
-                return new Bitmap(_assetLoader.Open(new Uri("avares://SteamAccountManager.AvaloniaUI/Assets/avatar_placeholder.jpg", UriKind.Absolute)));
-            }
+        private Bitmap GetFallbackAvatar() => new(_assetLoader.Open(FALLBACK_AVATAR_URI));
 
-            Stream stream = new MemoryStream(imageBytes);
-            var image = new Bitmap(stream);
+        public async Task<Tuple<Uri, IBitmap>> GetAvatarAsync(string steamId, string url)
+        {
+            var image = await _avatarService.GetAvatarAsync(steamId, url);
 
-            return image;
+            if (image is null)
+                return new Tuple<Uri, IBitmap>(FALLBACK_AVATAR_URI, GetFallbackAvatar());
+
+            return new Tuple<Uri, IBitmap>(image.Path, CreateBitmap(image.Payload));
         }
     }
 }

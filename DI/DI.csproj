@@ -1,7 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
+	<!-- Note: Dotnet currently does not allow to build on non-windows platforms when a windows TFM is specified; Source: https://github.com/pr8x/DesktopNotifications -->
+	<PropertyGroup Condition=" '$(OS)' != 'Windows_NT' ">
+		<TargetFrameworks>net6.0</TargetFrameworks>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+		<TargetFrameworks>net6.0-windows10.0.17763.0</TargetFrameworks>
+	</PropertyGroup>
 
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+	<PropertyGroup>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
@@ -9,10 +15,11 @@
     <ItemGroup>
       <ProjectReference Include="..\SteamAccountManager.Domain\SteamAccountManager.Domain.csproj" />
       <ProjectReference Include="..\SteamAccountManager.Infrastructure\SteamAccountManager.Infrastructure.csproj" />
+      <ProjectReference Include="..\SteamAccountManager.Windows\SteamAccountManager.Windows.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Autofac" Version="6.3.0" />
+      <PackageReference Include="Autofac" Version="6.4.0" />
     </ItemGroup>
 
 </Project>

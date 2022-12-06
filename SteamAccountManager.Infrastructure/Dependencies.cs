@@ -14,6 +14,7 @@ using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 using SteamAccountManager.Infrastructure.Steam.Service;
 using System.Runtime.InteropServices;
+using SteamAccountManager.Infrastructure.Common;
 
 namespace SteamAccountManager.Infrastructure
 {
@@ -36,7 +37,7 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<LocalSteamDataSource>().As<ILocalSteamDataSource>().SingleInstance();
             builder.RegisterType<SteamRepository>().As<ISteamRepository>().SingleInstance();
             builder.RegisterType<SwitchAccountUseCase>().SingleInstance();
-            builder.RegisterType<GetAccountsWithDetailsUseCase>().SingleInstance();
+            builder.RegisterType<GetAccountsWithDetailsUseCase>().As<IGetAccountsWithDetailsUseCase>().SingleInstance();
             builder.RegisterType<SteamProcessService>().As<ISteamProcessService>().SingleInstance();
             builder.RegisterType<SteamWebClient>().As<ISteamWebClient>().SingleInstance();
             builder.RegisterType<SteamUserProvider>().As<ISteamUserProvider>().SingleInstance();
@@ -47,6 +48,9 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<SteamPlayerService>().As<ISteamPlayerService>().SingleInstance();
             builder.RegisterType<SteamApiKeyStorage>().SingleInstance();
             builder.RegisterType<LoginVdfFileWatcher>().As<IAccountStorageObservable>().SingleInstance();
+            builder.RegisterType<AvatarStorage>().SingleInstance();
+            builder.RegisterType<UserAvatarStorage>().SingleInstance();
+            builder.RegisterType<AvatarService>().As<IAvatarService>().SingleInstance();
         }
     }
 }
