@@ -1,36 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using System.IO;
 using System.Threading.Tasks;
-using SteamAccountManager.Infrastructure.Steam.Local.Dao;
-using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
 {
     public class SteamLoginVdfReader : ISteamLoginVdfReader
     {
         private readonly string _vdfPath;
-        private readonly ISteamLoginVdfParser _steamLoginVdfParser;
+        private readonly StreamReader _streamReader;
 
-        public SteamLoginVdfReader(ISteamConfig steamConfig, ISteamLoginVdfParser steamLoginVdfParser)
+        public SteamLoginVdfReader(ISteamConfig steamConfig)
         {
-            _steamLoginVdfParser = steamLoginVdfParser;
             _vdfPath = Path.Combine(
                 steamConfig.GetSteamPath(), 
                 "Steam", 
                 "Config", 
                 "loginusers.vdf"
                 );
+
+            _streamReader = new StreamReader(_vdfPath);
         }
 
-        private async Task<string> GetLoginUsersVdfContent()
+        public async Task<string> GetLoginUsersVdfContent()
         {
-            using var sr = new StreamReader(_vdfPath);
-            return await sr.ReadToEndAsync();
-        }
-
-        public async Task<List<LoginUserDto>> GetParsedLoginUsersVdf()
-        {
-            return _steamLoginVdfParser.ParseLoginUsers(await GetLoginUsersVdfContent());
+            return await _streamReader.ReadToEndAsync();
         }
     }
 }

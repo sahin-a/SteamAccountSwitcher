@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Gameloop.Vdf;
 using Gameloop.Vdf.Linq;
+using SteamAccountManager.Domain.Steam.Exception.Vdf;
+using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
 {
     public class SteamLoginVdfParser : ISteamLoginVdfParser
     {
-        private static class AccountKeys
+        public const string TAG = "SteamLoginVdfParser";
+
+        private readonly ILogger _logger;
+
+        public SteamLoginVdfParser(ILogger logger)
         {
-            public const string AccountName = "AccountName";
-            public const string PersonaName = "PersonaName";
-            public const string RememberPassword = "RememberPassword";
-            public const string MostRecent = "MostRecent";
-            public const string Timestamp = "Timestamp";
+            _logger = logger;
         }
         
         private void SetDtoProperty(LoginUserDto dto, VProperty vProperty)
@@ -41,34 +43,49 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
                     break;
             }
         }
-        
+
         public List<LoginUserDto> ParseLoginUsers(string vdfContent)
         {
             List<LoginUserDto> loginUsersDto = new();
-            
-            var vRootProperty = VdfConvert.Deserialize(vdfContent);
-            
-            foreach (var vProperty in vRootProperty.Value.Children<VProperty>())
+            try
             {
-                var steamId = vProperty.Key;
-                
-                LoginUserDto dto = new LoginUserDto()
-                {
-                    SteamId = steamId
-                };
+                var vRootProperty = VdfConvert.Deserialize(vdfContent);
 
-                Debug.WriteLine($"SteamId: {steamId}");
-
-                foreach (var vChildProperty in vProperty.Value.Children<VProperty>())
+                foreach (var vProperty in vRootProperty.Value.Children<VProperty>())
                 {
-                    SetDtoProperty(dto, vChildProperty);
-                    Debug.WriteLine($"{vChildProperty.Key}: {vChildProperty.Value}");
+                    var steamId = vProperty.Key;
+
+                    LoginUserDto dto = new LoginUserDto()
+                    {
+                        SteamId = steamId
+                    };
+
+                    _logger.LogInformation(TAG, $"SteamId: {steamId}");
+
+                    foreach (var vChildProperty in vProperty.Value.Children<VProperty>())
+                    {
+                        SetDtoProperty(dto, vChildProperty);
+                        Debug.WriteLine($"{vChildProperty.Key}: {vChildProperty.Value}");
+                    }
+
+                    loginUsersDto.Add(dto);
                 }
-                
-                loginUsersDto.Add(dto);
-            }
 
-            return loginUsersDto;
+                return loginUsersDto;
+            }
+            catch (Exception)
+            {
+                throw new InvalidVdfException();
+            }
+        }
+
+        private static class AccountKeys
+        {
+            public const string AccountName = "AccountName";
+            public const string PersonaName = "PersonaName";
+            public const string RememberPassword = "RememberPassword";
+            public const string MostRecent = "MostRecent";
+            public const string Timestamp = "Timestamp";
         }
     }
 }

@@ -5,12 +5,12 @@ using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.DataSource
 {
-    public class SteamDataSource : ISteamDataSource
+    public class LocalSteamDataSource : ILocalSteamDataSource
     {
         private readonly ISteamConfig _steamConfig;
         private readonly ILoginUsersDao _loginUsersDao;
 
-        public SteamDataSource(ISteamConfig steamConfig, ILoginUsersDao loginUsersDao)
+        public LocalSteamDataSource(ISteamConfig steamConfig, ILoginUsersDao loginUsersDao)
         {
             _steamConfig = steamConfig;
             _loginUsersDao = loginUsersDao;

@@ -1,4 +1,5 @@
-﻿using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
+﻿using SteamAccountManager.Domain.Steam.Exception.Vdf;
+using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
 using Xunit;
 
 namespace SteamAccountManagerTests.Steam.Data.Local.Vdf
@@ -38,6 +39,12 @@ namespace SteamAccountManagerTests.Steam.Data.Local.Vdf
             Assert.Equal("1627750152", secondAccount.Timestamp);
             Assert.False(secondAccount.MostRecent);
             Assert.False(secondAccount.PasswordRemembered);
+        }
+
+        [Fact]
+        public void Throws_Exception_If_Invalid_Vdf()
+        {
+            Assert.Throws<InvalidVdfException>(() => _sut.ParseLoginUsers("apfelsalat"));
         }
     }
 }
