@@ -1,20 +1,24 @@
-﻿namespace SteamAccountManager.Domain.Steam.Local.POCO
+﻿using System;
+
+namespace SteamAccountManager.Domain.Steam.Local.POCO
 {
     public class SteamLoginUser
     {
         public string SteamId { get; private set; }
         public string AccountName { get; private set; }
         public bool IsLoginTokenValid { get; private set; }
-        
-        private SteamLoginUser()
+
+        private SteamLoginUser(string steamId, string accountName, bool isLoginTokenValid)
         {
-            
+            SteamId = steamId;
+            AccountName = accountName;
+            IsLoginTokenValid = isLoginTokenValid;
         }
 
         public class Builder
         {
-            private string _steamId;
-            private string _accountName;
+            private string _steamId = string.Empty;
+            private string _accountName = string.Empty;
             private bool _isLoginTokenValid;
 
             public Builder SetSteamId(string steamId)
@@ -37,12 +41,11 @@
 
             public SteamLoginUser Build()
             {
-                return new SteamLoginUser()
-                {
-                    AccountName = _accountName,
-                    SteamId = _steamId,
-                    IsLoginTokenValid = _isLoginTokenValid
-                };
+                return new SteamLoginUser(
+                    steamId: _steamId, 
+                    accountName: _accountName, 
+                    isLoginTokenValid: _isLoginTokenValid
+                    );
             }
         }
     }
