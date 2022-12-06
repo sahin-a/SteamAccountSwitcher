@@ -2,7 +2,6 @@
 [![GitHub forks](https://img.shields.io/github/forks/sahin-a/SteamAccountManager)](https://github.com/sahin-a/SteamAccountManager/network)
 [![GitHub stars](https://img.shields.io/github/stars/sahin-a/SteamAccountManager)](https://github.com/sahin-a/SteamAccountManager/stargazers)
 ![GitHub contributors](https://img.shields.io/github/contributors/sahin-a/SteamAccountManager)
-![GitHub all releases](https://img.shields.io/github/downloads/sahin-a/SteamAccountManager/total)
 ![Lines of code](https://img.shields.io/tokei/lines/github.com/sahin-a/SteamAccountManager)
 ![GitHub repo size](https://img.shields.io/github/repo-size/sahin-a/SteamAccountManager)
 
