@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SteamAccountManager.Domain.Steam.Local.POCO;
+using SteamAccountManager.Application.Steam.Model;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Mapping

@@ -1,6 +1,6 @@
 using System;
 using Autofac;
-using SteamAccountManager.Domain.Steam.Service;
+using SteamAccountManager.Application.Steam.Service;
 
 namespace SteamAccountManager.Console.Menu
 {

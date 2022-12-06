@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using SteamAccountManager.Domain.Steam.Local.Logger;
-using SteamAccountManager.Domain.Steam.Local.Repository;
-using SteamAccountManager.Domain.Steam.Service;
+using SteamAccountManager.Application.Steam.Local.Logger;
+using SteamAccountManager.Application.Steam.Local.Repository;
+using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Logger;

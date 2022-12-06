@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SteamAccountManager.Domain.Steam.Local.POCO
+﻿namespace SteamAccountManager.Application.Steam.Model
 {
     public class SteamLoginUser
     {
