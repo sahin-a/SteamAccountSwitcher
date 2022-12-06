@@ -19,4 +19,4 @@ TODOs:
 * make the AvaloniaUI Build prettier
 
 # Supported Plattforms
-* Currently only Windows
+* Windows
