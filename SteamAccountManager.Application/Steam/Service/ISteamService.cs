@@ -1,10 +1,11 @@
 ﻿using SteamAccountManager.Application.Steam.Model;
+using SteamAccountManager.Domain.Steam.Model;
 
 namespace SteamAccountManager.Application.Steam.Service
 {
     public interface ISteamService
     {
-        public Task<List<SteamAccount>> GetAccounts();
+        public Task<List<Account>> GetAccounts();
         public bool SwitchAccount(string accountName);
     }
 }

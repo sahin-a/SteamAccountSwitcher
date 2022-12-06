@@ -28,7 +28,7 @@ namespace SteamAccountManager.Console.Menu
             {
                 var account = steamAccounts[i];
                 var accountDetails = new StringBuilder()
-                    .Append($"{account.AccountName} |")
+                    .Append($"{account.Name} |")
                     .Append($"| {account.Username} ")
                     .Append($"[Valid: {account.IsLoginValid}] ")
                     .Append($"[VAC: { account.IsVacBanned}] ")
@@ -45,9 +45,9 @@ namespace SteamAccountManager.Console.Menu
             if (int.TryParse(accountSelection, out int accountIndex))
             {
                 var selectedAccount = steamAccounts[accountIndex];
-                System.Console.WriteLine($"Selected Account: {selectedAccount.AccountName}");
+                System.Console.WriteLine($"Selected Account: {selectedAccount.Name}");
 
-                _steamService.SwitchAccount(selectedAccount.AccountName);
+                _steamService.SwitchAccount(selectedAccount.Name);
             }
 
             OnAccountSelected();

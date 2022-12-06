@@ -4,43 +4,43 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData
 {
     public class SteamUserTestData
     {
-        private static SteamLoginUser createSteamLoginUser(
+        private static LoginUser createSteamLoginUser(
             string steamId,
             string accountName,
             bool isLoginTokenValid
-        ) => new SteamLoginUser.Builder()
+        ) => new LoginUser.Builder()
             .SetSteamId(steamId)
             .SetAccountName(accountName)
             .SetIsLoginTokenValid(isLoginTokenValid)
             .Build();
 
-        public static SteamProfile GetSamFisherProfile() => new SteamProfile
+        public static Profile GetSamFisherProfile() => new Profile
         {
             Id = "415341232123",
-            Avatar = "samfisher.jpg",
+            AvatarUrl = "samfisher.jpg",
             Username = "Sam Fisher oof",
             Url = "https://steamcommunity.com/id/samfisher",
             IsVacBanned = false,
             IsCommunityBanned = false
         };
 
-        public static SteamLoginUser GetSamFisherLoginUser() => createSteamLoginUser(
+        public static LoginUser GetSamFisherLoginUser() => createSteamLoginUser(
             steamId: "415341232123",
             accountName: "SamFisher",
             isLoginTokenValid: true
         );
 
-        public static SteamProfile GetRainerProfile() => new SteamProfile
+        public static Profile GetRainerProfile() => new Profile
         {
             Id = "4509234026243",
-            Avatar = "rainer.jpg",
+            AvatarUrl = "rainer.jpg",
             Username = "Rainer Winkler",
             Url = "https://steamcommunity.com/id/rainerwinkler",
             IsVacBanned = true,
             IsCommunityBanned = true
         };
 
-        public static SteamLoginUser GetRainerLoginUser() => createSteamLoginUser(
+        public static LoginUser GetRainerLoginUser() => createSteamLoginUser(
             steamId: "4509234026243",
             accountName: "RainerW",
             isLoginTokenValid: false

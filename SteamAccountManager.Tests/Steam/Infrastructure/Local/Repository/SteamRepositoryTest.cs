@@ -67,7 +67,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
         public void UpdateAutoLoginUser_passes_correct_accountName()
         {
             string accountName = "Peter";
-            var steamLoginUser = new SteamLoginUser.Builder()
+            var steamLoginUser = new LoginUser.Builder()
                 .SetSteamId("343242")
                 .SetAccountName("Peter")
                 .SetIsLoginTokenValid(true)
@@ -111,7 +111,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
             _localSteamDataSourceMock.Setup(ds => ds.GetCurrentAutoLoginUser())
                 .Returns(VdfTestData.loginUserDto1.AccountName);
 
-            var expectedSteamLoginUser = new SteamLoginUser.Builder()
+            var expectedSteamLoginUser = new LoginUser.Builder()
                 .SetAccountName(VdfTestData.loginUserDto1.AccountName)
                 .SetSteamId(VdfTestData.loginUserDto1.SteamId)
                 .SetIsLoginTokenValid(VdfTestData.loginUserDto1.PasswordRemembered)
@@ -138,7 +138,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
             _localSteamDataSourceMock.Setup(ds => ds.GetCurrentAutoLoginUser())
                 .Returns("fsdf");
 
-            var steamLoginUser = new SteamLoginUser.Builder()
+            var steamLoginUser = new LoginUser.Builder()
                 .SetAccountName("Peter Lol")
                 .SetSteamId("42342352634")
                 .SetIsLoginTokenValid(false)

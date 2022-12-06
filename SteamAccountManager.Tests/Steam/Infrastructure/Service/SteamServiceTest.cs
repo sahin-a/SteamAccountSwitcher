@@ -4,6 +4,7 @@ using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Model;
 using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.Domain.Steam.Exception;
+using SteamAccountManager.Domain.Steam.Model;
 using SteamAccountManager.Infrastructure.Steam.Service;
 using SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData;
 using System.Collections.Generic;
@@ -66,7 +67,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
 
             _steamRepositoryMock.Setup(repo => repo.GetSteamLoginHistoryUsers())
                 .ReturnsAsync(
-                    new List<SteamLoginUser>
+                    new List<LoginUser>
                     {
                         samFisherLoginUser,
                         rainerLoginUser
@@ -79,7 +80,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
                         rainerLoginUser.SteamId
                     )
                 ).ReturnsAsync(
-                    new List<SteamProfile>
+                    new List<Profile>
                     {
                         samFisherProfile,
                         rainerProfile
@@ -89,24 +90,42 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
 
             var result = await _sut.GetAccounts();
 
-            var samFisherAccount = new SteamAccount.Builder()
-                .SetData(samFisherProfile)
-                .SetData(samFisherLoginUser)
-                .Build();
+            var samFisherAccount = new Account
+            {
+                Id = samFisherLoginUser.SteamId,
+                Name = samFisherLoginUser.AccountName,
+                Username = samFisherProfile.Username,
+                AvatarUrl = samFisherProfile.AvatarUrl,
+                ProfileUrl = samFisherProfile.Url,
+                IsCommunityBanned = samFisherProfile.IsCommunityBanned,
+                IsVacBanned = samFisherProfile.IsVacBanned,
+                IsLoginValid = samFisherLoginUser.IsLoginTokenValid,
+                LastLogin = samFisherLoginUser.LastLogin,
+                Level = samFisherProfile.Level
+            };
 
-            var rainerAccount = new SteamAccount.Builder()
-                .SetData(rainerProfile)
-                .SetData(rainerLoginUser)
-                .Build();
+            var rainerAccount = new Account
+            {
+                Id = rainerLoginUser.SteamId,
+                Name = rainerLoginUser.AccountName,
+                Username = rainerProfile.Username,
+                AvatarUrl = rainerProfile.AvatarUrl,
+                ProfileUrl = rainerProfile.Url,
+                IsCommunityBanned = rainerProfile.IsCommunityBanned,
+                IsVacBanned = rainerProfile.IsVacBanned,
+                IsLoginValid = rainerLoginUser.IsLoginTokenValid,
+                LastLogin = rainerLoginUser.LastLogin,
+                Level = rainerProfile.Level
+            };
 
             AssertSteamAccount(expected: samFisherAccount, actual: result[0]);
             AssertSteamAccount(expected: rainerAccount, actual: result[1]);
         }
 
-        private void AssertSteamAccount(SteamAccount expected, SteamAccount actual)
+        private void AssertSteamAccount(Account expected, Account actual)
         {
-            Assert.Equal(expected.SteamId, actual.SteamId);
-            Assert.Equal(expected.AccountName, actual.AccountName);
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.Name, actual.Name);
             Assert.Equal(expected.Username, actual.Username);
             Assert.Equal(expected.AvatarUrl, actual.AvatarUrl);
             Assert.Equal(expected.ProfileUrl, actual.ProfileUrl);

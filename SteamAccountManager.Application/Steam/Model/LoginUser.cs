@@ -1,19 +1,19 @@
 ﻿namespace SteamAccountManager.Application.Steam.Model
 {
-    public class SteamLoginUser
+    public class LoginUser
     {
         public string SteamId { get; private set; } = string.Empty;
         public string AccountName { get; private set; } = string.Empty;
         public bool IsLoginTokenValid { get; private set; }
         public DateTime LastLogin { get; set; }
 
-        private SteamLoginUser()
+        private LoginUser()
         {
         }
 
         public class Builder
         {
-            private SteamLoginUser _steamLoginUser;
+            private LoginUser _steamLoginUser;
 
             public Builder()
             {
@@ -44,7 +44,7 @@
                 return this;
             }
 
-            public SteamLoginUser Build()
+            public LoginUser Build()
             {
                 return _steamLoginUser;
             }

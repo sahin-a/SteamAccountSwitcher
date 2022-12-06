@@ -1,5 +1,4 @@
-﻿using SteamAccountManager.Application.Steam.Model;
-using SteamAccountManager.Application.Steam.Service;
+﻿using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
@@ -38,8 +37,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
 
         public async void LoadAccounts()
         {
-            List<SteamAccount> steamAccounts = await _steamService.GetAccounts();
-            Account[] accounts = await Task.WhenAll(steamAccounts.ConvertAll(x => _accountMapper.FromSteamAccount(x)));
+            var steamAccounts = await _steamService.GetAccounts();
+            var accounts = await Task.WhenAll(steamAccounts.ConvertAll(x => _accountMapper.FromSteamAccount(x)));
 
             foreach (var account in accounts)
             {
