@@ -4,11 +4,28 @@
     {
         public string SteamId { get; private set; } = string.Empty;
         public string AccountName { get; private set; } = string.Empty;
+        public string Username { get; set; }
         public bool IsLoginTokenValid { get; private set; }
         public DateTime LastLogin { get; set; }
 
         private LoginUser()
         {
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            LoginUser other = (LoginUser)obj;
+
+            return SteamId == other.SteamId
+                && AccountName == other.AccountName
+                && Username == other.Username
+                && IsLoginTokenValid == other.IsLoginTokenValid
+                && LastLogin == other.LastLogin;
         }
 
         public class Builder
@@ -29,6 +46,12 @@
             public Builder SetAccountName(string accountName)
             {
                 _steamLoginUser.AccountName = accountName;
+                return this;
+            }
+
+            public Builder SetUsername(string username)
+            {
+                _steamLoginUser.Username = username;
                 return this;
             }
 

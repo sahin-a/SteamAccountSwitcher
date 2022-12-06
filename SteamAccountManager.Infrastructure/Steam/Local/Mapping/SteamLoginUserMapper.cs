@@ -15,6 +15,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Mapping
             return new LoginUser.Builder()
                 .SetSteamId(dto.SteamId)
                 .SetAccountName(dto.AccountName)
+                .SetUsername(dto.PersonaName)
                 .SetIsLoginTokenValid(dto.PasswordRemembered)
                 .SetLastLogin(lastLogin.UtcDateTime)
                 .Build();
