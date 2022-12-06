@@ -3,11 +3,16 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <ApplicationIcon>Assets\sam.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
     <None Remove=".gitignore" />
     <None Remove="Assets\avatar_placeholder.jpg" />
+    <None Remove="Assets\sam.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\sam.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.10" />
