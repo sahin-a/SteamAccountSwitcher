@@ -44,7 +44,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.GITHUB_RUN_ID }}
+          tag_name: ${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}
           release_name: SteamAccountSwitcher
           draft: false
           prerelease: false
