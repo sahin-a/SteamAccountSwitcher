@@ -42,8 +42,14 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
 
         public void SetAutoLoginUser(string accountName)
         {
-            // TODO: catch and throw custom exception
-            _steamRegistryKey.SetValue("AutoLoginUser", accountName);
+            try
+            {
+                _steamRegistryKey.SetValue("AutoLoginUser", accountName);
+            }
+            catch (Exception)
+            {
+                throw new UpdateAutoLoginUserFailedException();
+            }
         }
     }
 }

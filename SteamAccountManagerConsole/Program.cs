@@ -1,6 +1,4 @@
-﻿
-using System;
-using Autofac;
+﻿using Autofac;
 using DI;
 using SteamAccountManager.Domain.Steam.Local.POCO;
 using SteamAccountManager.Domain.Steam.Service;
@@ -52,9 +50,14 @@ public class MainMenu
         
         if (Int32.TryParse(accountSelection, out int accountIndex))
         {
-            _steamService.LogInAccount(SteamAccounts[accountIndex].AccountName);
+            _steamService.SwitchAccount(SteamAccounts[accountIndex].AccountName);
         }
-        
+
+        OnAccountSelected();
+    }
+
+    private void OnAccountSelected()
+    {
         ShowAccountSelection();
     }
 }
