@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Moq;
+﻿using Moq;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
+using System.Collections.Generic;
 using Xunit;
 
 namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.DataSource
@@ -18,7 +18,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.DataSource
             _loginUsersDaoMock = new Mock<ILoginUsersDao>(behavior: MockBehavior.Strict);
             _steamConfigMock = new Mock<ISteamConfig>(behavior: MockBehavior.Strict);
             _sut = new LocalSteamDataSource(
-                steamConfig: _steamConfigMock.Object, 
+                steamConfig: _steamConfigMock.Object,
                 loginUsersDao: _loginUsersDaoMock.Object
                 );
         }
@@ -27,23 +27,23 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.DataSource
         public void Get_Steam_Dir_returns_Steam_Dir_Path()
         {
             const string steamPath = @"C:\Steam\";
-            
+
             _steamConfigMock.Setup(cfg => cfg.GetSteamPath())
                 .Returns(steamPath)
                 .Verifiable();
-            
+
             Assert.Equal(expected: steamPath, actual: _sut.GetSteamDir());
         }
-        
+
         [Fact]
         public void Get_Steam_Executable_Path_returns_Executable_Path()
         {
             const string steamExecutablePath = @"C:\Steam\Steam.exe";
-            
+
             _steamConfigMock.Setup(cfg => cfg.GetSteamExecutablePath())
                 .Returns(steamExecutablePath)
                 .Verifiable();
-            
+
             Assert.Equal(expected: steamExecutablePath, actual: _sut.GetSteamExecutablePath());
         }
 
@@ -63,12 +63,12 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.DataSource
             List<LoginUserDto> users = new List<LoginUserDto>() { peterUser };
             _loginUsersDaoMock.Setup(dao => dao.GetLoggedUsers())
                 .ReturnsAsync(users);
-            
+
             await _sut.GetUsersFromLoginHistory();
-            
+
             _loginUsersDaoMock.Verify(dao => dao.GetLoggedUsers(), Times.Once);
         }
-        
+
         [Fact]
         public async void Get_Logged_In_Users_Returns_Users()
         {
@@ -85,13 +85,13 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.DataSource
             List<LoginUserDto> users = new List<LoginUserDto>() { peterUser };
             _loginUsersDaoMock.Setup(dao => dao.GetLoggedUsers())
                 .ReturnsAsync(users);
-            
+
             var result = await _sut.GetUsersFromLoginHistory();
-            
+
             Assert.True(result.Count == 1);
             Assert.Equal(expected: peterUser, actual: result[0]);
         }
-        
+
         [Fact]
         public void Get_Current_AutoLogin_User_calls_GetAutoLoginUser()
         {
@@ -101,10 +101,10 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.DataSource
                 .Verifiable();
 
             _sut.GetCurrentAutoLoginUser();
-            
+
             _steamConfigMock.Verify(config => config.GetAutoLoginUser(), Times.Once);
         }
-        
+
         [Fact]
         public void Get_Current_AutoLogin_User_returns_Correct_User()
         {

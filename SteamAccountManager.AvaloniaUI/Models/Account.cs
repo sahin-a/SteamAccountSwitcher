@@ -1,10 +1,6 @@
-﻿using System;
+﻿using Avalonia.Media.Imaging;
 using System.ComponentModel;
-using System.IO;
-using System.Net;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Avalonia.Media.Imaging;
 
 namespace SteamAccountManager.AvaloniaUI.Models
 {

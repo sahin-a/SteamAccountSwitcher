@@ -1,11 +1,6 @@
 ﻿using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.WinUI.SAM.Steam.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteamAccountManager.WinUI.SAM.Steam.ViewModel
 {

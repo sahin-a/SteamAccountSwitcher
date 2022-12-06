@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Gameloop.Vdf;
+﻿using Gameloop.Vdf;
 using Gameloop.Vdf.Linq;
 using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Domain.Steam.Exception.Vdf;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
+using System;
+using System.Collections.Generic;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
 {
@@ -57,7 +56,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
                     {
                         SteamId = steamId
                     };
-                    
+
                     string logMessage = $"SteamId: {steamId}";
 
                     foreach (var vChildProperty in vProperty.Value.Children<VProperty>())
@@ -66,7 +65,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
                         logMessage += $" {vChildProperty.Key}: {vChildProperty.Value}";
                     }
                     _logger.LogInformation(logMessage);
-                    
+
                     loginUsersDto.Add(dto);
                 }
 

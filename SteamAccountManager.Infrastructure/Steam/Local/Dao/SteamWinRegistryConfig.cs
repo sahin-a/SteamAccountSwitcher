@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using SteamAccountManager.Domain.Steam.Exception;
+using System;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
 {

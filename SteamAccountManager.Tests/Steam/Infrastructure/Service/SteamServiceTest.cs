@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Moq;
+﻿using Moq;
 using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Model;
@@ -7,6 +6,7 @@ using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.Domain.Steam.Exception;
 using SteamAccountManager.Infrastructure.Steam.Service;
 using SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData;
+using System.Collections.Generic;
 using Xunit;
 
 namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
@@ -60,7 +60,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
         {
             var samFisherLoginUser = SteamUserTestData.GetSamFisherLoginUser();
             var samFisherProfile = SteamUserTestData.GetSamFisherProfile();
-            
+
             var rainerLoginUser = SteamUserTestData.GetRainerLoginUser();
             var rainerProfile = SteamUserTestData.GetRainerProfile();
 

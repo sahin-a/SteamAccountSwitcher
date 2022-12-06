@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Moq;
+﻿using Moq;
 using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Model;
 using SteamAccountManager.Application.Steam.Service;
@@ -8,6 +6,8 @@ using SteamAccountManager.Infrastructure.Steam.Exceptions;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dto;
 using SteamAccountManager.Infrastructure.Steam.Service;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace SteamAccountManager.Tests.Steam.Infrastructure.Service

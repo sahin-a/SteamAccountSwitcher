@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using SteamAccountManager.Application.Steam.Local.Logger;
+﻿using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Model;
 using SteamAccountManager.Domain.Steam.Exception;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Mapping;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
 {
@@ -48,7 +48,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
             {
                 var exception = new SteamAutoLoginUserNotFoundException("Steam Auto Login User not found", e);
                 _logger.LogException("User not found", exception);
-                
+
                 throw exception;
             }
         }

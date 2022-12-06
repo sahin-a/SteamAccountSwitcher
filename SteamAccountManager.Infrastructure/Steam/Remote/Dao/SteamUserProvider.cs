@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using RestSharp;
+﻿using RestSharp;
 using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Exceptions;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dto;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
 {
@@ -14,7 +14,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
         private const byte MAX_STEAM_IDS_PER_REQUEST = 100;
         private readonly ISteamWebClient _steamWebClient;
         private readonly ILogger _logger;
-        
+
         // TODO: create/rename class SteamUserClient
 
         public SteamUserProvider(ISteamWebClient steamWebClient, ILogger logger)
@@ -22,7 +22,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
             _steamWebClient = steamWebClient;
             _logger = logger;
         }
-        
+
         private RestRequest CreateRequest(string action, Method method) =>
             new RestRequest(resource: $"ISteamUser/{action}", method);
 
@@ -30,7 +30,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
         {
             if (steamIds.Length <= 0)
                 throw new IllegalSteamIdsCountException("You have to supply at least 1 steam id!");
-            
+
             // we can only send a maximum of 100 steam ids per request, break it into smaller parts if that's the case
             var chunks = steamIds.Chunk(100);
             var playerSummaries = new List<PlayerSummary>();
@@ -63,9 +63,9 @@ namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
         {
             if (steamIds.Length <= 0)
                 throw new IllegalSteamIdsCountException("You have to supply at least 1 steam id!");
-            
+
             var commaSeperatedSteamIds = string.Join(",", steamIds);
-            
+
             var request = CreateRequest(action: "GetPlayerBans/v1/", Method.Get);
             request.AddParameter(name: "steamids", value: commaSeperatedSteamIds, ParameterType.QueryString);
 

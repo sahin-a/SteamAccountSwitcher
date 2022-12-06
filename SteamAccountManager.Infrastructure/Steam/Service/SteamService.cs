@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using SteamAccountManager.Application.Steam.Local.Logger;
+﻿using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Model;
 using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.Domain.Steam.Exception;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SteamAccountManager.Infrastructure.Steam.Service
 {
@@ -33,7 +33,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
                 var steamLoginUsers = await _steamRepository.GetSteamLoginHistoryUsers();
                 var steamIds = steamLoginUsers.Select(user => user.SteamId);
                 var steamProfiles = await _steamProfileService.GetProfileDetails(steamIds.ToArray());
-                
+
                 var steamAccounts = steamLoginUsers.ConvertAll(steamLoginUser =>
                 {
                     var steamProfile = steamProfiles.FirstOrDefault(
