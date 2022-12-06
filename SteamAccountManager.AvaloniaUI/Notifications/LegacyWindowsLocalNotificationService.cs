@@ -1,6 +1,6 @@
 ﻿using SteamAccountManager.Application.Steam.Service;
 
-namespace SteamAccountManager.Windows.Notifications
+namespace SteamAccountManager.AvaloniaUI.Notifications
 {
     public class LegacyWindowsLocalNotificationService : ILocalNotificationService
     {
