@@ -6,9 +6,11 @@ using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Local.Repository;
+using SteamAccountManager.Infrastructure.Steam.Local.Storage;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 using SteamAccountManager.Infrastructure.Steam.Service;
+using System.Runtime.InteropServices;
 
 namespace SteamAccountManager.Infrastructure
 {
@@ -17,7 +19,14 @@ namespace SteamAccountManager.Infrastructure
         public static void RegisterInfrastructureModule(this ContainerBuilder builder)
         {
             builder.RegisterType<DebugLogger>().As<ILogger>().SingleInstance();
-            builder.RegisterType<SteamWinRegistryConfig>().As<ISteamConfig>().SingleInstance();
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                builder.RegisterType<SteamLinuxRegistryConfig>().As<ISteamConfig>().SingleInstance();
+            }
+            else
+            {
+                builder.RegisterType<SteamWinRegistryConfig>().As<ISteamConfig>().SingleInstance();
+            }
             builder.RegisterType<SteamLoginVdfParser>().As<ISteamLoginVdfParser>().SingleInstance();
             builder.RegisterType<SteamLoginVdfReader>().As<ISteamLoginVdfReader>().SingleInstance();
             builder.RegisterType<LoginUsersDao>().As<ILoginUsersDao>().SingleInstance();
@@ -31,6 +40,8 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<ImageClient>().SingleInstance();
             builder.RegisterType<ImageService>().As<IImageService>().SingleInstance();
             builder.RegisterType<SteamPlayerServiceProvider>().As<ISteamPlayerServiceProvider>().SingleInstance();
+            builder.RegisterType<SteamPlayerService>().As<ISteamPlayerService>().SingleInstance();
+            builder.RegisterType<SteamApiKeyStorage>().SingleInstance();
         }
     }
 }

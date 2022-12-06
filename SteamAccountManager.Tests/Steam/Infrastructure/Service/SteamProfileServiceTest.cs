@@ -15,16 +15,16 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
     public class SteamProfileServiceTest
     {
         private readonly Mock<ISteamUserProvider> _steamPlayerSummaryProviderMock;
-        private readonly Mock<ISteamPlayerServiceProvider> _steamPlayerServiceProviderMock;
+        private readonly Mock<ISteamPlayerService> _steamPlayerServiceMock;
         private readonly Mock<ILogger> _loggerMock;
         private readonly ISteamProfileService _sut;
 
         public SteamProfileServiceTest()
         {
             _steamPlayerSummaryProviderMock = new Mock<ISteamUserProvider>(behavior: MockBehavior.Strict);
-            _steamPlayerServiceProviderMock = new Mock<ISteamPlayerServiceProvider>(behavior: MockBehavior.Strict);
+            _steamPlayerServiceMock = new Mock<ISteamPlayerService>(behavior: MockBehavior.Strict);
             _loggerMock = new Mock<ILogger>(behavior: MockBehavior.Loose);
-            _sut = new SteamProfileService(_steamPlayerSummaryProviderMock.Object, _steamPlayerServiceProviderMock.Object, _loggerMock.Object);
+            _sut = new SteamProfileService(_steamPlayerSummaryProviderMock.Object, _steamPlayerServiceMock.Object, _loggerMock.Object);
         }
 
         [Fact]
@@ -74,12 +74,12 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
                 }
             ).Verifiable();
 
-            _steamPlayerServiceProviderMock.Setup(provider => provider.GetPlayerLevelAsync(peterId))
-                .ReturnsAsync(new SteamPlayerLevel { PlayerLevel = peterLevel })
+            _steamPlayerServiceMock.Setup(provider => provider.GetPlayerLevelAsync(peterId))
+                .ReturnsAsync(new SteamLevel { Level = peterLevel })
                 .Verifiable();
 
-            _steamPlayerServiceProviderMock.Setup(provider => provider.GetPlayerLevelAsync(maffeiId))
-                .ReturnsAsync(new SteamPlayerLevel { PlayerLevel = maffeiLevel })
+            _steamPlayerServiceMock.Setup(provider => provider.GetPlayerLevelAsync(maffeiId))
+                .ReturnsAsync(new SteamLevel { Level = maffeiLevel })
                 .Verifiable();
 
 
@@ -95,12 +95,12 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
                 Times.Once
             );
 
-            _steamPlayerServiceProviderMock.Verify(
+            _steamPlayerServiceMock.Verify(
                 provider => provider.GetPlayerLevelAsync(peterId),
                 Times.Once
             );
 
-            _steamPlayerServiceProviderMock.Verify(
+            _steamPlayerServiceMock.Verify(
                 provider => provider.GetPlayerLevelAsync(maffeiId),
                 Times.Once
             );
@@ -149,8 +149,8 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
                 .ReturnsAsync(new List<PlayerBans>())
                 .Verifiable();
 
-            _steamPlayerServiceProviderMock.Setup(provider => provider.GetPlayerLevelAsync(It.IsAny<string>()))
-                .ReturnsAsync(new SteamPlayerLevel { PlayerLevel = peterLevel });
+            _steamPlayerServiceMock.Setup(provider => provider.GetPlayerLevelAsync(It.IsAny<string>()))
+                .ReturnsAsync(new SteamLevel { Level = peterLevel });
 
             List<SteamProfile> profiles = await _sut.GetProfileDetails(peterId);
 
