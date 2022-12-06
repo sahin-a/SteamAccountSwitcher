@@ -23,41 +23,47 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             _logger = logger;
         }
 
-        public async Task<List<Profile>> GetProfileDetails(params string[] steamIds)
+        private async Task<int> GetSteamLevel(string steamId)
         {
-            var steamProfiles = new List<Profile>();
-            // TODO: if one fails, the other data is ignored. that kinda sucks. should fix this
             try
             {
-                var playerSummaries = await _steamUserProvider.GetSummariesAsync(steamIds);
-                var playerBans = await _steamUserProvider.GetPlayerBansAsync(steamIds);
+                return await _steamPlayerService.GetPlayerLevelAsync(steamId);
+            }
+            catch (FailedToRetrieveSteamPlayerLevelException e)
+            {
+                _logger.LogException("Couldn't retrieve steam player level", e);
+            }
+            catch (IllegalSteamIdsCountException e)
+            {
+                _logger.LogException("Illegal Steam Ids count", e);
+            }
 
-                var steamProfileTasks = playerSummaries.ConvertAll(async profile =>
-                {
-                    var playerBan = playerBans.FirstOrDefault(
-                        playerBan => playerBan.SteamId == profile.SteamId,
-                        new PlayerBans()
-                    );
+            return -1;
+        }
 
-                    var playerLevel = await _steamPlayerService.GetPlayerLevelAsync(profile.SteamId);
-
-                    return new Profile
-                    {
-                        Url = profile.ProfileUrl.AbsoluteUri,
-                        AvatarUrl = profile.Avatar.AbsoluteUri,
-                        Username = profile.PersonaName,
-                        Id = profile.SteamId,
-                        IsVacBanned = playerBan.VacBanned || playerBan.NumberOfGameBans > 0,
-                        IsCommunityBanned = playerBan.CommunityBanned,
-                        Level = playerLevel
-                    };
-                });
-
-                return new List<Profile>(await Task.WhenAll(steamProfileTasks));
+        private async Task<List<PlayerSummary>> GetPlayerSummaries(params string[] steamIds)
+        {
+            try
+            {
+                return await _steamUserProvider.GetSummariesAsync(steamIds);
             }
             catch (FailedToRetrieveSteamProfileException e)
             {
                 _logger.LogException("Couldn't retrieve profile details", e);
+            }
+            catch (IllegalSteamIdsCountException e)
+            {
+                _logger.LogException("Illegal Steam Ids count", e);
+            }
+
+            return new();
+        }
+
+        private async Task<List<PlayerBans>> GetPlayerBans(params string[] steamIds)
+        {
+            try
+            {
+                return await _steamUserProvider.GetPlayerBansAsync(steamIds);
             }
             catch (FailedToRetrieveSteamPlayerBansException e)
             {
@@ -67,12 +73,36 @@ namespace SteamAccountManager.Infrastructure.Steam.Service
             {
                 _logger.LogException("Illegal Steam Ids count", e);
             }
-            catch (FailedToRetrieveSteamPlayerLevelException e)
-            {
-                _logger.LogException("Couldn't retrieve steam player level", e);
-            }
 
-            return steamProfiles;
+            return new();
+        }
+
+        public async Task<List<Profile>> GetProfileDetails(params string[] steamIds)
+        {
+            var steamProfiles = new List<Profile>();
+            var playerSummaries = await GetPlayerSummaries(steamIds);
+            var playerBans = await GetPlayerBans(steamIds);
+            var steamProfileTasks = playerSummaries.ConvertAll(async profile =>
+            {
+                var playerLevel = await GetSteamLevel(profile.SteamId);
+                var playerBan = playerBans.FirstOrDefault(
+                    playerBan => playerBan.SteamId == profile.SteamId,
+                    new PlayerBans()
+                );
+
+                return new Profile
+                {
+                    Url = profile.ProfileUrl.AbsoluteUri,
+                    AvatarUrl = profile.Avatar.AbsoluteUri,
+                    Username = profile.PersonaName,
+                    Id = profile.SteamId,
+                    IsVacBanned = playerBan.VacBanned || playerBan.NumberOfGameBans > 0,
+                    IsCommunityBanned = playerBan.CommunityBanned,
+                    Level = playerLevel
+                };
+            });
+
+            return new List<Profile>(await Task.WhenAll(steamProfileTasks));
         }
     }
 }
