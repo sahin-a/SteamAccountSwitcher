@@ -4,6 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ApplicationIcon>Assets\sam.ico</ApplicationIcon>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/sahin-a/SteamAccountManager</RepositoryUrl>
+    <Version>0.2</Version>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
