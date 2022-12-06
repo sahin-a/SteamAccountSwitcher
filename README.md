@@ -2,9 +2,9 @@
 [![GitHub forks](https://img.shields.io/github/forks/sahin-a/SteamAccountManager)](https://github.com/sahin-a/SteamAccountManager/network)
 [![GitHub stars](https://img.shields.io/github/stars/sahin-a/SteamAccountManager)](https://github.com/sahin-a/SteamAccountManager/stargazers)
 ![GitHub contributors](https://img.shields.io/github/contributors/sahin-a/SteamAccountManager)
+![Downloads](https://img.shields.io/github/downloads/sahin-a/SteamAccountSwitcher/total)
 ![Lines of code](https://img.shields.io/tokei/lines/github.com/sahin-a/SteamAccountManager)
 ![GitHub repo size](https://img.shields.io/github/repo-size/sahin-a/SteamAccountManager)
-![Downloads](https://img.shields.io/github/downloads/sahin-a/SteamAccountSwitcher/total)
 
 ![transparent_sam_github_banner](https://user-images.githubusercontent.com/55054756/171961459-0955e8ee-a4bd-4d4d-9109-ce275833305b.png)
 # Steam Account Switcher 🔮
@@ -56,10 +56,12 @@ Android App Features:
 [Project](https://github.com/users/sahin-a/projects/3/views/1?layout=board)
 
 # Supported Plattforms
-* Windows 10 and newer 🤓
-* Linux (Soon™ 🤡)
-* Android 🤖
-* iOS 🍎
+* 🪟 Windows 10 and newer
+* 🤖 Android 
+* 🍎 iOS
+
+# Planned Plattforms (Soon™)
+* 🤡 Linux
 
 # You ❤️ it and it's worth a ☕ to you?
 <a href="https://www.buymeacoffee.com/sahina"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=sahina&button_colour=FFDD00&font_colour=000000&font_family=Bree&outline_colour=000000&coffee_colour=ffffff"></a>
