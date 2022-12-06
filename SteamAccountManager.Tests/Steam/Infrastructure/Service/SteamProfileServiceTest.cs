@@ -1,13 +1,12 @@
-﻿using Moq;
+﻿using System;
+using System.Collections.Generic;
+using Moq;
 using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Model;
 using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dto;
 using SteamAccountManager.Infrastructure.Steam.Service;
-using System;
-using System.Collections.Generic;
-using SteamAccountManager.Infrastructure.Steam.Exceptions;
 using Xunit;
 
 namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
@@ -168,24 +167,6 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
 
             Assert.False(peterProfile.IsVacBanned);
             Assert.False(peterProfile.IsCommunityBanned);
-        }
-
-        [Fact]
-        public async void GetProfileDetails_catches_FailedToRetrieveSteamProfileException()
-        {
-            _steamPlayerSummaryProviderMock.Setup(provider => provider.GetSummariesAsync("1"))
-                .ThrowsAsync(new FailedToRetrieveSteamProfileException());
-
-            await _sut.GetProfileDetails("1");
-        }
-
-        [Fact]
-        public async void GetProfileDetails_catches_InvalidSteamPlayerSummaryRequestException()
-        {
-            _steamPlayerSummaryProviderMock.Setup(provider => provider.GetSummariesAsync("1"))
-                .ThrowsAsync(new IllegalSteamIdsCountException());
-
-            await _sut.GetProfileDetails("1");
         }
     }
 }

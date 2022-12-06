@@ -1,19 +1,19 @@
-﻿using SteamAccountManager.Application.Steam.Local.Logger;
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
+using SteamAccountManager.Application.Steam.Local.Logger;
 
-namespace SteamAccountManager.Infrastructure.Steam.Local.Logger
+namespace SteamAccountManager.Infrastructure.Common.Logging
 {
     internal class FileLogger : ILogger
     {
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
 
         private void LogToFile(string message)
         {
             lock (_lock)
             {
-                var fileName = $"{DateTime.UtcNow.ToString("d")}.txt";
+                var fileName = $"{DateTime.UtcNow.ToString("d").ToSafeFileName()}.txt";
                 using (var sw = new StreamWriter(fileName, append: true))
                 {
                     sw.WriteLine(message);
