@@ -1,10 +1,12 @@
-﻿using SteamAccountManager.Infrastructure.Steam.Local.Dao;
-using SteamAccountManager.Infrastructure.Steam.Local.Observer;
+﻿using SteamAccountManager.Domain.Common.Observer;
+using SteamAccountManager.Domain.Steam.Model;
+using SteamAccountManager.Infrastructure.Steam.Local.Dao;
+using System.Collections.Generic;
 using System.IO;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.FileWatcher
 {
-    internal class LoginVdfFileWatcher : AccountStorageObserver
+    internal class LoginVdfFileWatcher : BaseObservable<List<Account>?>, IAccountStorageObservable
     {
         private readonly FileSystemWatcher watcher;
 
