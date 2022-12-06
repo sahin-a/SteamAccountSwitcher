@@ -91,5 +91,28 @@ namespace SteamAccountManager.Tests.Steam.Data.Local.DataSource
             Assert.True(result.Count == 1);
             Assert.Equal(expected: peterUser, actual: result[0]);
         }
+        
+        [Fact]
+        public void Get_Current_AutoLogin_User_calls_GetAutoLoginUser()
+        {
+            string currentAutoLoginUser = "PeterMaffei";
+            _steamConfigMock.Setup(config => config.GetAutoLoginUser())
+                .Returns(currentAutoLoginUser)
+                .Verifiable();
+
+            _sut.GetCurrentAutoLoginUser();
+            
+            _steamConfigMock.Verify(config => config.GetAutoLoginUser(), Times.Once);
+        }
+        
+        [Fact]
+        public void Get_Current_AutoLogin_User_returns_Correct_User()
+        {
+            string currentAutoLoginUser = "PeterMaffei";
+            _steamConfigMock.Setup(config => config.GetAutoLoginUser())
+                .Returns(currentAutoLoginUser);
+
+            Assert.Equal(expected: currentAutoLoginUser, actual: _sut.GetCurrentAutoLoginUser());
+        }
     }
 }
