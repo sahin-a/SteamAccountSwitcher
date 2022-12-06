@@ -7,6 +7,7 @@ using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using SteamAccountManager.Infrastructure.Steam.Local.Repository;
 using SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -111,11 +112,14 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
             _localSteamDataSourceMock.Setup(ds => ds.GetCurrentAutoLoginUser())
                 .Returns(VdfTestData.loginUserDto1.AccountName);
 
+            var lastLogin = DateTimeOffset.FromUnixTimeSeconds(long.Parse(VdfTestData.loginUserDto1.Timestamp));
+
             var expectedSteamLoginUser = new LoginUser.Builder()
                 .SetAccountName(VdfTestData.loginUserDto1.AccountName)
                 .SetSteamId(VdfTestData.loginUserDto1.SteamId)
                 .SetIsLoginTokenValid(VdfTestData.loginUserDto1.PasswordRemembered)
                 .SetUsername(VdfTestData.loginUserDto1.PersonaName)
+                .SetLastLogin(lastLogin.DateTime)
                 .Build();
 
             var steamLoginUser = await _sut.GetCurrentAutoLoginUser();
