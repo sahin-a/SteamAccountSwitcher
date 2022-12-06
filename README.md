@@ -37,7 +37,7 @@ Android App Features:
 # [AvaloniaUI 😉](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.AvaloniaUI)
 * Standalone
 
-![Screenshot](https://user-images.githubusercontent.com/55054756/169713656-890fae80-9381-4bff-a220-a5b133f5dcac.png)
+![sam_preview_redesign](https://user-images.githubusercontent.com/55054756/205350752-111f23fc-d73c-4e6d-94c2-bd6ca2f6bb92.png)
 
 # [Android (WIP) 💕](https://github.com/sahin-a/SteamAccountSwitcherAndroid)
 * The REST Service has to be running in order for the app to work
