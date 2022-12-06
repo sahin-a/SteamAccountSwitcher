@@ -56,7 +56,7 @@ Android App Features:
 [Project](https://github.com/users/sahin-a/projects/3/views/1?layout=board)
 
 # Supported Plattforms
-* Windows 🤓
+* Windows 10 and newer 🤓
 * Linux (Soon™ 🤡)
 * Android 🤖
 * iOS 🍎
