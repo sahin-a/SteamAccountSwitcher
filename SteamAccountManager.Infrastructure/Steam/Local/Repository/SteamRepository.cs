@@ -28,9 +28,9 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
                 .ToSteamLoginUsers();
         }
 
-        public void UpdateAutoLoginUser(SteamLoginUser steamLoginUser)
+        public void UpdateAutoLoginUser(string accountName)
         {
-            _steamDataSource.UpdateAutoLoginUser(steamLoginUser.AccountName);
+            _steamDataSource.UpdateAutoLoginUser(accountName);
         }
 
         public async Task<SteamLoginUser> GetCurrentAutoLoginUser()

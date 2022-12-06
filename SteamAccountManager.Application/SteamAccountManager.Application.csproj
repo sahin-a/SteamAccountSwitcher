@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <Folder Include="Steam\Local" />
-      <Folder Include="Steam\Remote" />
     </ItemGroup>
 
     <ItemGroup>

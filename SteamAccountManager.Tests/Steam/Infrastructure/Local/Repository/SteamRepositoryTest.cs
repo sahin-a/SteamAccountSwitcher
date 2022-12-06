@@ -76,7 +76,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
             _localSteamDataSourceMock.Setup(ds => ds.UpdateAutoLoginUser(accountName))
                 .Verifiable();
 
-            _sut.UpdateAutoLoginUser(steamLoginUser);
+            _sut.UpdateAutoLoginUser(steamLoginUser.AccountName);
 
             _localSteamDataSourceMock.Verify(
                 expression: ds => ds.UpdateAutoLoginUser(accountName),
@@ -125,7 +125,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
         }
         
         [Fact]
-        public void GetCurrentAutoLoginUser_Throws_Exception_If_User_Not_Found()
+        public async void GetCurrentAutoLoginUser_Throws_Exception_If_User_Not_Found()
         {
             var loginUserDtos = new List<LoginUserDto>
             {
@@ -144,7 +144,7 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository
                 .SetIsLoginTokenValid(false)
                 .Build();
 
-            Assert.ThrowsAsync<SteamAutoLoginUserNotFoundException>(() =>
+            await Assert.ThrowsAsync<SteamAutoLoginUserNotFoundException>(() =>
                 _sut.GetCurrentAutoLoginUser()
             );
         }
