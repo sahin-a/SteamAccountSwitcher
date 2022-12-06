@@ -22,7 +22,11 @@ namespace SteamAccountManager.Infrastructure
     {
         public static void RegisterInfrastructureModule(this ContainerBuilder builder)
         {
+#if DEBUG
             builder.RegisterType<DebugLogger>().As<ILogger>().SingleInstance();
+#else
+            builder.RegisterType<FileLogger>().As<ILogger>().SingleInstance();
+#endif
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 builder.RegisterType<SteamLinuxRegistryConfig>().As<ISteamConfig>().SingleInstance();
