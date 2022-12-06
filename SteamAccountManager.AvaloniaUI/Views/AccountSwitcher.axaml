@@ -90,8 +90,8 @@
 						<!-- Steam Level -->
 						<Grid Grid.Column="2" HorizontalAlignment="Right" IsVisible="{Binding ShowLevel}">
 							<Grid HorizontalAlignment="Center">
-								<Ellipse Width="35" Height="35" Stroke="Gray" StrokeThickness="2" />
-								<TextBlock Text="{Binding Level}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+								<Ellipse Width="35" Height="35" Stroke="{Binding Rank.Color}" StrokeThickness="2" />
+								<TextBlock Text="{Binding Rank.Level}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 							</Grid>
 						</Grid>
 					</Grid>

@@ -63,6 +63,10 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         {
             var minutesPassed = Convert.ToUInt16(DateTime.UtcNow.Subtract(steamAccount.LastLogin).TotalMinutes);
             var timePassedSinceLastLogin = GetTimePassedFormatted(minutesPassed);
+            var rank = new Rank
+            {
+                Level = steamAccount.Level
+            };
 
             var account = new Account
             {
@@ -74,7 +78,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
                 IsVacBanned = steamAccount.IsVacBanned,
                 IsCommunityBanned = steamAccount.IsCommunityBanned,
                 LastLogin = timePassedSinceLastLogin,
-                Level = steamAccount.Level
+                Rank = rank
             };
 
             return account;
