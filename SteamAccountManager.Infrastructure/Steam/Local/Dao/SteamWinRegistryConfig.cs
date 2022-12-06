@@ -48,6 +48,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
             try
             {
                 _steamRegistryKey.SetValue("AutoLoginUser", accountName);
+                _steamRegistryKey.SetValue("RememberPassword", 1);
             }
             catch (Exception)
             {
