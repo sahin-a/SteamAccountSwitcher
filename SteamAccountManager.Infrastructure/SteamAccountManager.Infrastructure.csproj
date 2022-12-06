@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Autofac" Version="6.3.0" />
+      <PackageReference Include="Gameloop.Vdf.JsonConverter" Version="0.2.1" />
+      <PackageReference Include="Microsoft.Win32.Registry" Version="6.0.0-preview.5.21301.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SteamAccountManager.Domain\SteamAccountManager.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
