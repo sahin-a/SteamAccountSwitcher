@@ -40,7 +40,7 @@ Android App Features:
 
 ![sam_preview_redesign](https://user-images.githubusercontent.com/55054756/205350752-111f23fc-d73c-4e6d-94c2-bd6ca2f6bb92.png)
 
-# [iOS 🍎]
+# iOS 🍎
 * The REST Service has to be running in order for the app to work
 <img src="https://user-images.githubusercontent.com/55054756/205394494-1cc68661-c31a-4e12-8daf-483b57965607.png" width="256" />
 
