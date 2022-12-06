@@ -18,7 +18,7 @@ namespace SteamAccountManager.AvaloniaUI.Mappers
             _avatarService = avatarService;
         }
 
-        private string GetTimePassedFormatted(int minutesPassed)
+        private string GetTimePassedFormatted(long minutesPassed)
         {
             var stringBuilder = new StringBuilder();
 
@@ -41,7 +41,7 @@ namespace SteamAccountManager.AvaloniaUI.Mappers
 
         public async Task<Account> FromSteamAccount(Domain.Steam.Model.Account steamAccount)
         {
-            var minutesPassed = Convert.ToUInt16(DateTime.UtcNow.Subtract(steamAccount.LastLogin).TotalMinutes);
+            var minutesPassed = Convert.ToInt64(DateTime.UtcNow.Subtract(steamAccount.LastLogin).TotalMinutes);
             var timePassedSinceLastLogin = GetTimePassedFormatted(minutesPassed);
             var rank = new Rank
             {
