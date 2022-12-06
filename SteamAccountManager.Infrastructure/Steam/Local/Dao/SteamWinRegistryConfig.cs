@@ -4,7 +4,7 @@ using SteamAccountManager.Domain.Steam.Exception;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
 {
-    // TODO: create MacOs equivalent
+    // TODO: create MacOs and linux equivalent
     public class SteamWinRegistryConfig : ISteamConfig
     {
         private readonly RegistryKey _steamRegistryKey;

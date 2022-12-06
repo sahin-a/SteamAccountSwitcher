@@ -1,6 +1,9 @@
-﻿using SteamAccountManager.Infrastructure.Steam.Local.Dao;
+﻿using System;
+using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using System.IO;
 using System.Threading.Tasks;
+using SteamAccountManager.Domain.Steam.Exception.Vdf;
+using SteamAccountManager.Domain.Steam.Local.Logger;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
 {
@@ -8,9 +11,11 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
     {
         private readonly string _vdfPath;
         private readonly StreamReader _streamReader;
+        private readonly ILogger _logger;
 
-        public SteamLoginVdfReader(ISteamConfig steamConfig)
+        public SteamLoginVdfReader(ISteamConfig steamConfig, ILogger logger)
         {
+            _logger = logger;
             _vdfPath = Path.Combine(
                 steamConfig.GetSteamPath(), 
                 "Steam", 
@@ -23,7 +28,15 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf
 
         public async Task<string> GetLoginUsersVdfContent()
         {
-            return await _streamReader.ReadToEndAsync();
+            try
+            {
+                return await _streamReader.ReadToEndAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogException("", "StreamReader has thrown Exception", e);
+                throw new SteamLoginVdfReaderFailureException();
+            }
         }
     }
 }
