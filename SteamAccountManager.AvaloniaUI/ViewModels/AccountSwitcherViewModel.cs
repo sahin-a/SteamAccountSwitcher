@@ -1,10 +1,10 @@
 ﻿using SteamAccountManager.Application.Steam.UseCase;
+using SteamAccountManager.AvaloniaUI.Common;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
 using SteamAccountManager.Domain.Steam.Observables;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -18,7 +18,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private readonly SwitchAccountUseCase _switchAccountUseCase;
         private readonly AccountMapper _accountMapper;
 
-        public ObservableCollection<Account> Accounts { get; }
+        public AdvancedObservableCollection<Account> Accounts { get; private set; }
         public ICommand ProfileClickedCommand { get; }
         public ICommand RefreshAccountsCommand { get; }
         public ICommand ShowInfoCommand { get; }
@@ -31,7 +31,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _switchAccountUseCase = switchAccountUseCase;
             _accountMapper = accountMapper;
 
-            Accounts = new ObservableCollection<Account>();
+            Accounts = new AdvancedObservableCollection<Account>();
             ProfileClickedCommand = new ProfileClickedCommand();
             RefreshAccountsCommand = new QuickCommand(LoadAccounts);
             ShowInfoCommand = new QuickCommand(ShowInfo);
@@ -64,11 +64,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
 
         public async void LoadAccounts()
         {
-            Accounts.Clear();
-            foreach (var account in await GetAccounts())
-            {
-                Accounts.Add(account);
-            }
+            Accounts.SetItems((await GetAccounts()).ToList());
         }
 
         public async void OnAccountSelected(Account selectedAccount)
