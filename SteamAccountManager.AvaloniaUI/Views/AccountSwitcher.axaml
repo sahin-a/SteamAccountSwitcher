@@ -28,6 +28,7 @@
 					</Style>
 				</StackPanel.Styles>
 
+				<Button Content="+" Command="{Binding AddAccountCommand}" ToolTip.Tip="Add Account" />
 				<Button Content="⟳" Command="{Binding RefreshAccountsCommand}" ToolTip.Tip="Refresh" />
 				<Button Content="?" Command="{Binding ShowInfoCommand}" ToolTip.Tip="GitHub">
 					<Image Source="avares://SteamAccountManager.AvaloniaUI/Assets/github_mark_light.png" Height="20" />

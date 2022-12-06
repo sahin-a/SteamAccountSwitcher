@@ -20,6 +20,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public ICommand ProfileClickedCommand { get; }
         public ICommand RefreshAccountsCommand { get; }
         public ICommand ShowInfoCommand { get; }
+        public ICommand AddAccountCommand { get; }
 
 
         public AccountSwitcherViewModel(ISteamService steamService, AccountMapper accountMapper)
@@ -31,8 +32,14 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             ProfileClickedCommand = new ProfileClickedCommand();
             RefreshAccountsCommand = new QuickCommand(LoadAccounts);
             ShowInfoCommand = new QuickCommand(ShowInfo);
+            AddAccountCommand = new QuickCommand(AddAccount);
 
             LoadAccounts();
+        }
+
+        private void AddAccount()
+        {
+            _steamService.SwitchAccount(string.Empty);
         }
 
         public async void LoadAccounts()
