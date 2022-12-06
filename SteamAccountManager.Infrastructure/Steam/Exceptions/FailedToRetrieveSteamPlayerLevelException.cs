@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace SteamAccountManager.Infrastructure.Steam.Exceptions
+﻿namespace SteamAccountManager.Infrastructure.Steam.Exceptions
 {
-    public class FailedToRetrieveSteamPlayerLevelException : Exception
+    public class FailedToRetrieveSteamPlayerLevelException : System.Exception
     {
         public FailedToRetrieveSteamPlayerLevelException() { }
         public FailedToRetrieveSteamPlayerLevelException(string message) : base(message) { }
-        public FailedToRetrieveSteamPlayerLevelException(string message, Exception inner) : base(message, inner) { }
+        public FailedToRetrieveSteamPlayerLevelException(string message, System.Exception inner) : base(message, inner) { }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Moq;
 using SteamAccountManager.Application.Steam.Local.Logger;
-using SteamAccountManager.Domain.Steam.Exception.Vdf;
+using SteamAccountManager.Infrastructure.Steam.Exceptions.Vdf;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
 using Xunit;
 

@@ -3,7 +3,6 @@ using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Local.Repository;
 using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.Application.Steam.UseCase;
-using SteamAccountManager.Domain.Steam.Observables;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.FileWatcher;
@@ -14,6 +13,7 @@ using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 using SteamAccountManager.Infrastructure.Steam.Service;
 using System.Runtime.InteropServices;
+using SteamAccountManager.Application.Steam.Observables;
 using SteamAccountManager.Infrastructure.Common;
 
 namespace SteamAccountManager.Infrastructure

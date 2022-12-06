@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace SteamAccountManager.Infrastructure.Steam.Exceptions
+﻿namespace SteamAccountManager.Infrastructure.Steam.Exceptions
 {
-    public class FailedToRetrieveSteamPlayerBansException : Exception
+    public class FailedToRetrieveSteamPlayerBansException : System.Exception
     {
         public FailedToRetrieveSteamPlayerBansException()
         {
@@ -12,7 +10,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Exceptions
         {
         }
 
-        public FailedToRetrieveSteamPlayerBansException(string message, Exception inner) : base(message, inner)
+        public FailedToRetrieveSteamPlayerBansException(string message, System.Exception inner) : base(message, inner)
         {
         }
     }

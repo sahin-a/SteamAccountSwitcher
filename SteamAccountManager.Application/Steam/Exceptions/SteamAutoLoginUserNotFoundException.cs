@@ -1,5 +1,5 @@
 ﻿
-namespace SteamAccountManager.Domain.Steam.Exception
+namespace SteamAccountManager.Application.Steam.Exceptions
 {
     public class SteamAutoLoginUserNotFoundException : System.Exception
     {

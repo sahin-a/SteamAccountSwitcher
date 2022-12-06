@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace SteamAccountManager.Infrastructure.Steam.Exceptions
+﻿namespace SteamAccountManager.Infrastructure.Steam.Exceptions
 {
-    public class FailedToRetrieveSteamProfileException : Exception
+    public class FailedToRetrieveSteamProfileException : System.Exception
     {
         public FailedToRetrieveSteamProfileException()
         {
@@ -12,7 +10,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Exceptions
         {
         }
 
-        public FailedToRetrieveSteamProfileException(string message, Exception inner) : base(message, inner)
+        public FailedToRetrieveSteamProfileException(string message, System.Exception inner) : base(message, inner)
         {
         }
     }

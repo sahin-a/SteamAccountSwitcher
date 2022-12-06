@@ -2,11 +2,11 @@
 using Newtonsoft.Json;
 using RestSharp;
 using SteamAccountManager.Application.Steam.Local.Logger;
-using SteamAccountManager.Infrastructure.Steam.Exceptions;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dto;
 using System;
 using System.Linq;
+using SteamAccountManager.Infrastructure.Steam.Exceptions;
 using Xunit;
 
 namespace SteamAccountManager.Tests.Steam.Infrastructure.Remote.Dao

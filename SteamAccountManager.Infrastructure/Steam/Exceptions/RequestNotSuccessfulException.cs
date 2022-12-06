@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace SteamAccountManager.Infrastructure.Steam.Exceptions
+﻿namespace SteamAccountManager.Infrastructure.Steam.Exceptions
 {
-    public class RequestNotSuccessfulException : Exception
+    public class RequestNotSuccessfulException : System.Exception
     {
         public RequestNotSuccessfulException() { }
         public RequestNotSuccessfulException(string message) : base(message) { }
-        public RequestNotSuccessfulException(string message, Exception inner) : base(message, inner) { }
+        public RequestNotSuccessfulException(string message, System.Exception inner) : base(message, inner) { }
     }
 }

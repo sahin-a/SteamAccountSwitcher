@@ -1,4 +1,4 @@
-namespace SteamAccountManager.Domain.Steam.Exception.Vdf
+namespace SteamAccountManager.Infrastructure.Steam.Exceptions.Vdf
 {
     public class SteamLoginVdfReaderFailureException : System.Exception
     {

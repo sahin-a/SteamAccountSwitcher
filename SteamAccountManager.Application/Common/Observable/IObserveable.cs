@@ -1,4 +1,4 @@
-﻿namespace SteamAccountManager.Domain.Common.Observable
+﻿namespace SteamAccountManager.Application.Common.Observable
 {
     public interface IObserveable<T>
     {

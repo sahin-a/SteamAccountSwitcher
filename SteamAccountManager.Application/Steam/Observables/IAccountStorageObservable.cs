@@ -1,7 +1,7 @@
-﻿using SteamAccountManager.Domain.Common.Observable;
+﻿using SteamAccountManager.Application.Common.Observable;
 using SteamAccountManager.Domain.Steam.Model;
 
-namespace SteamAccountManager.Domain.Steam.Observables
+namespace SteamAccountManager.Application.Steam.Observables
 {
     public interface IAccountStorageObservable : IObserveable<List<Account>?>
     {

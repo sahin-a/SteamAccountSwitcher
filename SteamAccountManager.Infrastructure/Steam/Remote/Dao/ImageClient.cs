@@ -1,9 +1,9 @@
-﻿using SteamAccountManager.Infrastructure.Steam.Exceptions;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using SteamAccountManager.Infrastructure.Steam.Exceptions;
 
-namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
+namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
 {
     internal class ImageClient
     {
