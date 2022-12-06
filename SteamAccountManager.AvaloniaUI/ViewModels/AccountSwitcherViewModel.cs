@@ -56,7 +56,6 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public void OnAccountSelected(Account selectedAccount)
         {
             _steamService.SwitchAccount(selectedAccount.Name);
-            LoadAccounts();
         }
     }
 }
