@@ -1,9 +1,14 @@
+[![GitHub license](https://img.shields.io/github/license/sahin-a/SteamAccountManager)](https://github.com/sahin-a/SteamAccountManager/blob/develop/LICENSE.md)
+[![GitHub forks](https://img.shields.io/github/forks/sahin-a/SteamAccountManager)](https://github.com/sahin-a/SteamAccountManager/network)
+[![GitHub stars](https://img.shields.io/github/stars/sahin-a/SteamAccountManager)](https://github.com/sahin-a/SteamAccountManager/stargazers)
+![GitHub contributors](https://img.shields.io/github/contributors/sahin-a/SteamAccountManager)
+![GitHub all releases](https://img.shields.io/github/downloads/sahin-a/SteamAccountManager/total)
+![Lines of code](https://img.shields.io/tokei/lines/github.com/sahin-a/SteamAccountManager)
+![GitHub repo size](https://img.shields.io/github/repo-size/sahin-a/SteamAccountManager)
+
 # Steam Account Manager
 It lets you switch between accounts seamlessly if their password has been remembered by the steam client. 
 No data is being stored by this application.
-
-# You want to support this project?
-<a href="https://www.buymeacoffee.com/sahina"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=sahina&button_colour=FFDD00&font_colour=000000&font_family=Bree&outline_colour=000000&coffee_colour=ffffff"></a>
 
 # Known Issues
 App not launching?
@@ -31,3 +36,6 @@ Current Features:
 # Supported Plattforms
 * Windows
 * Linux (Coming soon)
+
+# You want to support this project?
+<a href="https://www.buymeacoffee.com/sahina"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=sahina&button_colour=FFDD00&font_colour=000000&font_family=Bree&outline_colour=000000&coffee_colour=ffffff"></a>
