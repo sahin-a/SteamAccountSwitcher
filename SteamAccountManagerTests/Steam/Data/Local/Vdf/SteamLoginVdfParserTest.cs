@@ -1,19 +1,23 @@
-﻿using SteamAccountManager.Domain.Steam.Exception.Vdf;
+﻿using Moq;
+using SteamAccountManager.Domain.Steam.Exception.Vdf;
+using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
 using Xunit;
 
-namespace SteamAccountManagerTests.Steam.Data.Local.Vdf
+namespace SteamAccountManager.Tests.Steam.Data.Local.Vdf
 {
     public class SteamLoginVdfParserTest
     {
         private const string ValidLoginUsersVdf =
             "\"users\"\r\n{\r\n\t\"646324523432\"\r\n\t{\r\n\t\t\"AccountName\"\t\t\"DieterSteamAccount\"\r\n\t\t\"PersonaName\"\t\t\"dieterApfelNickname\"\r\n\t\t\"RememberPassword\"\t\t\"1\"\r\n\t\t\"MostRecent\"\t\t\"1\"\r\n\t\t\"Timestamp\"\t\t\"1635552555\"\r\n\t}\r\n\t\"45674374567\"\r\n\t{\r\n\t\t\"AccountName\"\t\t\"ApfelsalatPeter\"\r\n\t\t\"PersonaName\"\t\t\"peternussNickname\"\r\n\t\t\"RememberPassword\"\t\t\"0\"\r\n\t\t\"MostRecent\"\t\t\"0\"\r\n\t\t\"Timestamp\"\t\t\"1627750152\"\r\n\t}\r\n}\r\n";
-        
+
+        private readonly Mock<ILogger> _logger;
         private readonly SteamLoginVdfParser _sut;
         
         public SteamLoginVdfParserTest()
         {
-            _sut = new SteamLoginVdfParser();
+            _logger = new Mock<ILogger>(behavior: MockBehavior.Loose);
+            _sut = new SteamLoginVdfParser(_logger.Object);
         }
 
         [Fact]

@@ -1,24 +1,31 @@
-﻿using Moq;
+﻿using System.Collections.Generic;
+using Moq;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
 using SteamAccountManager.Tests.Steam.Data.Local.TestData;
-using System.Collections.Generic;
 using Xunit;
 
-namespace SteamAccountManagerTests.Steam.Data.Local.Dao
+namespace SteamAccountManager.Tests.Steam.Data.Local.Dao
 {
     public class LoginUsersDaoTest
     {
         private readonly Mock<ISteamLoginVdfReader> _steamVdfReader;
         private readonly Mock<ISteamLoginVdfParser> _steamVdfParser;
+        private readonly Mock<ISteamLoginVdfWriter> _steamVdfWriter;
         private readonly LoginUsersDao _sut;
 
         public LoginUsersDaoTest()
         {
             _steamVdfReader = new Mock<ISteamLoginVdfReader>(behavior: MockBehavior.Strict);
             _steamVdfParser = new Mock<ISteamLoginVdfParser>(behavior: MockBehavior.Strict);
-            _sut = new LoginUsersDao(_steamVdfReader.Object, _steamVdfParser.Object);
+            _steamVdfWriter = new Mock<ISteamLoginVdfWriter>(behavior: MockBehavior.Strict);
+            
+            _sut = new LoginUsersDao(
+                _steamVdfReader.Object,
+                _steamVdfParser.Object,
+                _steamVdfWriter.Object
+                );
         }
 
         [Fact]
