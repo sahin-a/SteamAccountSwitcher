@@ -9,6 +9,7 @@
     <AvaloniaResource Include="Assets\**" />
     <None Remove=".gitignore" />
     <None Remove="Assets\avatar_placeholder.jpg" />
+    <None Remove="Assets\github_mark_light.png" />
     <None Remove="Assets\sam.ico" />
   </ItemGroup>
   <ItemGroup>

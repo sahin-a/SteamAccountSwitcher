@@ -17,7 +17,13 @@ namespace SteamAccountManager.AvaloniaUI.Models
         public string ProfileUrl { get; set; }
         public bool IsVacBanned { get; set; }
         public bool IsCommunityBanned { get; set; }
-        public DateTime LastLogin { get; set; }
+        public string LastLogin { get; set; }
+        public int Level { get; set; }
+        public bool ShowLevel
+        {
+            get { return Level >= 0; }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

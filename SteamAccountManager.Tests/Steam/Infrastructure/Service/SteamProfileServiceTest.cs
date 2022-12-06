@@ -15,14 +15,16 @@ namespace SteamAccountManager.Tests.Steam.Infrastructure.Service
     public class SteamProfileServiceTest
     {
         private readonly Mock<ISteamUserProvider> _steamPlayerSummaryProviderMock;
+        private readonly Mock<ISteamPlayerServiceProvider> _steamPlayerServiceProviderMock;
         private readonly Mock<ILogger> _loggerMock;
         private readonly ISteamProfileService _sut;
 
         public SteamProfileServiceTest()
         {
             _steamPlayerSummaryProviderMock = new Mock<ISteamUserProvider>(behavior: MockBehavior.Strict);
+            _steamPlayerServiceProviderMock = new Mock<ISteamPlayerServiceProvider>(behavior: MockBehavior.Strict);
             _loggerMock = new Mock<ILogger>(behavior: MockBehavior.Loose);
-            _sut = new SteamProfileService(_steamPlayerSummaryProviderMock.Object, _loggerMock.Object);
+            _sut = new SteamProfileService(_steamPlayerSummaryProviderMock.Object, _steamPlayerServiceProviderMock.Object, _loggerMock.Object);
         }
 
         [Fact]
