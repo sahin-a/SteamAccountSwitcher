@@ -46,7 +46,7 @@ Android App Features:
 
 # [Android 💕](https://github.com/sahin-a/SteamAccountSwitcherAndroid)
 * The REST Service has to be running in order for the app to work
-* Play Store release in the works
+* [Play Store 🤖](https://play.google.com/store/apps/details?id=com.sar.steamaccountswitcher)
 <img src="https://user-images.githubusercontent.com/55054756/182717676-a66bd912-b89e-46ce-9abd-fc4071b9d25f.jpg" width="256">
 
 # [REST API 🥸](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.WebAPI)
