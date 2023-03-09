@@ -31,6 +31,8 @@ jobs:
             dotnet publish --self-contained -c Release -f "net6.0-windows10.0.17763.0" -o ./output -r win-x86 -p:PublishReadyToRun=true
 
       - name: Create Artifacts
+        run: cd "SteamAccountManager.AvaloniaUI"
+        run: dir
         run: 7z a -tzip ${{ env.OUTPUT_ARTIFACT_FILENAME }} output/*
 
       - name: 🔮 Upload Build Artifacts
