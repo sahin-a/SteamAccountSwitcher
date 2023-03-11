@@ -32,6 +32,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             ShowSwitcher = ReactiveCommand.CreateFromObservable(
                 () => Router.Navigate.Execute(accountSwitcherViewModel)
             );
+
+            Router.Navigate.Execute(accountSwitcherViewModel);
         }
     }
 }
