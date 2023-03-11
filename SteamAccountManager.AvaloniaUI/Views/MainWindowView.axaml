@@ -21,20 +21,14 @@
 	<DockPanel LastChildFill="True">
 		<Grid Classes="NavBar" DockPanel.Dock="Bottom">
 			<UniformGrid Columns="2">
-				<Button Classes="NavTab" Content="Accounts" Command="{Binding ShowSwitcher}" ToolTip.Tip="Switcher" />
-				<Button Classes="NavTab" Content="Settings" Command="{Binding ShowSettings}" ToolTip.Tip="Settings" />
+				<Button Classes="NavTab" Content="👤" Command="{Binding ShowSwitcher}" ToolTip.Tip="Switcher" />
+				<Button Classes="NavTab" Content="⚙️" Command="{Binding ShowSettings}" ToolTip.Tip="Settings" />
 			</UniformGrid>
 		</Grid>
 		<rxui:RoutedViewHost Router="{Binding Router}">
-			<rxui:RoutedViewHost.DefaultContent>
-				<TextBlock Text="Default content"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center" />
-			</rxui:RoutedViewHost.DefaultContent>
 			<rxui:RoutedViewHost.ViewLocator>
 				<app:AppViewLocator />
 			</rxui:RoutedViewHost.ViewLocator>
 		</rxui:RoutedViewHost>
 	</DockPanel>
-
 </Window>
