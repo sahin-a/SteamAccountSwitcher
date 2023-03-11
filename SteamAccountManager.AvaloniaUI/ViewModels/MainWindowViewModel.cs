@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using ReactiveUI;
+using SteamAccountManager.AvaloniaUI.Common;
 using System.Reactive;
 
 namespace SteamAccountManager.AvaloniaUI.ViewModels
@@ -17,6 +18,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         // The command that navigates a user back.
         public ReactiveCommand<Unit, Unit> GoBack => Router.NavigateBack;
 
+        private readonly ViewModelStore _viewModelStore = new ViewModelStore();
+
         public MainWindowViewModel()
         {
             // Manage the routing state. Use the Router.Navigate.Execute
@@ -26,14 +29,11 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             // of a view model, this allows you to pass parameters to 
             // your view models, or to reuse existing view models.
             //
-            var accountSwitcherViewModel = Dependencies.Container?.Resolve<AccountSwitcherViewModel>(new TypedParameter(typeof(IScreen), this))
-                ?? throw new System.Exception("Failed to resolve AccountSwitcherViewModel");
-
             ShowSwitcher = ReactiveCommand.CreateFromObservable(
-                () => Router.Navigate.Execute(accountSwitcherViewModel)
+                () => Router.Navigate.Execute(_viewModelStore.Get<AccountSwitcherViewModel>(this))
             );
 
-            Router.Navigate.Execute(accountSwitcherViewModel);
+            Router.Navigate.Execute(_viewModelStore.Get<AccountSwitcherViewModel>(this));
         }
     }
 }

@@ -13,7 +13,9 @@ namespace SteamAccountManager.AvaloniaUI
     {
         public IViewFor? ResolveView<T>(T viewModel, string? contract = null)
         {
-            string? viewPath = viewModel?.GetType().FullName?.Replace("ViewModels", "Views").Replace("ViewModel", "View");
+            string? viewPath = viewModel?.GetType().FullName?
+                .Replace("ViewModels", "Views")
+                .Replace("ViewModel", "View");
 
             switch (viewPath)
             {
