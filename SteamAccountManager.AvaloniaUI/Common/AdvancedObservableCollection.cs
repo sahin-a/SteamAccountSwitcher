@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 
 namespace SteamAccountManager.AvaloniaUI.Common
 {
-    internal class AdvancedObservableCollection<T> : ObservableCollection<T>
+    public class AdvancedObservableCollection<T> : ObservableCollection<T>
     {
         public AdvancedObservableCollection() : base()
         {

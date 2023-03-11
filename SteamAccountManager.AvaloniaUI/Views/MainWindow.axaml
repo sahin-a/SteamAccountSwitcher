@@ -1,5 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
+		xmlns:app="clr-namespace:SteamAccountManager.AvaloniaUI"
         xmlns:vm="using:SteamAccountManager.AvaloniaUI.ViewModels"
         xmlns:view="using:SteamAccountManager.AvaloniaUI.Views"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,10 +17,39 @@
 		Background="#1C1B1B"
 		ExtendClientAreaToDecorationsHint="True">
 
-	<Design.DataContext>
-		<vm:MainWindowViewModel/>
-	</Design.DataContext>
+	<StackPanel Orientation="Horizontal">
+		<StackPanel>
+			<Grid Background="#1c1b1b">
+				<UniformGrid VerticalAlignment="Center" Rows="2">
+					<UniformGrid.Styles>
+						<Style Selector="Button">
+							<Setter Property="FontSize" Value="25" />
+							<Setter Property="HorizontalContentAlignment" Value="Center" />
+							<Setter Property="VerticalContentAlignment" Value="Center" />
+							<Setter Property="HorizontalAlignment" Value="Stretch" />
+							<Setter Property="VerticalAlignment" Value="Stretch" />
+							<Setter Property="Background" Value="Transparent" />
+							<Setter Property="Padding" Value="12" />
+							<Setter Property="Margin" Value="0" />
+						</Style>
+					</UniformGrid.Styles>
 
-	<view:AccountSwitcher />
+					<Button Content="😀" Command="{Binding ShowSwitcher}" ToolTip.Tip="Switcher" />
+					<Button Content="⚙" Command="{Binding ShowSettings}" ToolTip.Tip="Settings" />
+				</UniformGrid>
+			</Grid>
+		</StackPanel>
+		<rxui:RoutedViewHost Router="{Binding Router}">
+			<rxui:RoutedViewHost.DefaultContent>
+				<TextBlock Text="Default content"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+			</rxui:RoutedViewHost.DefaultContent>
+			<rxui:RoutedViewHost.ViewLocator>
+				<!-- See AppViewLocator.cs section below -->
+				<app:AppViewLocator />
+			</rxui:RoutedViewHost.ViewLocator>
+		</rxui:RoutedViewHost>
+	</StackPanel>
 
 </Window>

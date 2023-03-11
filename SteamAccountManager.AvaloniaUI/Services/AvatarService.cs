@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SteamAccountManager.AvaloniaUI.Services
 {
-    internal class AvatarService
+    public class AvatarService
     {
         private IAssetLoader _assetLoader;
         private readonly IAvatarService _avatarService;

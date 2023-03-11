@@ -9,7 +9,7 @@ using Account = SteamAccountManager.AvaloniaUI.Models.Account;
 
 namespace SteamAccountManager.AvaloniaUI.Mappers
 {
-    internal class AccountMapper
+    public class AccountMapper
     {
         private AvatarService _avatarService;
 

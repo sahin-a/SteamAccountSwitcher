@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace SteamAccountManager.AvaloniaUI.Models
 {
-    internal class Account : INotifyPropertyChanged
+    public class Account : INotifyPropertyChanged
     {
         public IBitmap? ProfilePicture { get; set; }
         public Uri? ProfilePictureUrl { get; set; }

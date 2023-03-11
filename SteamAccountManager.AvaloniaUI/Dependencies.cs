@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using Autofac.Core;
 using DI;
+using ReactiveUI;
 using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Notifications;
@@ -35,7 +37,9 @@ namespace SteamAccountManager.AvaloniaUI
 
         public static void RegisterViewModels(this ContainerBuilder builder)
         {
-            builder.RegisterType<AccountSwitcherViewModel>();
+
+            builder.RegisterType<AccountSwitcherViewModel>()
+                .WithParameter(new TypedParameter(typeof(IScreen), "screen"));
         }
     }
 }
