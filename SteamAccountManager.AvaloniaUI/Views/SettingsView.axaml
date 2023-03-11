@@ -4,6 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SteamAccountManager.AvaloniaUI.Views.SettingsView">
-	
-	
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+            <Label Content="Steam Web API Key" />
+            <TextBox x:Name="ApiKeyInputField" Text="{Binding WebApiKey}" Watermark="Enter your key here.."
+                     Margin="0,8, 0, 8" />
+            <Button Content="Save" Command="{Binding SaveApiKeyCommand}"
+                    CommandParameter="{Binding Text, ElementName=ApiKeyInputField}" HorizontalContentAlignment="Center"
+                    HorizontalAlignment="Stretch" />
+        </StackPanel>
+    </Grid>
+
 </UserControl>
