@@ -13,13 +13,21 @@ namespace SteamAccountManager.AvaloniaUI
     {
         public IViewFor? ResolveView<T>(T viewModel, string? contract = null)
         {
-            switch (viewModel)
+            string? viewPath = viewModel?.GetType().FullName?.Replace("ViewModels", "Views").Replace("ViewModel", "View");
+
+            switch (viewPath)
             {
-                case AccountSwitcherViewModel:
-                    return new AccountSwitcher();
+                case not null:
+                    return createInstanceFromPath(viewPath);
                 default:
                     return null;
             }
+        }
+
+        private IViewFor createInstanceFromPath(string path)
+        {
+            Type classType = Type.GetType(path, true) ?? throw new Exception("Couldn't resolve type from path");
+            return Activator.CreateInstance(classType) as IViewFor ?? throw new Exception("Type isn't of type IViewFor!");
         }
     }
 }
