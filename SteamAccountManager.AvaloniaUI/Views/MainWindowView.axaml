@@ -20,10 +20,16 @@
 
 	<DockPanel LastChildFill="True">
 		<Grid Classes="NavBar" DockPanel.Dock="Bottom">
-			<UniformGrid Columns="2">
-				<Button Classes="NavTab" Content="👤" Command="{Binding ShowSwitcher}" ToolTip.Tip="Switcher" />
-				<Button Classes="NavTab" Content="⚙️" Command="{Binding ShowSettings}" ToolTip.Tip="Settings" />
-			</UniformGrid>
+			<ItemsRepeater Items="{Binding NavigationTargets}">
+				<ItemsRepeater.Layout>
+					<UniformGridLayout ItemsJustification="SpaceAround" MaximumRowsOrColumns="{Binding Path=NavigationTargets.Count}" Orientation="Horizontal" ItemsStretch="Fill"/>
+				</ItemsRepeater.Layout>
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+						<Button Classes="NavTab" Content="{Binding Title}" Command="{Binding NavigateCommand}" ToolTip.Tip="{Binding HintText}" />
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
 		</Grid>
 		<rxui:RoutedViewHost Router="{Binding Router}">
 			<rxui:RoutedViewHost.ViewLocator>

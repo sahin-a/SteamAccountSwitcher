@@ -15,6 +15,7 @@ using ReactiveUI;
 namespace SteamAccountManager.AvaloniaUI.ViewModels
 {
     // TODO: looks ridicilous, I should refactor all of this but I don't feel bored enough yet
+    // TOOD: switch to reactive commands etc.
     public class AccountSwitcherViewModel : RoutableViewModel
     {
         private readonly IGetAccountsWithDetailsUseCase _getAccountsUseCase;
