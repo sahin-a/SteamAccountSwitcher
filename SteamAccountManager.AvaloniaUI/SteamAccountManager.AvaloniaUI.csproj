@@ -21,6 +21,12 @@
     <None Remove="Assets\avatar_placeholder.jpg" />
     <None Remove="Assets\github_mark_light.png" />
     <None Remove="Assets\sam.ico" />
+    <None Remove="SteamAccountSwitcherStyles.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaXaml Include="SteamAccountSwitcherStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaXaml>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.16" />
@@ -42,8 +48,11 @@
     <ProjectReference Include="..\SteamAccountManager.Application\SteamAccountManager.Application.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Views\AccountSwitcher.axaml.cs">
-      <DependentUpon>AccountSwitcher.axaml</DependentUpon>
+    <Compile Update="Views\AccountSwitcherView.axaml.cs">
+      <DependentUpon>AccountSwitcherView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MainWindowView.axaml.cs">
+      <DependentUpon>MainWindowView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

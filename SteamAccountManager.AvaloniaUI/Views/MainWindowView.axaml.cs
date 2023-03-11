@@ -6,9 +6,9 @@ using SteamAccountManager.AvaloniaUI.ViewModels;
 
 namespace SteamAccountManager.AvaloniaUI.Views
 {
-    public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
+    public partial class MainWindowView : ReactiveWindow<MainWindowViewModel>
     {
-        public MainWindow()
+        public MainWindowView()
         {
             AvaloniaXamlLoader.Load(this);
 #if DEBUG

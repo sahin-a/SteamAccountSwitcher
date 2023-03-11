@@ -7,9 +7,9 @@ using SteamAccountManager.AvaloniaUI.ViewModels;
 
 namespace SteamAccountManager.AvaloniaUI.Views
 {
-    public partial class AccountSwitcher : ReactiveUserControl<AccountSwitcherViewModel>
+    public partial class AccountSwitcherView : ReactiveUserControl<AccountSwitcherViewModel>
     {
-        public AccountSwitcher()
+        public AccountSwitcherView()
         {
             AvaloniaXamlLoader.Load(this);
         }

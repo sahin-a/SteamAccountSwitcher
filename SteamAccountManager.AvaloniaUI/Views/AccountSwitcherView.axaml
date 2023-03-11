@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:local="using:SteamAccountManager.AvaloniaUI"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SteamAccountManager.AvaloniaUI.Views.AccountSwitcher">
+             x:Class="SteamAccountManager.AvaloniaUI.Views.AccountSwitcherView">
 
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -13,24 +13,11 @@
 		</Grid.ColumnDefinitions>
 
 		<!-- Side Bar -->
-		<Grid Background="#1c1b1b">
+		<Grid Classes="ButtonBar">
 			<UniformGrid VerticalAlignment="Center" Rows="3">
-				<UniformGrid.Styles>
-					<Style Selector="Button">
-						<Setter Property="FontSize" Value="25" />
-						<Setter Property="HorizontalContentAlignment" Value="Center" />
-						<Setter Property="VerticalContentAlignment" Value="Center" />
-						<Setter Property="HorizontalAlignment" Value="Stretch" />
-						<Setter Property="VerticalAlignment" Value="Stretch" />
-						<Setter Property="Background" Value="Transparent" />
-						<Setter Property="Padding" Value="12" />
-						<Setter Property="Margin" Value="0" />
-					</Style>
-				</UniformGrid.Styles>
-
-				<Button Content="+" Command="{Binding AddAccountCommand}" ToolTip.Tip="Add Account" />
-				<Button Content="⟳" Command="{Binding RefreshAccountsCommand}" ToolTip.Tip="Refresh" />
-				<Button Command="{Binding ShowInfoCommand}" ToolTip.Tip="GitHub">
+				<Button Classes="BarItem" Content="+" Command="{Binding AddAccountCommand}" ToolTip.Tip="Add Account" />
+				<Button Classes="BarItem" Content="⟳" Command="{Binding RefreshAccountsCommand}" ToolTip.Tip="Refresh" />
+				<Button Classes="BarItem" Command="{Binding ShowInfoCommand}" ToolTip.Tip="GitHub">
 					<Image Source="avares://SteamAccountManager.AvaloniaUI/Assets/github_mark_light.png" Height="20" />
 				</Button>
 			</UniformGrid>
