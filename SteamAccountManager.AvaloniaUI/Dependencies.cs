@@ -38,7 +38,13 @@ namespace SteamAccountManager.AvaloniaUI
         public static void RegisterViewModels(this ContainerBuilder builder)
         {
 
-            builder.RegisterType<AccountSwitcherViewModel>()
+            builder.RegisterViewModel<AccountSwitcherViewModel>();
+            builder.RegisterViewModel<SettingsViewModel>();
+        }
+
+        private static void RegisterViewModel<ViewModel>(this ContainerBuilder builder) where ViewModel : RoutableViewModel
+        {
+            builder.RegisterType<ViewModel>()
                 .WithParameter(new TypedParameter(typeof(IScreen), "screen"));
         }
     }

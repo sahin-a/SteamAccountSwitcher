@@ -15,11 +15,8 @@ using ReactiveUI;
 namespace SteamAccountManager.AvaloniaUI.ViewModels
 {
     // TODO: looks ridicilous, I should refactor all of this but I don't feel bored enough yet
-    public class AccountSwitcherViewModel : ReactiveObject, IRoutableViewModel
+    public class AccountSwitcherViewModel : RoutableViewModel
     {
-        public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 5);
-        public IScreen HostScreen { get; }
-
         private readonly IGetAccountsWithDetailsUseCase _getAccountsUseCase;
         private readonly ISwitchAccountUseCase _switchAccountUseCase;
         private readonly AccountMapper _accountMapper;
@@ -40,9 +37,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             AccountMapper accountMapper,
             IAccountStorageObservable accountStorageObserver,
             ILocalNotificationService notificationService
-        )
+        ) : base(screen)
         {
-            HostScreen = screen;
             _getAccountsUseCase = getAccountsUseCase;
             _switchAccountUseCase = switchAccountUseCase;
             _accountMapper = accountMapper;
