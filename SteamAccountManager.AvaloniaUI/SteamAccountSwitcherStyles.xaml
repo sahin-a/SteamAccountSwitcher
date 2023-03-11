@@ -1,0 +1,35 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Style Selector="Window">
+		<Setter Property="Background" Value="#1c1b1b" />
+		<Setter Property="Icon" Value="/Assets/sam.ico" />
+		<Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+	</Style>
+
+	<Style Selector="Grid.NavBar">
+		<Setter Property="Background" Value="#1c1b1b" />
+	</Style>
+	<Style Selector="Button.NavTab">
+		<Setter Property="HorizontalContentAlignment" Value="Center" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="VerticalAlignment" Value="Stretch" />
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Padding" Value="12" />
+		<Setter Property="Margin" Value="0" />
+	</Style>
+
+	<Style Selector="Grid.ButtonBar">
+		<Setter Property="Background" Value="#1c1b1b" />
+	</Style>
+	<Style Selector="Button.BarItem">
+		<Setter Property="FontSize" Value="25" />
+		<Setter Property="HorizontalContentAlignment" Value="Center" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="VerticalAlignment" Value="Stretch" />
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Padding" Value="12" />
+		<Setter Property="Margin" Value="0" />
+	</Style>
+</Styles>

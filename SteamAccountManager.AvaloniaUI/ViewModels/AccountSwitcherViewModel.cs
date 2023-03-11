@@ -10,11 +10,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using SteamAccountManager.Application.Steam.Observables;
+using ReactiveUI;
 
 namespace SteamAccountManager.AvaloniaUI.ViewModels
 {
     // TODO: looks ridicilous, I should refactor all of this but I don't feel bored enough yet
-    internal class AccountSwitcherViewModel
+    // TOOD: switch to reactive commands etc.
+    public class AccountSwitcherViewModel : RoutableViewModel
     {
         private readonly IGetAccountsWithDetailsUseCase _getAccountsUseCase;
         private readonly ISwitchAccountUseCase _switchAccountUseCase;
@@ -28,15 +30,15 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public ICommand AddAccountCommand { get; }
         public Account? SelectedAccount { get; set; }
 
-
         public AccountSwitcherViewModel
         (
+            IScreen screen,
             IGetAccountsWithDetailsUseCase getAccountsUseCase,
             ISwitchAccountUseCase switchAccountUseCase,
             AccountMapper accountMapper,
             IAccountStorageObservable accountStorageObserver,
             ILocalNotificationService notificationService
-        )
+        ) : base(screen)
         {
             _getAccountsUseCase = getAccountsUseCase;
             _switchAccountUseCase = switchAccountUseCase;

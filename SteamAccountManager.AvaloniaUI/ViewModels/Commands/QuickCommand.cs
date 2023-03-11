@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace SteamAccountManager.AvaloniaUI.ViewModels.Commands
 {
-    internal class QuickCommand : ICommand
+    public class QuickCommand : ICommand
     {
         private readonly Action _func;
 
