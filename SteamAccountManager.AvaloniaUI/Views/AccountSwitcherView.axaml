@@ -97,10 +97,12 @@
                         <Grid Grid.Column="2" HorizontalAlignment="Right"
                               IsVisible="{Binding Path=DataContext.Config.ShowLevel, 
 									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
-                            <Ellipse Width="40" Height="40" Stroke="{Binding Rank.Color}" StrokeThickness="2"
-                                     VerticalAlignment="Center" HorizontalAlignment="Left" />
-                            <TextBlock Text="{Binding Rank.Level}" VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
+                            <Panel IsVisible="{Binding ShowLevel}">
+                                <Ellipse Width="40" Height="40" Stroke="{Binding Rank.Color}" StrokeThickness="2"
+                                         VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                <TextBlock Text="{Binding Rank.Level}" VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </Panel>
                         </Grid>
                     </Grid>
                 </DataTemplate>
