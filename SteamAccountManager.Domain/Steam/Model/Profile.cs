@@ -1,4 +1,4 @@
-﻿namespace SteamAccountManager.Application.Steam.Model
+﻿namespace SteamAccountManager.Domain.Steam.Model
 {
     public class Profile
     {

@@ -1,9 +1,9 @@
 ﻿using Gameloop.Vdf;
 using Gameloop.Vdf.Linq;
-using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using System;
 using System.Collections.Generic;
+using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Exceptions.Vdf;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Vdf

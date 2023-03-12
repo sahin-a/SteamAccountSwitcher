@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
-using SteamAccountManager.Application.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage

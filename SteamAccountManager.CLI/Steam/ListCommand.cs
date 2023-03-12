@@ -1,4 +1,4 @@
-﻿using SteamAccountManager.Application.Steam.UseCase;
+﻿using SteamAccountManager.Domain.Steam.UseCase;
 
 namespace SteamAccountManager.CLI.Steam
 {

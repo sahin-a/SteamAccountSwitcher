@@ -2,8 +2,8 @@
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using System.Collections.Generic;
 using System.IO;
-using SteamAccountManager.Application.Common.Observable;
-using SteamAccountManager.Application.Steam.Observables;
+using SteamAccountManager.Domain.Observable;
+using SteamAccountManager.Domain.Steam.Observables;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.FileWatcher
 {

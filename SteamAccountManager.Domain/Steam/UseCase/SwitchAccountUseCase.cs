@@ -1,9 +1,9 @@
-﻿using SteamAccountManager.Application.Steam.Exceptions;
-using SteamAccountManager.Application.Steam.Local.Logger;
-using SteamAccountManager.Application.Steam.Local.Repository;
-using SteamAccountManager.Application.Steam.Service;
+﻿using SteamAccountManager.Domain.Steam.Exceptions;
+using SteamAccountManager.Domain.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Local.Repository;
+using SteamAccountManager.Domain.Steam.Service;
 
-namespace SteamAccountManager.Application.Steam.UseCase
+namespace SteamAccountManager.Domain.Steam.UseCase
 {
     public interface ISwitchAccountUseCase
     {

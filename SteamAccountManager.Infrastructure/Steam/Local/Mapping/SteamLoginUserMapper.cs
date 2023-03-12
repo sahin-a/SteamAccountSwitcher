@@ -1,7 +1,7 @@
-﻿using SteamAccountManager.Application.Steam.Model;
-using SteamAccountManager.Infrastructure.Steam.Local.Dto;
+﻿using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using System;
 using System.Collections.Generic;
+using SteamAccountManager.Domain.Steam.Model;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Mapping
 {

@@ -1,4 +1,4 @@
-﻿namespace SteamAccountManager.Application.Common.Observable
+﻿namespace SteamAccountManager.Domain.Observable
 {
     public abstract class BaseObservable<T> : IObserveable<T>
     {

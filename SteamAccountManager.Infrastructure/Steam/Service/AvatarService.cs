@@ -1,8 +1,8 @@
-﻿using SteamAccountManager.Application.Steam.Local.Logger;
-using SteamAccountManager.Application.Steam.Service;
-using SteamAccountManager.Infrastructure.Steam.Local.Storage;
+﻿using SteamAccountManager.Infrastructure.Steam.Local.Storage;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using SteamAccountManager.Domain.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Service;
 
 namespace SteamAccountManager.Infrastructure.Steam.Service;
 

@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DI\DI.csproj" />
-    <ProjectReference Include="..\SteamAccountManager.Application\SteamAccountManager.Application.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\AccountSwitcherView.axaml.cs">

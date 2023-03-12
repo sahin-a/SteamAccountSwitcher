@@ -1,6 +1,6 @@
-﻿using SteamAccountManager.Application.Steam.Model;
+﻿using SteamAccountManager.Domain.Steam.Model;
 
-namespace SteamAccountManager.Application.Steam.Local.Repository
+namespace SteamAccountManager.Domain.Steam.Local.Repository
 {
     public interface ISteamRepository
     {

@@ -1,6 +1,6 @@
 ﻿using SteamAccountManager.Domain.Steam.Model;
 
-namespace SteamAccountManager.Application.Steam.UseCase
+namespace SteamAccountManager.Domain.Steam.UseCase
 {
     public interface IGetAccountsWithDetailsUseCase
     {

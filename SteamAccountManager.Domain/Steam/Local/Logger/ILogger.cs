@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace SteamAccountManager.Application.Steam.Local.Logger
+namespace SteamAccountManager.Domain.Steam.Local.Logger
 {
     public interface ILogger
     {

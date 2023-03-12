@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SteamAccountManager.Application.Steam.UseCase;
 using SteamAccountManager.Domain.Steam.Model;
+using SteamAccountManager.Domain.Steam.UseCase;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

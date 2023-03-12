@@ -1,8 +1,8 @@
-﻿using SteamAccountManager.Application.Steam.UseCase;
-using SteamAccountManager.Domain.Steam.Model;
+﻿using SteamAccountManager.Domain.Steam.Model;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using SteamAccountManager.Domain.Steam.UseCase;
 
 namespace SteamAccountManager.AvaloniaUI.DemoMock
 {

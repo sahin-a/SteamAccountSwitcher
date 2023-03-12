@@ -1,9 +1,9 @@
 ﻿using Moq;
-using SteamAccountManager.Application.Steam.Exceptions;
-using SteamAccountManager.Application.Steam.Local.Logger;
-using SteamAccountManager.Application.Steam.Local.Repository;
-using SteamAccountManager.Application.Steam.Service;
-using SteamAccountManager.Application.Steam.UseCase;
+using SteamAccountManager.Domain.Steam.Exceptions;
+using SteamAccountManager.Domain.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Local.Repository;
+using SteamAccountManager.Domain.Steam.Service;
+using SteamAccountManager.Domain.Steam.UseCase;
 using SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData;
 using Xunit;
 

@@ -1,13 +1,13 @@
-﻿using SteamAccountManager.Application.Steam.Local.Logger;
-using SteamAccountManager.Application.Steam.Local.Repository;
-using SteamAccountManager.Application.Steam.Model;
-using SteamAccountManager.Application.Steam.Exceptions;
-using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
+﻿using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SteamAccountManager.Domain.Steam.Exceptions;
+using SteamAccountManager.Domain.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Local.Repository;
+using SteamAccountManager.Domain.Steam.Model;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
 {

@@ -1,6 +1,6 @@
-﻿using SteamAccountManager.Application.Steam.UseCase;
-using SteamAccountManager.CLI.Steam.Exceptions;
+﻿using SteamAccountManager.CLI.Steam.Exceptions;
 using System.Text.RegularExpressions;
+using SteamAccountManager.Domain.Steam.UseCase;
 
 namespace SteamAccountManager.CLI.Steam
 {

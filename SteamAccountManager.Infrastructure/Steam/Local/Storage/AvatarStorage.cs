@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using SteamAccountManager.Application.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Local.Logger;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage;
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SteamAccountManager.Application.Steam.UseCase;
+using SteamAccountManager.Domain.Steam.UseCase;
 using SteamAccountManager.WebAPI.Dtos;
 
 namespace SteamAccountManager.WebAPI.Controllers;

@@ -1,6 +1,6 @@
 ﻿#if WINDOWS10_0_17763_0_OR_GREATER
 using Microsoft.Toolkit.Uwp.Notifications;
-using SteamAccountManager.Application.Steam.Service;
+using SteamAccountManager.Domain.Steam.Service;
 
 namespace SteamAccountManager.AvaloniaUI.Notifications
 {

@@ -1,4 +1,4 @@
-﻿namespace SteamAccountManager.Application.Steam.Service;
+﻿namespace SteamAccountManager.Domain.Steam.Service;
 
 public class AvatarResponse
 {

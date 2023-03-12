@@ -1,6 +1,4 @@
-﻿using SteamAccountManager.Application.Steam.Service;
-using SteamAccountManager.Application.Steam.UseCase;
-using SteamAccountManager.AvaloniaUI.Common;
+﻿using SteamAccountManager.AvaloniaUI.Common;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
@@ -9,8 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using SteamAccountManager.Application.Steam.Observables;
 using ReactiveUI;
+using SteamAccountManager.Domain.Steam.Observables;
+using SteamAccountManager.Domain.Steam.Service;
+using SteamAccountManager.Domain.Steam.UseCase;
 
 namespace SteamAccountManager.AvaloniaUI.ViewModels
 {

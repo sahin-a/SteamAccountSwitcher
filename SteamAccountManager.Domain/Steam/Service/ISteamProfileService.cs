@@ -1,6 +1,6 @@
-﻿using SteamAccountManager.Application.Steam.Model;
+﻿using SteamAccountManager.Domain.Steam.Model;
 
-namespace SteamAccountManager.Application.Steam.Service
+namespace SteamAccountManager.Domain.Steam.Service
 {
     public interface ISteamProfileService
     {

@@ -1,11 +1,11 @@
 ﻿using Autofac;
 using DI;
 using ReactiveUI;
-using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Notifications;
 using SteamAccountManager.AvaloniaUI.Services;
 using SteamAccountManager.AvaloniaUI.ViewModels;
+using SteamAccountManager.Domain.Steam.Service;
 
 namespace SteamAccountManager.AvaloniaUI
 {
