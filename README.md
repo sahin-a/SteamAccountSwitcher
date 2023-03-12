@@ -2,6 +2,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/sahin-a/SteamAccountManager)](https://github.com/sahin-a/SteamAccountManager/network)
 [![GitHub stars](https://img.shields.io/github/stars/sahin-a/SteamAccountManager)](https://github.com/sahin-a/SteamAccountManager/stargazers)
 ![GitHub contributors](https://img.shields.io/github/contributors/sahin-a/SteamAccountManager)
+![Build passing](https://img.shields.io/github/actions/workflow/status/sahin-a/SteamAccountSwitcher/publish.yml)
 ![Downloads](https://img.shields.io/github/downloads/sahin-a/SteamAccountSwitcher/total)
 ![Lines of code](https://img.shields.io/tokei/lines/github.com/sahin-a/SteamAccountManager)
 ![GitHub repo size](https://img.shields.io/github/repo-size/sahin-a/SteamAccountManager)
@@ -38,7 +39,8 @@ Android App Features:
 # [AvaloniaUI 😉](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.AvaloniaUI)
 * Standalone
 
-![sam_preview_redesign](https://user-images.githubusercontent.com/55054756/205350752-111f23fc-d73c-4e6d-94c2-bd6ca2f6bb92.png)
+![main_tab](https://user-images.githubusercontent.com/55054756/224566828-6737a636-c803-44b9-94b6-c28a7defd3b3.png)
+![settings_tab](https://user-images.githubusercontent.com/55054756/224566838-9a045a40-2ee2-4fd3-b73e-6dbe60f095e7.png)
 
 # iOS 🍎
 * The REST Service has to be running in order for the app to work
