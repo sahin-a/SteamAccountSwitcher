@@ -18,6 +18,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
         {
             _apiKeyStorage = new();
             _logger = logger;
+            Load();
         }
 
         // TODO: throw custom exceptions
@@ -26,11 +27,9 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
         {
             try
             {
-                using (var streamReader = new StreamReader(FileName))
-                {
-                    var json = streamReader.ReadToEnd();
-                    _apiKeyStorage = JsonConvert.DeserializeObject<ApiKeyStorageDto>(json) ?? _apiKeyStorage;
-                }
+                using var streamReader = new StreamReader(FileName);
+                var json = streamReader.ReadToEnd();
+                _apiKeyStorage = JsonConvert.DeserializeObject<ApiKeyStorageDto>(json) ?? _apiKeyStorage;
             }
             catch (FileNotFoundException e)
             {
@@ -58,7 +57,6 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
 
         public string Get()
         {
-            Load();
             return _apiKeyStorage.Key;
         }
 
