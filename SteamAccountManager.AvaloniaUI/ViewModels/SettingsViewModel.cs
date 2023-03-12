@@ -85,12 +85,14 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
 
         private void DetailToggled(AccountDetailToggle detailToggle)
         {
-            var privacyConfig = _privacyConfigStorage.Get()?.DetailSettings;
+            var privacyConfig = _privacyConfigStorage.Get();
             if (privacyConfig is not null)
             {
-                var setting = privacyConfig.FirstOrDefault(x => x.DetailType == detailToggle.DetailType);
-                privacyConfig.ReplaceOrAdd(original: setting,
+                var setting = privacyConfig.DetailSettings.FirstOrDefault(x => x.DetailType == detailToggle.DetailType);
+                privacyConfig.DetailSettings.ReplaceOrAdd(original: setting,
                     replaceWith: new(detailToggle.DetailType, detailToggle.IsToggled));
+
+                _privacyConfigStorage.Set(privacyConfig);
             }
             else
             {
@@ -114,8 +116,6 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             {
                 case AccountDetailType.LoginName:
                     return "Login Name";
-                case AccountDetailType.Username:
-                    return "Username";
                 case AccountDetailType.Level:
                     return "Level";
                 case AccountDetailType.Avatar:
