@@ -8,28 +8,30 @@
     <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel>
-            <ItemsRepeater Items="{Binding AccountDetailsToggles}">
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate>
-                        <ToggleSwitch Content="{Binding Title}" IsChecked="{Binding IsToggled}"
-                                      Command="{Binding ToggledCommand}" CommandParameter="{Binding}"
-                                      Margin="0,8, 0, 8" />
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
-        </StackPanel>
+        <ItemsRepeater Grid.Column="0" Items="{Binding AccountDetailsToggles}">
+            <ItemsRepeater.Layout>
+                <UniformGridLayout Orientation="Horizontal" MaximumRowsOrColumns="2" ItemsStretch="Fill"
+                                   ItemsJustification="SpaceBetween" MinRowSpacing="12" />
+            </ItemsRepeater.Layout>
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate>
+                    <ToggleSwitch Content="{Binding Title}" IsChecked="{Binding IsToggled}"
+                                  Command="{Binding ToggledCommand}" CommandParameter="{Binding}" />
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
 
         <StackPanel Grid.Column="1">
             <Label Content="Steam Web API Key" />
             <TextBox Classes="PasswordInput" x:Name="ApiKeyInputField" Text="{Binding WebApiKey}"
-                     Watermark="Enter your key here.." Margin="0,8, 0, 8" />
+                     Watermark="Enter your key here.." Margin="0, 12, 0, 12" />
             <Button Content="Save" Command="{Binding SaveApiKeyCommand}"
                     CommandParameter="{Binding Text, ElementName=ApiKeyInputField}" HorizontalContentAlignment="Center"
                     HorizontalAlignment="Stretch" />

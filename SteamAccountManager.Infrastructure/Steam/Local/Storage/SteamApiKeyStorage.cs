@@ -51,7 +51,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
             }
             catch (Exception e)
             {
-                _logger.LogException("Failed to save api key", e);
+                _logger.LogException("Failed to persist api key", e);
                 throw;
             }
         }

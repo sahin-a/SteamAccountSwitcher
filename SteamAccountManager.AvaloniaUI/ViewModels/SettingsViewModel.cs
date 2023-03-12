@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Windows.Input;
 using DynamicData;
@@ -48,41 +48,13 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _privacyConfigStorage = privacyConfigStorage;
             SaveApiKeyCommand = ReactiveCommand.Create((string key) => SaveApiKey(key));
 
-            CreateAccountDetailToggles();
+            InitializeControls();
             PrefillFields();
         }
 
-        private void CreateAccountDetailToggles()
+        private void InitializeControls()
         {
-            var detailToggledCommand =
-                ReactiveCommand.Create((AccountDetailToggle detailToggle) => DetailToggled(detailToggle));
-
-            AccountDetailsToggles.SetItems
-            (
-                new List<AccountDetailToggle>
-                {
-                    new(AccountDetailType.LoginName, title: "Login Name", detailToggledCommand, isToggled: true),
-                    new(AccountDetailType.Username, title: "Username", detailToggledCommand, isToggled: true),
-                    new(AccountDetailType.Level, title: "Level", detailToggledCommand, isToggled: true),
-                    new(AccountDetailType.Avatar, title: "Avatar", detailToggledCommand, isToggled: true),
-                    new(AccountDetailType.BanStatus, title: "Ban Status", detailToggledCommand, isToggled: true),
-                }
-            );
-        }
-
-        private void DetailToggled(AccountDetailToggle detailToggle)
-        {
-            var privacyConfig = _privacyConfigStorage.Get()?.DetailSettings;
-            if (privacyConfig is not null)
-            {
-                var setting = privacyConfig.FirstOrDefault(x => x.DetailType == detailToggle.DetailType);
-                privacyConfig.ReplaceOrAdd(setting, new DetailSetting(detailToggle.DetailType, detailToggle.IsToggled));
-            }
-            else
-            {
-                var settings = AccountDetailsToggles.Select(x => new DetailSetting(x.DetailType, x.IsToggled));
-                _privacyConfigStorage.Set(new PrivacyConfig(settings.ToList()));
-            }
+            CreateAccountDetailToggles();
         }
 
         private void PrefillFields()
@@ -100,9 +72,59 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             }
         }
 
+        private void CreateAccountDetailToggles()
+        {
+            var detailToggledCommand =
+                ReactiveCommand.Create((AccountDetailToggle detailToggle) => DetailToggled(detailToggle));
+
+            var toggles = Enum.GetValues<AccountDetailType>().Select(x =>
+                new AccountDetailToggle(x, title: x.ToTitle(), detailToggledCommand, isToggled: true));
+
+            AccountDetailsToggles.SetItems(toggles.ToList());
+        }
+
+        private void DetailToggled(AccountDetailToggle detailToggle)
+        {
+            var privacyConfig = _privacyConfigStorage.Get()?.DetailSettings;
+            if (privacyConfig is not null)
+            {
+                var setting = privacyConfig.FirstOrDefault(x => x.DetailType == detailToggle.DetailType);
+                privacyConfig.ReplaceOrAdd(original: setting,
+                    replaceWith: new(detailToggle.DetailType, detailToggle.IsToggled));
+            }
+            else
+            {
+                var settings = AccountDetailsToggles.Select(x => new DetailSetting(x.DetailType, x.IsToggled));
+                _privacyConfigStorage.Set(new PrivacyConfig(settings.ToList()));
+            }
+        }
+
         private void SaveApiKey(string key)
         {
             _steamApiKeyStorage.Set(key);
+        }
+    }
+
+    static class AccountDetailTypeExtensions
+    {
+        // TODO: refactor this when localization story is being done
+        public static string ToTitle(this AccountDetailType type)
+        {
+            switch (type)
+            {
+                case AccountDetailType.LoginName:
+                    return "Login Name";
+                case AccountDetailType.Username:
+                    return "Username";
+                case AccountDetailType.Level:
+                    return "Level";
+                case AccountDetailType.Avatar:
+                    return "Avatar";
+                case AccountDetailType.BanStatus:
+                    return "Ban Status";
+            }
+
+            return "";
         }
     }
 }
