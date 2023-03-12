@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SteamAccountManager.Application.Steam.Local.Logger;
-using SteamAccountManager.Application.Steam.Service;
+using SteamAccountManager.Domain.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Service;
 using SteamAccountManager.Infrastructure.Steam.Exceptions;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dao;

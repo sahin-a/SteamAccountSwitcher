@@ -1,14 +1,14 @@
 ﻿using Moq;
-using SteamAccountManager.Application.Steam.Local.Logger;
-using SteamAccountManager.Application.Steam.Local.Repository;
-using SteamAccountManager.Application.Steam.Model;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 using SteamAccountManager.Infrastructure.Steam.Local.Repository;
 using SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData;
 using System;
 using System.Collections.Generic;
-using SteamAccountManager.Application.Steam.Exceptions;
+using SteamAccountManager.Domain.Steam.Exceptions;
+using SteamAccountManager.Domain.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Local.Repository;
+using SteamAccountManager.Domain.Steam.Model;
 using Xunit;
 
 namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.Repository

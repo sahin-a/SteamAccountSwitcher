@@ -1,10 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using SteamAccountManager.Application.Steam.Service;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using SteamAccountManager.Domain.Steam.Service;
 
 namespace SteamAccountManager.AvaloniaUI.Services
 {

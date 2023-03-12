@@ -1,4 +1,4 @@
-﻿using SteamAccountManager.Application.Steam.Model;
+﻿using SteamAccountManager.Domain.Steam.Model;
 
 namespace SteamAccountManager.Tests.Steam.Infrastructure.Local.TestData
 {

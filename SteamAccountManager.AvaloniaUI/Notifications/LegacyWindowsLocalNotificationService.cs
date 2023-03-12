@@ -1,4 +1,4 @@
-﻿using SteamAccountManager.Application.Steam.Service;
+﻿using SteamAccountManager.Domain.Steam.Service;
 
 namespace SteamAccountManager.AvaloniaUI.Notifications
 {

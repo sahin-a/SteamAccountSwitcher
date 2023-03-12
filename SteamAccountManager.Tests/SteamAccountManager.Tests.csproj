@@ -22,7 +22,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SteamAccountManager.Application\SteamAccountManager.Application.csproj" />
       <ProjectReference Include="..\SteamAccountManager.Infrastructure\SteamAccountManager.Infrastructure.csproj" />
     </ItemGroup>
 

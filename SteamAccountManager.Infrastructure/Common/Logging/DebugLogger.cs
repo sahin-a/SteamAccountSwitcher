@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using SteamAccountManager.Application.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Local.Logger;
 
 namespace SteamAccountManager.Infrastructure.Common.Logging
 {

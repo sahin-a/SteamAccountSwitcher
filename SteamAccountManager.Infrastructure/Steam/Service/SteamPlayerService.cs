@@ -1,6 +1,6 @@
-﻿using SteamAccountManager.Application.Steam.Service;
-using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
+﻿using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 using System.Threading.Tasks;
+using SteamAccountManager.Domain.Steam.Service;
 using SteamAccountManager.Infrastructure.Steam.Exceptions;
 
 namespace SteamAccountManager.Infrastructure.Steam.Service

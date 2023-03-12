@@ -1,8 +1,8 @@
 ﻿using RestSharp;
-using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dto;
 using System;
 using System.Threading.Tasks;
+using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Infrastructure.Steam.Exceptions;
 
 namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao

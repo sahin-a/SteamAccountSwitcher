@@ -2,12 +2,13 @@
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
-using SteamAccountManager.Application.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Storage;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
 {
-    public class SteamApiKeyStorage : IStorage<string>
+    public class SteamApiKeyStorage : ISteamApiKeyStorage
     {
         private const string FileName = "api_key.json";
 
@@ -18,6 +19,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
         {
             _apiKeyStorage = new();
             _logger = logger;
+            Load();
         }
 
         // TODO: throw custom exceptions
@@ -26,11 +28,9 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
         {
             try
             {
-                using (var streamReader = new StreamReader(FileName))
-                {
-                    var json = streamReader.ReadToEnd();
-                    _apiKeyStorage = JsonConvert.DeserializeObject<ApiKeyStorageDto>(json) ?? _apiKeyStorage;
-                }
+                using var streamReader = new StreamReader(FileName);
+                var json = streamReader.ReadToEnd();
+                _apiKeyStorage = JsonConvert.DeserializeObject<ApiKeyStorageDto>(json) ?? _apiKeyStorage;
             }
             catch (FileNotFoundException e)
             {
@@ -51,14 +51,13 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
             }
             catch (Exception e)
             {
-                _logger.LogException("Failed to save api key", e);
+                _logger.LogException("Failed to persist api key", e);
                 throw;
             }
         }
 
         public string Get()
         {
-            Load();
             return _apiKeyStorage.Key;
         }
 

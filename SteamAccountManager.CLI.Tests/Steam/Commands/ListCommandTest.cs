@@ -1,11 +1,11 @@
 ﻿using Moq;
-using SteamAccountManager.Application.Steam.UseCase;
 using SteamAccountManager.CLI.Steam;
 using SteamAccountManager.Domain.Steam.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using SteamAccountManager.Domain.Steam.UseCase;
 using Xunit;
 
 namespace SteamAccountManager.CLI.Tests.Steam.Commands

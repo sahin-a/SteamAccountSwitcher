@@ -20,7 +20,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\DI\DI.csproj" />
-		<ProjectReference Include="..\SteamAccountManager.Application\SteamAccountManager.Application.csproj" />
 		<ProjectReference Include="..\SteamAccountManager.Domain\SteamAccountManager.Domain.csproj" />
 	</ItemGroup>
 

@@ -1,7 +1,7 @@
 ﻿using CLAP;
-using SteamAccountManager.CLI;
-using SteamAccountManager.CLI.Steam;
 using SteamAccountManager.CLI.Steam.Exceptions;
+
+namespace SteamAccountManager.CLI.Steam;
 
 public class SteamAccountSwitcherCommandHandler
 {

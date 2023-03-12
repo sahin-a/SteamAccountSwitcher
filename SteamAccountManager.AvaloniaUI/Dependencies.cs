@@ -1,12 +1,12 @@
 ﻿using Autofac;
-using Autofac.Core;
 using DI;
 using ReactiveUI;
-using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Notifications;
 using SteamAccountManager.AvaloniaUI.Services;
 using SteamAccountManager.AvaloniaUI.ViewModels;
+using SteamAccountManager.Domain.Steam.Observables;
+using SteamAccountManager.Domain.Steam.Service;
 
 namespace SteamAccountManager.AvaloniaUI
 {
@@ -16,15 +16,21 @@ namespace SteamAccountManager.AvaloniaUI
 
         public static void RegisterDependencies()
         {
-            ContainerBuilder builder = new();
-            builder.RegisterModules();
-            builder.RegisterAvaloniaModule();
-            builder.RegisterViewModels();
-
-            Container = builder.Build();
+            Container = new ContainerBuilder()
+                .RegisterModules()
+                .RegisterAvaloniaModule()
+                .RegisterViewModels()
+                .Build()
+                .StartWatchers();
         }
 
-        public static void RegisterAvaloniaModule(this ContainerBuilder builder)
+        public static IContainer StartWatchers(this IContainer container)
+        {
+            container.Resolve<IAccountStorageWatcher>().Start();
+            return container;
+        }
+
+        public static ContainerBuilder RegisterAvaloniaModule(this ContainerBuilder builder)
         {
             builder.RegisterType<AvatarService>().SingleInstance();
             builder.RegisterType<AccountMapper>().SingleInstance();
@@ -33,19 +39,25 @@ namespace SteamAccountManager.AvaloniaUI
 #else
             builder.RegisterType<LegacyWindowsLocalNotificationService>().As<ILocalNotificationService>().SingleInstance();
 #endif
+
+            return builder;
         }
 
-        public static void RegisterViewModels(this ContainerBuilder builder)
+        public static ContainerBuilder RegisterViewModels(this ContainerBuilder builder)
         {
-
             builder.RegisterViewModel<AccountSwitcherViewModel>();
             builder.RegisterViewModel<SettingsViewModel>();
+
+            return builder;
         }
 
-        private static void RegisterViewModel<ViewModel>(this ContainerBuilder builder) where ViewModel : RoutableViewModel
+        private static ContainerBuilder RegisterViewModel<ViewModel>(this ContainerBuilder builder)
+            where ViewModel : RoutableViewModel
         {
             builder.RegisterType<ViewModel>()
                 .WithParameter(new TypedParameter(typeof(IScreen), "screen"));
+
+            return builder;
         }
     }
 }
