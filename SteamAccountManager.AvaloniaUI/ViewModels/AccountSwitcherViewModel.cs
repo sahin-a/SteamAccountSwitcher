@@ -26,6 +26,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private readonly AccountMapper _accountMapper;
         private readonly ILocalNotificationService _notificationService;
         private readonly IPrivacyConfigStorage _privacyConfigStorage;
+        private readonly EventBus _eventBus;
 
         public AdvancedObservableCollection<Account> Accounts { get; private set; }
         public ICommand ProfileClickedCommand { get; }
@@ -51,19 +52,30 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _accountMapper = accountMapper;
             _notificationService = notificationService;
             _privacyConfigStorage = privacyConfigStorage;
+            _eventBus = eventBus;
 
             Accounts = new AdvancedObservableCollection<Account>();
             ProfileClickedCommand = new ProfileClickedCommand();
             RefreshAccountsCommand = new QuickCommand(LoadAccounts);
             ShowInfoCommand = new QuickCommand(ShowInfo);
             AddAccountCommand = new QuickCommand(AddAccount);
-            eventBus.Subscribe(subscriberKey: GetType().Name, Events.ACCOUNTS_UPDATED, _ => LoadAccounts());
 
-            InitializeVisibilityConfig();
+            RegisterSubscriptions();
+            LoadVisibilityConfig();
             LoadAccounts();
         }
 
-        private void InitializeVisibilityConfig()
+        private void RegisterSubscriptions()
+        {
+            _eventBus.Subscribe(subscriberKey: GetType().Name, Events.ACCOUNTS_UPDATED,
+                _ => LoadAccounts()
+            );
+            _eventBus.Subscribe(subscriberKey: GetType().Name, Events.PRIVACY_CONFIG_UPDATED,
+                _ => LoadVisibilityConfig()
+            );
+        }
+
+        private void LoadVisibilityConfig()
         {
             var config = _privacyConfigStorage.Get()?.DetailSettings;
             if (config is null)
@@ -107,7 +119,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
 
         public async void LoadAccounts()
         {
-            InitializeVisibilityConfig();
+            LoadVisibilityConfig();
             Accounts.SetItems((await GetAccounts()).ToList());
         }
 

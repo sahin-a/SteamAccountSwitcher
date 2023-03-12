@@ -4,32 +4,17 @@ using System.Windows.Input;
 using DynamicData;
 using ReactiveUI;
 using SteamAccountManager.AvaloniaUI.Common;
+using SteamAccountManager.Domain.Common.EventSystem;
 using SteamAccountManager.Domain.Steam.Configuration.Model;
 using SteamAccountManager.Domain.Steam.Storage;
 
 namespace SteamAccountManager.AvaloniaUI.ViewModels
 {
-    public class AccountDetailToggle
-    {
-        public string Title { get; set; }
-        public ICommand ToggledCommand { get; set; }
-        public bool IsToggled { get; set; }
-
-        public AccountDetailType DetailType { get; set; }
-
-        public AccountDetailToggle(AccountDetailType detailType, string title, ICommand toggledCommand, bool isToggled)
-        {
-            Title = title;
-            ToggledCommand = toggledCommand;
-            IsToggled = isToggled;
-            DetailType = detailType;
-        }
-    }
-
     public class SettingsViewModel : RoutableViewModel
     {
         private readonly ISteamApiKeyStorage _steamApiKeyStorage;
         private readonly IPrivacyConfigStorage _privacyConfigStorage;
+        private readonly EventBus _eventBus;
 
 
         public AdvancedObservableCollection<AccountDetailToggle> AccountDetailsToggles { get; } = new();
@@ -41,11 +26,14 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         (
             IScreen screen,
             ISteamApiKeyStorage apiKeyStorage,
-            IPrivacyConfigStorage privacyConfigStorage
+            IPrivacyConfigStorage privacyConfigStorage,
+            EventBus eventBus
         ) : base(screen)
         {
             _steamApiKeyStorage = apiKeyStorage;
             _privacyConfigStorage = privacyConfigStorage;
+            _eventBus = eventBus;
+
             SaveApiKeyCommand = ReactiveCommand.Create((string key) => SaveApiKey(key));
 
             InitializeControls();
@@ -99,6 +87,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
                 var settings = AccountDetailsToggles.Select(x => new DetailSetting(x.DetailType, x.IsToggled));
                 _privacyConfigStorage.Set(new PrivacyConfig(settings.ToList()));
             }
+
+            _eventBus.Notify(Events.PRIVACY_CONFIG_UPDATED, null);
         }
 
         private void SaveApiKey(string key)
@@ -125,6 +115,23 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             }
 
             return "";
+        }
+    }
+
+    public class AccountDetailToggle
+    {
+        public string Title { get; set; }
+        public ICommand ToggledCommand { get; set; }
+        public bool IsToggled { get; set; }
+
+        public AccountDetailType DetailType { get; set; }
+
+        public AccountDetailToggle(AccountDetailType detailType, string title, ICommand toggledCommand, bool isToggled)
+        {
+            Title = title;
+            ToggledCommand = toggledCommand;
+            IsToggled = isToggled;
+            DetailType = detailType;
         }
     }
 }

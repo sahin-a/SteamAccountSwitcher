@@ -4,9 +4,9 @@ class Subscription
 {
     public string SubscriberKey { get; set; }
     public string EventKey { get; set; }
-    public WeakReference<Action<object?>> handler { get; set; }
+    public Action<object?> handler { get; set; }
 
-    public Subscription(string subscriberKey, string eventKey, WeakReference<Action<object?>> handler)
+    public Subscription(string subscriberKey, string eventKey, Action<object?> handler)
     {
         SubscriberKey = subscriberKey;
         EventKey = eventKey;
