@@ -3,11 +3,12 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using SteamAccountManager.Domain.Steam.Local.Logger;
+using SteamAccountManager.Domain.Steam.Storage;
 using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
 {
-    public class SteamApiKeyStorage : IStorage<string>
+    public class SteamApiKeyStorage : ISteamApiKeyStorage
     {
         private const string FileName = "api_key.json";
 

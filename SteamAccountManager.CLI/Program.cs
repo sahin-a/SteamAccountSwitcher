@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using CLAP;
-using SteamAccountManager.CLI;
+using SteamAccountManager.CLI.Steam;
+
+namespace SteamAccountManager.CLI;
 
 public class Program
 {
@@ -11,4 +13,3 @@ public class Program
         return Parser.RunConsole(args, steamAccountSwitcher);
     }
 }
-

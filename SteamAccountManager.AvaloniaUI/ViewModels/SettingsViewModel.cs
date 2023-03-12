@@ -4,7 +4,8 @@ using System.Windows.Input;
 using DynamicData;
 using ReactiveUI;
 using SteamAccountManager.AvaloniaUI.Common;
-using SteamAccountManager.Infrastructure.Steam.Local.Storage;
+using SteamAccountManager.Domain.Steam.Configuration.Model;
+using SteamAccountManager.Domain.Steam.Storage;
 
 namespace SteamAccountManager.AvaloniaUI.ViewModels
 {
@@ -27,8 +28,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
 
     public class SettingsViewModel : RoutableViewModel
     {
-        private readonly SteamApiKeyStorage _steamApiKeyStorage;
-        private readonly PrivacyConfigStorage _privacyConfigStorage;
+        private readonly ISteamApiKeyStorage _steamApiKeyStorage;
+        private readonly IPrivacyConfigStorage _privacyConfigStorage;
 
 
         public AdvancedObservableCollection<AccountDetailToggle> AccountDetailsToggles { get; } = new();
@@ -39,8 +40,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public SettingsViewModel
         (
             IScreen screen,
-            SteamApiKeyStorage apiKeyStorage,
-            PrivacyConfigStorage privacyConfigStorage
+            ISteamApiKeyStorage apiKeyStorage,
+            IPrivacyConfigStorage privacyConfigStorage
         ) : base(screen)
         {
             _steamApiKeyStorage = apiKeyStorage;

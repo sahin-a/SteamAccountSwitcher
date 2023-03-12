@@ -2,16 +2,16 @@
 using Newtonsoft.Json;
 using RestSharp;
 using SteamAccountManager.Domain.Steam.Local.Logger;
-using SteamAccountManager.Infrastructure.Steam.Local.Storage;
+using SteamAccountManager.Domain.Steam.Storage;
 
 namespace SteamAccountManager.Infrastructure.Steam.Remote.Dao
 {
     public class SteamWebClient : RestClient, ISteamWebClient
     {
         private readonly ILogger _logger;
-        private readonly SteamApiKeyStorage _steamApiKeyStorage;
+        private readonly ISteamApiKeyStorage _steamApiKeyStorage;
 
-        public SteamWebClient(ILogger logger, SteamApiKeyStorage apiKeyStorage) : base("https://api.steampowered.com")
+        public SteamWebClient(ILogger logger, ISteamApiKeyStorage apiKeyStorage) : base("https://api.steampowered.com")
         {
             _steamApiKeyStorage = apiKeyStorage;
             _logger = logger;

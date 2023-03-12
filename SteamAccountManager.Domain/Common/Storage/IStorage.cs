@@ -1,8 +1,6 @@
-﻿using System.Threading.Tasks;
-
-namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
+﻿namespace SteamAccountManager.Domain.Common.Storage
 {
-    internal interface IStorage<T> where T : class
+    public interface IStorage<T> where T : class
     {
         public T Get();
         public void Set(T value);

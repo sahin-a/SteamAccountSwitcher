@@ -4,6 +4,7 @@ using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Domain.Steam.Local.Repository;
 using SteamAccountManager.Domain.Steam.Observables;
 using SteamAccountManager.Domain.Steam.Service;
+using SteamAccountManager.Domain.Steam.Storage;
 using SteamAccountManager.Domain.Steam.UseCase;
 using SteamAccountManager.Infrastructure.Common;
 using SteamAccountManager.Infrastructure.Common.Logging;
@@ -27,6 +28,8 @@ namespace SteamAccountManager.Infrastructure
 #else
             builder.RegisterType<FileLogger>().As<ILogger>().SingleInstance();
 #endif
+            builder.RegisterStorages();
+
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 builder.RegisterType<SteamLinuxRegistryConfig>().As<ISteamConfig>().SingleInstance();
@@ -51,12 +54,16 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<ImageService>().As<IImageService>().SingleInstance();
             builder.RegisterType<SteamPlayerServiceProvider>().As<ISteamPlayerServiceProvider>().SingleInstance();
             builder.RegisterType<SteamPlayerService>().As<ISteamPlayerService>().SingleInstance();
-            builder.RegisterType<SteamApiKeyStorage>().SingleInstance();
-            builder.RegisterType<PrivacyConfigStorage>().SingleInstance();
             builder.RegisterType<LoginVdfFileWatcher>().As<IAccountStorageObservable>().SingleInstance();
             builder.RegisterType<AvatarStorage>().SingleInstance();
             builder.RegisterType<UserAvatarStorage>().SingleInstance();
             builder.RegisterType<AvatarService>().As<IAvatarService>().SingleInstance();
+        }
+
+        private static void RegisterStorages(this ContainerBuilder builder)
+        {
+            builder.RegisterType<SteamApiKeyStorage>().As<ISteamApiKeyStorage>().SingleInstance();
+            builder.RegisterType<PrivacyConfigStorage>().As<IPrivacyConfigStorage>().SingleInstance();
         }
     }
 }
