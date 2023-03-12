@@ -3,7 +3,6 @@
 public enum AccountDetailType
 {
     LoginName,
-    Username,
     Level,
     Avatar,
     BanStatus,
