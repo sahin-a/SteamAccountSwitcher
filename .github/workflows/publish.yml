@@ -25,7 +25,7 @@ jobs:
         run: |
             cd "SteamAccountManager.AvaloniaUI"
             dotnet build --configuration Release
-            dotnet publish --self-contained -c Release -f "net6.0-windows10.0.17763.0" -o ../output -r win-x86 -p:PublishReadyToRun=true
+            dotnet publish --self-contained -c Release -f "net6.0-windows10.0.17763.0" -o ../output -r win-x86 -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -p:DebugSymbols=false
 
       - name: Create Artifacts
         run: |
