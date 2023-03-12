@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using Autofac;
+using SteamAccountManager.Domain.Common.EventSystem;
 using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Domain.Steam.Local.Repository;
 using SteamAccountManager.Domain.Steam.Observables;
@@ -23,6 +24,7 @@ namespace SteamAccountManager.Infrastructure
     {
         public static void RegisterInfrastructureModule(this ContainerBuilder builder)
         {
+            builder.RegisterType<EventBus>().SingleInstance();
 #if DEBUG
             builder.RegisterType<DebugLogger>().As<ILogger>().SingleInstance();
 #else
@@ -39,6 +41,7 @@ namespace SteamAccountManager.Infrastructure
                 builder.RegisterType<SteamWinRegistryConfig>().As<ISteamConfig>().SingleInstance();
             }
 
+            builder.RegisterType<LoginVdfFileWatcher>().As<IAccountStorageWatcher>().SingleInstance();
             builder.RegisterType<SteamLoginVdfParser>().As<ISteamLoginVdfParser>().SingleInstance();
             builder.RegisterType<SteamLoginVdfReader>().As<ISteamLoginVdfReader>().SingleInstance();
             builder.RegisterType<LoginUsersDao>().As<ILoginUsersDao>().SingleInstance();
@@ -54,7 +57,6 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<ImageService>().As<IImageService>().SingleInstance();
             builder.RegisterType<SteamPlayerServiceProvider>().As<ISteamPlayerServiceProvider>().SingleInstance();
             builder.RegisterType<SteamPlayerService>().As<ISteamPlayerService>().SingleInstance();
-            builder.RegisterType<LoginVdfFileWatcher>().As<IAccountStorageObservable>().SingleInstance();
             builder.RegisterType<AvatarStorage>().SingleInstance();
             builder.RegisterType<UserAvatarStorage>().SingleInstance();
             builder.RegisterType<AvatarService>().As<IAvatarService>().SingleInstance();

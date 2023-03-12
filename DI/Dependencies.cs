@@ -5,9 +5,10 @@ namespace DI
 {
     public static class Dependencies
     {
-        public static void RegisterModules(this ContainerBuilder builder)
+        public static ContainerBuilder RegisterModules(this ContainerBuilder builder)
         {
             builder.RegisterInfrastructureModule();
+            return builder;
         }
     }
 }
