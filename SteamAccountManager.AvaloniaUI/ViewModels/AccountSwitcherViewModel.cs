@@ -9,8 +9,8 @@ using SteamAccountManager.AvaloniaUI.Common;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
+using SteamAccountManager.Domain.Common.EventSystem;
 using SteamAccountManager.Domain.Steam.Configuration.Model;
-using SteamAccountManager.Domain.Steam.Observables;
 using SteamAccountManager.Domain.Steam.Service;
 using SteamAccountManager.Domain.Steam.Storage;
 using SteamAccountManager.Domain.Steam.UseCase;
@@ -41,9 +41,9 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             IGetAccountsWithDetailsUseCase getAccountsUseCase,
             ISwitchAccountUseCase switchAccountUseCase,
             AccountMapper accountMapper,
-            IAccountStorageObservable accountStorageObserver,
             ILocalNotificationService notificationService,
-            IPrivacyConfigStorage privacyConfigStorage
+            IPrivacyConfigStorage privacyConfigStorage,
+            EventBus eventBus
         ) : base(screen)
         {
             _getAccountsUseCase = getAccountsUseCase;
@@ -57,7 +57,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             RefreshAccountsCommand = new QuickCommand(LoadAccounts);
             ShowInfoCommand = new QuickCommand(ShowInfo);
             AddAccountCommand = new QuickCommand(AddAccount);
-            accountStorageObserver.Subscribe(Accounts_Changed);
+            eventBus.Subscribe(subscriberKey: GetType().Name, Events.ACCOUNTS_UPDATED, _ => LoadAccounts());
 
             InitializeVisibilityConfig();
             LoadAccounts();
@@ -87,11 +87,6 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
                         break;
                 }
             }
-        }
-
-        private void Accounts_Changed(List<Domain.Steam.Model.Account>? accounts)
-        {
-            LoadAccounts();
         }
 
         private async void AddAccount()
