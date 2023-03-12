@@ -1,13 +1,12 @@
-﻿using Newtonsoft.Json;
-using SteamAccountManager.Application.Steam.Local.Logger;
-using SteamAccountManager.Infrastructure.Steam.Local.Dto;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
+using Newtonsoft.Json;
+using SteamAccountManager.Application.Steam.Local.Logger;
+using SteamAccountManager.Infrastructure.Steam.Local.Dto;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
 {
-
     public class SteamApiKeyStorage : IStorage<string>
     {
         private const string FileName = "api_key.json";
@@ -38,7 +37,6 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
                 _logger.LogException("File doesn't exist", e);
                 Save();
             }
-
         }
 
         private void Save()
