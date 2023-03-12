@@ -1,8 +1,12 @@
-﻿using Autofac;
+﻿using System.Runtime.InteropServices;
+using Autofac;
 using SteamAccountManager.Application.Steam.Local.Logger;
 using SteamAccountManager.Application.Steam.Local.Repository;
+using SteamAccountManager.Application.Steam.Observables;
 using SteamAccountManager.Application.Steam.Service;
 using SteamAccountManager.Application.Steam.UseCase;
+using SteamAccountManager.Infrastructure.Common;
+using SteamAccountManager.Infrastructure.Common.Logging;
 using SteamAccountManager.Infrastructure.Steam.Local.Dao;
 using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 using SteamAccountManager.Infrastructure.Steam.Local.FileWatcher;
@@ -11,10 +15,6 @@ using SteamAccountManager.Infrastructure.Steam.Local.Storage;
 using SteamAccountManager.Infrastructure.Steam.Local.Vdf;
 using SteamAccountManager.Infrastructure.Steam.Remote.Dao;
 using SteamAccountManager.Infrastructure.Steam.Service;
-using System.Runtime.InteropServices;
-using SteamAccountManager.Application.Steam.Observables;
-using SteamAccountManager.Infrastructure.Common;
-using SteamAccountManager.Infrastructure.Common.Logging;
 
 namespace SteamAccountManager.Infrastructure
 {
@@ -35,6 +35,7 @@ namespace SteamAccountManager.Infrastructure
             {
                 builder.RegisterType<SteamWinRegistryConfig>().As<ISteamConfig>().SingleInstance();
             }
+
             builder.RegisterType<SteamLoginVdfParser>().As<ISteamLoginVdfParser>().SingleInstance();
             builder.RegisterType<SteamLoginVdfReader>().As<ISteamLoginVdfReader>().SingleInstance();
             builder.RegisterType<LoginUsersDao>().As<ILoginUsersDao>().SingleInstance();
@@ -51,6 +52,7 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<SteamPlayerServiceProvider>().As<ISteamPlayerServiceProvider>().SingleInstance();
             builder.RegisterType<SteamPlayerService>().As<ISteamPlayerService>().SingleInstance();
             builder.RegisterType<SteamApiKeyStorage>().SingleInstance();
+            builder.RegisterType<PrivacyConfigStorage>().SingleInstance();
             builder.RegisterType<LoginVdfFileWatcher>().As<IAccountStorageObservable>().SingleInstance();
             builder.RegisterType<AvatarStorage>().SingleInstance();
             builder.RegisterType<UserAvatarStorage>().SingleInstance();

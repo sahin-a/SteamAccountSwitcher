@@ -1,27 +1,102 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
+using DynamicData;
 using ReactiveUI;
+using SteamAccountManager.AvaloniaUI.Common;
 using SteamAccountManager.Infrastructure.Steam.Local.Storage;
 
 namespace SteamAccountManager.AvaloniaUI.ViewModels
 {
+    public class AccountDetailToggle
+    {
+        public string Title { get; set; }
+        public ICommand ToggledCommand { get; set; }
+        public bool IsToggled { get; set; }
+
+        public AccountDetailType DetailType { get; set; }
+
+        public AccountDetailToggle(AccountDetailType detailType, string title, ICommand toggledCommand, bool isToggled)
+        {
+            Title = title;
+            ToggledCommand = toggledCommand;
+            IsToggled = isToggled;
+            DetailType = detailType;
+        }
+    }
+
     public class SettingsViewModel : RoutableViewModel
     {
         private readonly SteamApiKeyStorage _steamApiKeyStorage;
+        private readonly PrivacyConfigStorage _privacyConfigStorage;
+
+
+        public AdvancedObservableCollection<AccountDetailToggle> AccountDetailsToggles { get; } = new();
 
         public ICommand SaveApiKeyCommand { get; }
         public string WebApiKey { get; set; }
 
-        public SettingsViewModel(IScreen screen, SteamApiKeyStorage apiKeyStorage) : base(screen)
+        public SettingsViewModel
+        (
+            IScreen screen,
+            SteamApiKeyStorage apiKeyStorage,
+            PrivacyConfigStorage privacyConfigStorage
+        ) : base(screen)
         {
             _steamApiKeyStorage = apiKeyStorage;
+            _privacyConfigStorage = privacyConfigStorage;
             SaveApiKeyCommand = ReactiveCommand.Create((string key) => SaveApiKey(key));
 
+            CreateAccountDetailToggles();
             PrefillFields();
+        }
+
+        private void CreateAccountDetailToggles()
+        {
+            var detailToggledCommand =
+                ReactiveCommand.Create((AccountDetailToggle detailToggle) => DetailToggled(detailToggle));
+
+            AccountDetailsToggles.SetItems
+            (
+                new List<AccountDetailToggle>
+                {
+                    new(AccountDetailType.LoginName, title: "Login Name", detailToggledCommand, isToggled: true),
+                    new(AccountDetailType.Username, title: "Username", detailToggledCommand, isToggled: true),
+                    new(AccountDetailType.Level, title: "Level", detailToggledCommand, isToggled: true),
+                    new(AccountDetailType.Avatar, title: "Avatar", detailToggledCommand, isToggled: true),
+                    new(AccountDetailType.BanStatus, title: "Ban Status", detailToggledCommand, isToggled: true),
+                }
+            );
+        }
+
+        private void DetailToggled(AccountDetailToggle detailToggle)
+        {
+            var privacyConfig = _privacyConfigStorage.Get()?.DetailSettings;
+            if (privacyConfig is not null)
+            {
+                var setting = privacyConfig.FirstOrDefault(x => x.DetailType == detailToggle.DetailType);
+                privacyConfig.ReplaceOrAdd(setting, new DetailSetting(detailToggle.DetailType, detailToggle.IsToggled));
+            }
+            else
+            {
+                var settings = AccountDetailsToggles.Select(x => new DetailSetting(x.DetailType, x.IsToggled));
+                _privacyConfigStorage.Set(new PrivacyConfig(settings.ToList()));
+            }
         }
 
         private void PrefillFields()
         {
             WebApiKey = _steamApiKeyStorage.Get();
+
+            var privacyConfig = _privacyConfigStorage.Get()?.DetailSettings;
+            if (privacyConfig is not null)
+            {
+                foreach (var toggle in AccountDetailsToggles)
+                {
+                    toggle.IsToggled = privacyConfig
+                        .FirstOrDefault(x => x.DetailType == toggle.DetailType)?.IsEnabled ?? false;
+                }
+            }
         }
 
         private void SaveApiKey(string key)

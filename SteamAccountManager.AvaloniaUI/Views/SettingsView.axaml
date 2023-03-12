@@ -15,9 +15,21 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel>
+            <ItemsRepeater Items="{Binding AccountDetailsToggles}">
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <ToggleSwitch Content="{Binding Title}" IsChecked="{Binding IsToggled}"
+                                      Command="{Binding ToggledCommand}" CommandParameter="{Binding}"
+                                      Margin="0,8, 0, 8" />
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1">
             <Label Content="Steam Web API Key" />
-            <TextBox x:Name="ApiKeyInputField" Text="{Binding WebApiKey}" Watermark="Enter your key here.."
-                     Margin="0,8, 0, 8" />
+            <TextBox Classes="PasswordInput" x:Name="ApiKeyInputField" Text="{Binding WebApiKey}"
+                     Watermark="Enter your key here.." Margin="0,8, 0, 8" />
             <Button Content="Save" Command="{Binding SaveApiKeyCommand}"
                     CommandParameter="{Binding Text, ElementName=ApiKeyInputField}" HorizontalContentAlignment="Center"
                     HorizontalAlignment="Stretch" />
