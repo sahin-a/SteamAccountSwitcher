@@ -50,7 +50,7 @@
                         <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Stretch">
                             <!-- Profile Picture -->
                             <Button
-                                Command="{Binding Path=DataContext.Config.ShowInfoCommand, 
+                                Command="{Binding Path=DataContext.ProfileClickedCommand, 
 									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                 CommandParameter="{Binding ProfileUrl}" ClipToBounds="True"
                                 IsVisible="{Binding Path=DataContext.Config.ShowAvatar, 
