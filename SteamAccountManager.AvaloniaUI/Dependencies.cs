@@ -32,6 +32,7 @@ namespace SteamAccountManager.AvaloniaUI
 
         public static ContainerBuilder RegisterAvaloniaModule(this ContainerBuilder builder)
         {
+            builder.RegisterType<InfoService>().SingleInstance();
             builder.RegisterType<AvatarService>().SingleInstance();
             builder.RegisterType<AccountMapper>().SingleInstance();
 #if WINDOWS10_0_17763_0_OR_GREATER
