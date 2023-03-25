@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SteamAccountManager.Domain\SteamAccountManager.Domain.csproj" />
-      <ProjectReference Include="..\SteamAccountManager.Infrastructure\SteamAccountManager.Infrastructure.csproj" />
+        <ProjectReference Include="..\SteamAccountManager.Domain\SteamAccountManager.Domain.csproj"/>
+        <ProjectReference Include="..\SteamAccountManager.Infrastructure\SteamAccountManager.Infrastructure.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Autofac" Version="7.0.0" />
+        <PackageReference Include="Autofac" Version="7.0.0"/>
     </ItemGroup>
 
 </Project>

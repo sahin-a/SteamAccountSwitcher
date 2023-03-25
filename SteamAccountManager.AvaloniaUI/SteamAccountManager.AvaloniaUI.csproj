@@ -1,57 +1,57 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<!-- Note: Dotnet currently does not allow to build on non-windows platforms when a windows TFM is specified; Source: https://github.com/pr8x/DesktopNotifications -->
-	<PropertyGroup Condition=" '$(OS)' != 'Windows_NT' ">
-		<TargetFrameworks>net6.0</TargetFrameworks>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
-		<TargetFrameworks>net6.0-windows10.0.17763.0</TargetFrameworks>
-	</PropertyGroup>
+    <!-- Note: Dotnet currently does not allow to build on non-windows platforms when a windows TFM is specified; Source: https://github.com/pr8x/DesktopNotifications -->
+    <PropertyGroup Condition=" '$(OS)' != 'Windows_NT' ">
+        <TargetFrameworks>net7.0</TargetFrameworks>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+        <TargetFrameworks>net7.0-windows10.0.17763.0</TargetFrameworks>
+    </PropertyGroup>
 
-	<PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <Nullable>enable</Nullable>
-    <ApplicationIcon>Assets\sam.ico</ApplicationIcon>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/sahin-a/SteamAccountManager</RepositoryUrl>
-    <Version>0.2</Version>
-  </PropertyGroup>
-  <ItemGroup>
-    <AvaloniaResource Include="Assets\**" />
-    <None Remove=".gitignore" />
-    <None Remove="Assets\avatar_placeholder.jpg" />
-    <None Remove="Assets\github_mark_light.png" />
-    <None Remove="Assets\sam.ico" />
-    <None Remove="SteamAccountSwitcherStyles.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AvaloniaXaml Include="SteamAccountSwitcherStyles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaXaml>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.19" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.19" />
-    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.19" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.19" />
-    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Condition="'$(TargetFramework)' != 'net6.0'" Version="7.1.3" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
-      <Compile Remove="NullImpl_WindowsLocalNotificationService.cs" />
-  </ItemGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <Nullable>enable</Nullable>
+        <ApplicationIcon>Assets\sam.ico</ApplicationIcon>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/sahin-a/SteamAccountManager</RepositoryUrl>
+        <Version>0.2</Version>
+    </PropertyGroup>
+    <ItemGroup>
+        <AvaloniaResource Include="Assets\**"/>
+        <None Remove=".gitignore"/>
+        <None Remove="Assets\avatar_placeholder.jpg"/>
+        <None Remove="Assets\github_mark_light.png"/>
+        <None Remove="Assets\sam.ico"/>
+        <None Remove="SteamAccountSwitcherStyles.xaml"/>
+    </ItemGroup>
+    <ItemGroup>
+        <AvaloniaXaml Include="SteamAccountSwitcherStyles.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </AvaloniaXaml>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="0.10.19"/>
+        <PackageReference Include="Avalonia.Desktop" Version="0.10.19"/>
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.19"/>
+        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.19"/>
+        <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Condition="'$(TargetFramework)' != 'net6.0'" Version="7.1.3"/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
+        <Compile Remove="NullImpl_WindowsLocalNotificationService.cs"/>
+    </ItemGroup>
 
-  <ItemGroup Condition="'$(OS)' != 'Windows_NT'">
-      <Compile Remove="WindowsLocalNotificationService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DI\DI.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Views\AccountSwitcherView.axaml.cs">
-      <DependentUpon>AccountSwitcherView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\MainWindowView.axaml.cs">
-      <DependentUpon>MainWindowView.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    <ItemGroup Condition="'$(OS)' != 'Windows_NT'">
+        <Compile Remove="WindowsLocalNotificationService.cs"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\DI\DI.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Views\AccountSwitcherView.axaml.cs">
+            <DependentUpon>AccountSwitcherView.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Views\MainWindowView.axaml.cs">
+            <DependentUpon>MainWindowView.axaml</DependentUpon>
+        </Compile>
+    </ItemGroup>
 </Project>

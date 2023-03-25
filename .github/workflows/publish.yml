@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 env:
-  DOTNET_VERSION: '6.x'
+  DOTNET_VERSION: '7.x'
   OUTPUT_ARTIFACT_FILENAME: 'SteamAccountSwitcher_Win-x86.zip'
   TAG_NAME: ${{ github.run_id }}-${{ github.run_number }}
 
@@ -23,13 +23,13 @@ jobs:
 
       - name: 🛠️ Build
         run: |
-            cd "SteamAccountManager.AvaloniaUI"
-            dotnet build --configuration Release
-            dotnet publish --self-contained -c Release -f "net6.0-windows10.0.17763.0" -o ../output -r win-x86 -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -p:DebugSymbols=false
+          cd "SteamAccountManager.AvaloniaUI"
+          dotnet build --configuration Release
+          dotnet publish --self-contained -c Release -f "net7.0-windows10.0.17763.0" -o ../output -r win-x86 -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -p:DebugSymbols=false
 
       - name: Create Artifacts
         run: |
-            7z a -tzip ${{ env.OUTPUT_ARTIFACT_FILENAME }} output/*
+          7z a -tzip ${{ env.OUTPUT_ARTIFACT_FILENAME }} output/*
 
       - name: 🔮 Upload Build Artifacts
         uses: actions/upload-artifact@v3
@@ -49,7 +49,7 @@ jobs:
           prerelease: false
 
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
