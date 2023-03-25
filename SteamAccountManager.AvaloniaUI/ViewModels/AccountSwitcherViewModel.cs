@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -8,6 +6,7 @@ using ReactiveUI;
 using SteamAccountManager.AvaloniaUI.Common;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Models;
+using SteamAccountManager.AvaloniaUI.Services;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
 using SteamAccountManager.Domain.Common.EventSystem;
 using SteamAccountManager.Domain.Steam.Configuration.Model;
@@ -27,6 +26,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private readonly ILocalNotificationService _notificationService;
         private readonly IPrivacyConfigStorage _privacyConfigStorage;
         private readonly EventBus _eventBus;
+        private readonly InfoService _infoService;
 
         public AdvancedObservableCollection<Account> Accounts { get; private set; }
         public ICommand ProfileClickedCommand { get; }
@@ -44,7 +44,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             AccountMapper accountMapper,
             ILocalNotificationService notificationService,
             IPrivacyConfigStorage privacyConfigStorage,
-            EventBus eventBus
+            EventBus eventBus,
+            InfoService infoService
         ) : base(screen)
         {
             _getAccountsUseCase = getAccountsUseCase;
@@ -53,6 +54,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _notificationService = notificationService;
             _privacyConfigStorage = privacyConfigStorage;
             _eventBus = eventBus;
+            _infoService = infoService;
 
             Accounts = new AdvancedObservableCollection<Account>();
             ProfileClickedCommand = new ProfileClickedCommand();
@@ -140,14 +142,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
 
         public void ShowInfo()
         {
-            if (OperatingSystem.IsWindows())
-            {
-                Process.Start("explorer", "https://github.com/sahin-a/SteamAccountManager/");
-            }
-            else
-            {
-                Process.Start("xdg-open", "https://github.com/sahin-a/SteamAccountManager/");
-            }
+            _infoService.ShowRepository();
         }
     }
 
