@@ -16,12 +16,12 @@
         <Version>0.2</Version>
     </PropertyGroup>
     <ItemGroup>
-        <AvaloniaResource Include="Assets\**"/>
-        <None Remove=".gitignore"/>
-        <None Remove="Assets\avatar_placeholder.jpg"/>
-        <None Remove="Assets\github_mark_light.png"/>
-        <None Remove="Assets\sam.ico"/>
-        <None Remove="SteamAccountSwitcherStyles.xaml"/>
+        <AvaloniaResource Include="Assets\**" />
+        <None Remove=".gitignore" />
+        <None Remove="Assets\avatar_placeholder.jpg" />
+        <None Remove="Assets\github_mark_light.png" />
+        <None Remove="Assets\sam.ico" />
+        <None Remove="SteamAccountSwitcherStyles.xaml" />
     </ItemGroup>
     <ItemGroup>
         <AvaloniaXaml Include="SteamAccountSwitcherStyles.xaml">
@@ -29,22 +29,22 @@
         </AvaloniaXaml>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="0.10.19"/>
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.19"/>
+        <PackageReference Include="Avalonia" Version="0.10.19" />
+        <PackageReference Include="Avalonia.Desktop" Version="0.10.19" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.19"/>
-        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.19"/>
-        <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Condition="'$(TargetFramework)' != 'net6.0'" Version="7.1.3"/>
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.19" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.19" />
+        <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Condition="'$(TargetFramework)' != 'net6.0'" Version="7.1.3" />
     </ItemGroup>
     <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
-        <Compile Remove="NullImpl_WindowsLocalNotificationService.cs"/>
+        <Compile Remove="NullImpl_WindowsLocalNotificationService.cs" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(OS)' != 'Windows_NT'">
-        <Compile Remove="WindowsLocalNotificationService.cs"/>
+        <Compile Remove="WindowsLocalNotificationService.cs" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\DI\DI.csproj"/>
+        <ProjectReference Include="..\DI\DI.csproj" />
     </ItemGroup>
     <ItemGroup>
         <Compile Update="Views\AccountSwitcherView.axaml.cs">

@@ -2,6 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SteamAccountManager.Domain.Common.CodeExtensions;
 using SteamAccountManager.Domain.Common.Storage;
 using SteamAccountManager.Domain.Steam.Local.Logger;
 
@@ -34,6 +35,16 @@ public abstract class ObjectStorage<T> : IObjectStorage<T> where T : class
         return json;
     }
 
+    protected virtual T? GetDefaultValue() => null;
+
+    /// <summary>
+    /// Retrieves the value as non-nullable
+    /// </summary>
+    /// <param name="defaultValue"></param>
+    /// <returns>value as non-nullable</returns>
+    /// <exception cref="NullReferenceException">Will be thrown when there is no value or default value present</exception>
+    public T Get(T defaultValue) => Get() ?? throw new NullReferenceException(message: "No value could be retrieved!");
+
     public T? Get()
     {
         if (_value is not null)
@@ -42,14 +53,18 @@ public abstract class ObjectStorage<T> : IObjectStorage<T> where T : class
         try
         {
             _value = JsonConvert.DeserializeObject<T>(ReadJson());
+
+            if (_value is null)
+                throw new NullReferenceException($"Failed to deserialize object! Content: {_value}");
+
             return _value;
         }
         catch (Exception e)
         {
-            _logger.LogException($"Failed to persist object of type {typeof(T).FullName}", e);
+            _logger.LogException($"Failed to retrieve persisted object of type {typeof(T).FullName}", e);
         }
 
-        return null;
+        return GetDefaultValue()?.Let(value => value);
     }
 
     public void Set(T value)

@@ -27,6 +27,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private readonly IPrivacyConfigStorage _privacyConfigStorage;
         private readonly EventBus _eventBus;
         private readonly InfoService _infoService;
+        private readonly INotificationConfigStorage _notificationConfigStorage;
 
         public AdvancedObservableCollection<Account> Accounts { get; private set; }
         public ICommand ProfileClickedCommand { get; }
@@ -44,6 +45,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             AccountMapper accountMapper,
             ILocalNotificationService notificationService,
             IPrivacyConfigStorage privacyConfigStorage,
+            INotificationConfigStorage notificationConfigStorage,
             EventBus eventBus,
             InfoService infoService
         ) : base(screen)
@@ -53,6 +55,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _accountMapper = accountMapper;
             _notificationService = notificationService;
             _privacyConfigStorage = privacyConfigStorage;
+            _notificationConfigStorage = notificationConfigStorage;
             _eventBus = eventBus;
             _infoService = infoService;
 
@@ -119,39 +122,38 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             return SortAccounts(accounts);
         }
 
-        public async void LoadAccounts()
+        private async void LoadAccounts()
         {
             LoadVisibilityConfig();
             Accounts.SetItems((await GetAccounts()).ToList());
+        }
+
+        private void SendNotification(Account account)
+        {
+            if (_notificationConfigStorage.Get()?.IsAllowedToSendNotification != true)
+                return;
+
+            _notificationService.Send
+            (
+                new Notification
+                (
+                    title: account.Name,
+                    message: account.Username,
+                    account.ProfilePictureUrl
+                )
+            );
         }
 
         public async void OnAccountSelected(Account selectedAccount)
         {
             await _switchAccountUseCase.Execute(selectedAccount.Name);
             SelectedAccount = selectedAccount;
-            _notificationService.Send
-            (
-                new Notification
-                (
-                    selectedAccount.Name,
-                    selectedAccount.Username,
-                    selectedAccount.ProfilePictureUrl
-                )
-            );
+            SendNotification(selectedAccount);
         }
 
-        public void ShowInfo()
+        private void ShowInfo()
         {
             _infoService.ShowRepository();
         }
-    }
-
-    public class VisibilityConfig
-    {
-        public bool ShowUsername { get; set; } = true;
-        public bool ShowLoginName { get; set; } = true;
-        public bool ShowAvatar { get; set; } = true;
-        public bool ShowLevel { get; set; } = true;
-        public bool ShowBanStatus { get; set; } = true;
     }
 }
