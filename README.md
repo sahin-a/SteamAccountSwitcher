@@ -40,7 +40,7 @@ Android App Features:
 * Standalone
 
 ![main_tab](https://user-images.githubusercontent.com/55054756/224566828-6737a636-c803-44b9-94b6-c28a7defd3b3.png)
-![settings_tab](https://user-images.githubusercontent.com/55054756/224566838-9a045a40-2ee2-4fd3-b73e-6dbe60f095e7.png)
+![settings_tab](https://user-images.githubusercontent.com/55054756/228658714-af689efd-c88a-4301-9536-c585809932ba.png)
 
 # iOS 🍎
 * The REST Service has to be running in order for the app to work
