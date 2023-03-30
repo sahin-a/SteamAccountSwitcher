@@ -6,4 +6,9 @@ public static class ScopeExtensions
     {
         return action(value);
     }
+
+    public static void With<T>(this T value, Action<T> action)
+    {
+        action(value);
+    }
 }
