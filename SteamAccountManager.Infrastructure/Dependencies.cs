@@ -41,6 +41,8 @@ namespace SteamAccountManager.Infrastructure
                 builder.RegisterType<SteamWinRegistryConfig>().As<ISteamConfig>().SingleInstance();
             }
 
+            builder.RegisterType<FileProvider>().As<IFileProvider>().SingleInstance();
+            builder.RegisterType<FileDataSource>().SingleInstance();
             builder.RegisterType<LoginVdfFileWatcher>().As<IAccountStorageWatcher>().SingleInstance();
             builder.RegisterType<SteamLoginVdfParser>().As<ISteamLoginVdfParser>().SingleInstance();
             builder.RegisterType<SteamLoginVdfReader>().As<ISteamLoginVdfReader>().SingleInstance();
