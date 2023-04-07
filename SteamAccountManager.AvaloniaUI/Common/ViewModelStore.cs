@@ -1,11 +1,8 @@
-﻿using Autofac;
+﻿using System;
+using System.Collections.Generic;
+using Autofac;
 using ReactiveUI;
 using SteamAccountManager.Domain.Common.CodeExtensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteamAccountManager.AvaloniaUI.Common
 {
@@ -28,6 +25,7 @@ namespace SteamAccountManager.AvaloniaUI.Common
         public void Register(IRoutableViewModel viewModel) => _viewModels.Add(viewModel.GetType(), viewModel);
 
         private IRoutableViewModel CreateViewModel<T>(IScreen screen) where T : class, IRoutableViewModel
-            => Dependencies.Container?.Resolve<T>(new TypedParameter(typeof(IScreen), screen)) ?? throw new Exception("Failed to resolve AccountSwitcherViewModel");
+            => Dependencies.Container?.Resolve<T>(new TypedParameter(typeof(IScreen), screen)) ??
+               throw new Exception("Failed to resolve AccountSwitcherViewModel");
     }
 }
