@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using SteamAccountManager.Domain.Steam.Local.Logger;
@@ -27,23 +28,34 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
         {
             await semaphoreSlim.WaitAsync();
 
+            Exception? exception = null;
             try
             {
-                var avatarMap = await _storage.Get();
-                avatarMap![key] = value;
+                try
+                {
+                    var avatarMap = await _storage.Get() ?? new();
+                    avatarMap[key] = value;
 
-                await _storage.Set(avatarMap);
+                    await _storage.Set(avatarMap);
+                }
+                catch (Exception e)
+                {
+                    exception = e;
+                }
             }
             finally
             {
                 semaphoreSlim.Release();
+
+                if (exception is not null)
+                    throw exception;
             }
         }
 
         public async Task<TValue?> Get(string key, TValue? defaultValue = null)
         {
             var avatarMap = await _storage.Get();
-            return avatarMap!.TryGetValue(key, out var value) ? value : defaultValue;
+            return avatarMap?.TryGetValue(key, out var value) == true ? value : defaultValue;
         }
     }
 }
