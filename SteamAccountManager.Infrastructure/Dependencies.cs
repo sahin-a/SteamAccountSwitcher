@@ -60,7 +60,7 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<SteamPlayerServiceProvider>().As<ISteamPlayerServiceProvider>().SingleInstance();
             builder.RegisterType<SteamPlayerService>().As<ISteamPlayerService>().SingleInstance();
             builder.RegisterType<AvatarStorage>().SingleInstance();
-            builder.RegisterType<UserAvatarStorage>().SingleInstance();
+            builder.RegisterType<UserAvatarMapStorage>().SingleInstance();
             builder.RegisterType<AvatarService>().As<IAvatarService>().SingleInstance();
         }
 

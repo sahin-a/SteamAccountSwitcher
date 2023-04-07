@@ -13,15 +13,15 @@ public class AvatarService : IAvatarService
     private readonly AvatarStorage _avatarStorage;
     private readonly ILogger _logger;
     private readonly IImageService _imageService;
-    private readonly UserAvatarStorage _userAvatarMapStorage;
+    private readonly UserAvatarMapStorage _userAvatarMapMapStorage;
 
     public AvatarService(ILogger logger, AvatarStorage avatarStorage, IImageService imageService,
-        UserAvatarStorage userAvatarMapStorage)
+        UserAvatarMapStorage userAvatarMapMapStorage)
     {
         _avatarStorage = avatarStorage;
         _logger = logger;
         _imageService = imageService;
-        _userAvatarMapStorage = userAvatarMapStorage;
+        _userAvatarMapMapStorage = userAvatarMapMapStorage;
     }
 
     private string ExtractFileName(string url)
@@ -52,7 +52,7 @@ public class AvatarService : IAvatarService
         }
 
         if (string.IsNullOrEmpty(avatarId))
-            avatarId = await _userAvatarMapStorage.Get(steamId, string.Empty);
+            avatarId = await _userAvatarMapMapStorage.Get(steamId, string.Empty);
 
         var cachedAvatar = _avatarStorage.GetUri(avatarId);
         AvatarResponse response;
@@ -69,7 +69,7 @@ public class AvatarService : IAvatarService
                 break;
         }
 
-        await _userAvatarMapStorage.Store(steamId, avatarId);
+        await _userAvatarMapMapStorage.Store(steamId, avatarId);
 
         return response;
     }
