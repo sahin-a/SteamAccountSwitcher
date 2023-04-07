@@ -42,11 +42,6 @@ Android/iOS App Features:
 ![main_tab](https://user-images.githubusercontent.com/55054756/224566828-6737a636-c803-44b9-94b6-c28a7defd3b3.png)
 ![settings_tab](https://user-images.githubusercontent.com/55054756/228658714-af689efd-c88a-4301-9536-c585809932ba.png)
 
-# Supported Plattforms
-* 🪟 Windows 10 and newer
-* 🤖 Android 
-* 🍎 iOS
-
 # iOS 🍎
 * The REST Service has to be running in order for the app to work
 <img src="https://user-images.githubusercontent.com/55054756/205394494-1cc68661-c31a-4e12-8daf-483b57965607.png" width="256" />
@@ -59,6 +54,11 @@ Android/iOS App Features:
 # [REST API 🥸](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.WebAPI)
 * Currently provides endpoint for fetching and switching accounts
 ** is required for the android app to work
+
+# Supported Plattforms
+* 🪟 Windows 10 and newer
+* 🤖 Android 
+* 🍎 iOS
 
 # Todos 🛠️
 [Project](https://github.com/users/sahin-a/projects/3/views/1?layout=board)
