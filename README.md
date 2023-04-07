@@ -20,8 +20,8 @@ Application not launching?
 - [Install .NET 7 Runtime](https://dotnet.microsoft.com/en-us/download)
 
 Profile Picture, Level etc. not showing? 🌍
-- After you launch the app for the first time, you should have a 'api_key.json' file in the root directory. 
-- Enter the WebAPI key you get from here https://steamcommunity.com/dev/apikey in 'api_key.json'
+- After you launch the app for the first time, go to the settings tab
+- Enter the WebAPI key you get from here https://steamcommunity.com/dev/apikey in the Web API Key field
 
 Avalonia Build Features:
 * Switch Accounts 🧠
