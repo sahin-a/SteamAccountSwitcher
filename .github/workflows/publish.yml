@@ -45,7 +45,7 @@ jobs:
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: SteamAccountSwitcher
-          draft: false
+          draft: true
           prerelease: false
 
       - name: Upload Release Asset
