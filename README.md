@@ -15,6 +15,14 @@ Simply press the 'Add' button (+), check remember me and press login. 🧙‍♂
 # Any suggestions or issues found? 🤔
 - Feel free to [open a new issue](https://github.com/sahin-a/SteamAccountManager/issues) to share your suggestions or bug findings. Thankful for any contribution! :)
 
+# Known Issues 🙉
+Application not launching?
+- [Install .NET 7 Runtime](https://dotnet.microsoft.com/en-us/download)
+
+Profile Picture, Level etc. not showing? 🌍
+- After you launch the app for the first time, you should have a 'api_key.json' file in the root directory. 
+- Enter the WebAPI key you get from here https://steamcommunity.com/dev/apikey in 'api_key.json'
+
 Avalonia Build Features:
 * Switch Accounts 🧠
 * Open Profile when clicking the Avatar
@@ -51,14 +59,6 @@ Android/iOS App Features:
 # [REST API 🥸](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.WebAPI)
 * Currently provides endpoint for fetching and switching accounts
 ** is required for the android app to work
-
-# Known Issues 🙉
-Application not launching?
-- [Install .NET 6 Runtime](https://dotnet.microsoft.com/en-us/download)
-
-Profile Picture, Level etc. not showing? 🌍
-- After you launch the app for the first time, you should have a 'api_key.json' file in the root directory. 
-- Enter the WebAPI key you get from here https://steamcommunity.com/dev/apikey in 'api_key.json'
 
 # Todos 🛠️
 [Project](https://github.com/users/sahin-a/projects/3/views/1?layout=board)
