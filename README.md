@@ -63,8 +63,5 @@ Android/iOS App Features:
 # Todos 🛠️
 [Project](https://github.com/users/sahin-a/projects/3/views/1?layout=board)
 
-# Planned Plattforms (Soon™)
-* 🤡 Linux
-
 # You ❤️ it and it's worth a ☕ to you?
 <a href="https://www.buymeacoffee.com/sahina"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=sahina&button_colour=FFDD00&font_colour=000000&font_family=Bree&outline_colour=000000&coffee_colour=ffffff"></a>
