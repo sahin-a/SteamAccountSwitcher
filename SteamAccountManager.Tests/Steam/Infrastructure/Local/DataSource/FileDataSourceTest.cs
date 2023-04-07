@@ -22,7 +22,7 @@ public class FileDataSourceTest
     public async void GIVEN_can_write_to_file_successfully_WHEN_storing_value_THEN_returns_true()
     {
         // GIVEN
-        _fileProviderMock.Setup(x => x.WriteAllText(@"Storages\test.json", It.IsAny<string>()))
+        _fileProviderMock.Setup(x => x.WriteAllText(@"Storages\test.json", It.IsAny<string>(), false))
             .ReturnsAsync(true);
         // WHEN
         var result = await _sut.Store("test", "Sam Fisher");
@@ -34,7 +34,7 @@ public class FileDataSourceTest
     public async void GIVEN_fails_to_write_to_file_WHEN_storing_value_THEN_returns_false()
     {
         // GIVEN
-        _fileProviderMock.Setup(x => x.WriteAllText(It.IsAny<string>(), It.IsAny<string>()))
+        _fileProviderMock.Setup(x => x.WriteAllText(It.IsAny<string>(), It.IsAny<string>(), false))
             .ReturnsAsync(false);
         // WHEN
         var result = await _sut.Store("test", "Sam Fisher");

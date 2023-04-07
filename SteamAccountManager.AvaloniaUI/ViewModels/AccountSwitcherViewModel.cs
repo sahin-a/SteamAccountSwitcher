@@ -88,9 +88,9 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             );
         }
 
-        private void LoadVisibilityConfig()
+        private async void LoadVisibilityConfig()
         {
-            var config = _privacyConfigStorage.Get()?.DetailSettings;
+            var config = (await _privacyConfigStorage.Get())?.DetailSettings;
             if (config is null)
                 return;
 
@@ -142,9 +142,9 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             IsLoading = false;
         }
 
-        private void SendNotification(Account account)
+        private async void SendNotification(Account account)
         {
-            if (_notificationConfigStorage.Get()?.IsAllowedToSendNotification != true)
+            if ((await _notificationConfigStorage.Get())?.IsAllowedToSendNotification != true)
                 return;
 
             _notificationService.Send

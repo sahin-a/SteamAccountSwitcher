@@ -1,62 +1,38 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using SteamAccountManager.Domain.Steam.Local.Logger;
+using SteamAccountManager.Infrastructure.Steam.Local.Dao;
+using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
 {
-    public abstract class LocalKeyValueStorage<TValue> : IKeyValueDataSource<TValue> where TValue : class
+    public abstract class LocalKeyValueStorage<TValue> : ObjectStorage<Dictionary<string, TValue>>,
+        IKeyValueStorage<TValue> where TValue : class
     {
-        private readonly object _lock = new object();
-        private readonly string _fileName;
-        private readonly Dictionary<string, TValue> _keyValuePairs;
-
-        public LocalKeyValueStorage(string name)
+        protected LocalKeyValueStorage(ILogger logger, IFileProvider fileProvider, string name) : this(logger,
+            new FileDataSource(directory: AppDataDirectory.Storages, fileProvider), name)
         {
-            _fileName = Path.ChangeExtension(name, ".json");
-            _keyValuePairs = GetInitialValue();
         }
 
-        private Dictionary<string, TValue> GetInitialValue()
+        private LocalKeyValueStorage(ILogger logger, IKeyValueDataSource dataSource,
+            string name) : base(name, logger, dataSource)
         {
-            if (!File.Exists(_fileName))
-                return new();
-
-            try
-            {
-                using (var sr = new StreamReader(_fileName))
-                {
-                    return JsonConvert.DeserializeObject<Dictionary<string, TValue>>(sr.ReadToEnd());
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-
-            return new();
         }
 
-        private void Save()
+        protected override Dictionary<string, TValue> GetDefaultValue() => new();
+
+        public async Task Store(string key, TValue value)
         {
-            lock (_lock)
-            {
-                using (var sw = new StreamWriter(_fileName))
-                {
-                    sw.WriteLine(JsonConvert.SerializeObject(_keyValuePairs, Formatting.Indented));
-                }
-            }
+            var avatarMap = await base.Get();
+            avatarMap![key] = value;
+
+            await Set(avatarMap);
         }
 
-        public void Store(string key, TValue value)
+        public async Task<TValue?> Get(string key, TValue? defaultValue = null)
         {
-            _keyValuePairs[key] = value;
-            Save();
-        }
-
-        public TValue? Get(string key, TValue? defaultValue = null)
-        {
-            return _keyValuePairs.GetValueOrDefault(key, defaultValue) ?? defaultValue;
+            var avatarMap = await base.Get();
+            return avatarMap!.TryGetValue(key, out var value) ? value : defaultValue;
         }
     }
 }

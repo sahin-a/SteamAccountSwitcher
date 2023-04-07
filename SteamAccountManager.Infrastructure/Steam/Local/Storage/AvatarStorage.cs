@@ -5,18 +5,20 @@ using SteamAccountManager.Domain.Steam.Local.Logger;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage;
 
-// TODO: Abstract File.Write.. away to get rid off dependencies
-// TODO: Save avatarId and steamId together to provide offline functionality
-public class AvatarStorage : CacheStorage
+public class AvatarStorage
 {
+    private readonly string _dir;
     private readonly ILogger _logger;
 
-    public AvatarStorage(ILogger logger) : base(dir: "Avatars")
+    public AvatarStorage(ILogger logger)
     {
+        _dir = Path.Combine(AppDataDirectory.Caches, "Avatars");
+        Directory.CreateDirectory(_dir);
+
         _logger = logger;
     }
 
-    private string GetPath(string id) => Path.Combine(Dir, id);
+    private string GetPath(string id) => Path.Combine(_dir, id);
 
     public Uri? GetUri(string id)
     {
@@ -31,7 +33,7 @@ public class AvatarStorage : CacheStorage
     public async Task<byte[]?> GetBytesAsync(string id)
     {
         var path = GetPath(id);
-        byte[] bytes = null;
+        byte[]? bytes = null;
 
         if (!File.Exists(path))
             return null;

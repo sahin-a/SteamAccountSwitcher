@@ -1,12 +1,15 @@
 ﻿using SteamAccountManager.Domain.Steam.Configuration.Model;
 using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Domain.Steam.Storage;
+using SteamAccountManager.Infrastructure.Steam.Local.Dao;
+using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage;
 
 public class PrivacyConfigStorage : ObjectStorage<PrivacyConfig>, IPrivacyConfigStorage
 {
-    public PrivacyConfigStorage(ILogger logger, string fileName = "account_details_privacy") : base(fileName, logger)
+    public PrivacyConfigStorage(ILogger logger, IFileProvider fileProvider, string name = "account_details_privacy") :
+        base(name, logger, new FileDataSource(directory: AppDataDirectory.Configurations, fileProvider))
     {
     }
 }

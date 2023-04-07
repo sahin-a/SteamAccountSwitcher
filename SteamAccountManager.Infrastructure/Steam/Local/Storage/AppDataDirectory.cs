@@ -15,5 +15,6 @@ static class AppDataDirectory
 
     public static readonly string Configurations = createDirectory("Configurations");
     public static readonly string Storages = createDirectory("Storages");
+    public static readonly string Caches = createDirectory("Caches");
     public static readonly string Logs = createDirectory("Logs");
 }

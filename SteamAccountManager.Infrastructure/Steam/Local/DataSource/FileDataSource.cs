@@ -6,6 +6,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 
 public class FileDataSource : IKeyValueDataSource
 {
+    private readonly object _lock = new();
     private readonly string _directory;
     private readonly IFileProvider _fileProvider;
 
@@ -19,11 +20,23 @@ public class FileDataSource : IKeyValueDataSource
 
     public async Task<bool> Store(string key, string value)
     {
-        return await _fileProvider.WriteAllText(path: GetFilePath(key), content: value);
+        Task<bool>? task;
+        lock (_lock)
+        {
+            task = _fileProvider.WriteAllText(path: GetFilePath(key), content: value);
+        }
+
+        return await task;
     }
 
     public async Task<string?> Load(string key)
     {
-        return await _fileProvider.ReadAllText(path: GetFilePath(key));
+        Task<string?>? task;
+        lock (_lock)
+        {
+            task = _fileProvider.ReadAllText(path: GetFilePath(key));
+        }
+
+        return await task;
     }
 }

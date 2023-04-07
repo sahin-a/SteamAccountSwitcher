@@ -1,8 +1,8 @@
-﻿using SteamAccountManager.Infrastructure.Steam.Local.Storage;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Domain.Steam.Service;
+using SteamAccountManager.Infrastructure.Steam.Local.Storage;
 
 namespace SteamAccountManager.Infrastructure.Steam.Service;
 
@@ -15,7 +15,8 @@ public class AvatarService : IAvatarService
     private readonly IImageService _imageService;
     private readonly UserAvatarStorage _userAvatarMapStorage;
 
-    public AvatarService(ILogger logger, AvatarStorage avatarStorage, IImageService imageService, UserAvatarStorage userAvatarMapStorage)
+    public AvatarService(ILogger logger, AvatarStorage avatarStorage, IImageService imageService,
+        UserAvatarStorage userAvatarMapStorage)
     {
         _avatarStorage = avatarStorage;
         _logger = logger;
@@ -51,7 +52,7 @@ public class AvatarService : IAvatarService
         }
 
         if (string.IsNullOrEmpty(avatarId))
-            avatarId = _userAvatarMapStorage.Get(steamId, string.Empty);
+            avatarId = await _userAvatarMapStorage.Get(steamId, string.Empty);
 
         var cachedAvatar = _avatarStorage.GetUri(avatarId);
         AvatarResponse response;
@@ -67,7 +68,8 @@ public class AvatarService : IAvatarService
                 response = await DownloadAvatarAsync(steamId, url, avatarId);
                 break;
         }
-        _userAvatarMapStorage.Store(steamId, avatarId);
+
+        await _userAvatarMapStorage.Store(steamId, avatarId);
 
         return response;
     }

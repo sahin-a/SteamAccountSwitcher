@@ -7,9 +7,9 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao;
 
 public class FileProvider : IFileProvider
 {
-    private readonly ILogger _logger;
+    private readonly Lazy<ILogger> _logger;
 
-    public FileProvider(ILogger logger)
+    public FileProvider(Lazy<ILogger> logger)
     {
         _logger = logger;
     }
@@ -22,13 +22,13 @@ public class FileProvider : IFileProvider
         }
         catch (Exception e)
         {
-            _logger.LogException($"Failed to read from file at: {path}", e);
+            _logger.Value.LogWarning($"Failed to read from file at: {path}", e);
         }
 
         return null;
     }
 
-    public async Task<bool> WriteAllText(string path, string content)
+    public async Task<bool> WriteAllText(string path, string content, bool append)
     {
         var directoryPath = Path.GetDirectoryName(path);
 
@@ -39,13 +39,14 @@ public class FileProvider : IFileProvider
 
         try
         {
-            await File.WriteAllTextAsync(path: path, contents: content);
+            await using var sw = new StreamWriter(path: path, append: append);
+            await sw.WriteLineAsync(content);
 
             return true;
         }
         catch (Exception e)
         {
-            _logger.LogException($"Failed to write to file at: {path}", e);
+            _logger.Value.LogWarning($"Failed to write to file at: {path}", e);
         }
 
         return false;
