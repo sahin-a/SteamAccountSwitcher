@@ -49,7 +49,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             CreateSettingsToggles();
         }
 
-        private void CreateSettingsToggles()
+        private async void CreateSettingsToggles()
         {
             SettingsToggles.SetItems(
                 new List<SettingsToggle>
@@ -57,7 +57,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
                     new
                     (
                         title: "Allow Notifications",
-                        isToggled: _notificationConfigStorage.Get()?.IsAllowedToSendNotification == true,
+                        isToggled: (await _notificationConfigStorage.Get())?.IsAllowedToSendNotification == true,
                         toggledCommand: ReactiveCommand.Create<SettingsToggle>(toggle =>
                             _notificationConfigStorage.Set(
                                 new NotificationConfig(isAllowedToSendNotification: toggle.IsToggled)
@@ -68,11 +68,11 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             );
         }
 
-        private void PrefillFields()
+        private async void PrefillFields()
         {
-            WebApiKey = _steamApiKeyStorage.Get();
+            WebApiKey = await _steamApiKeyStorage.Get() ?? "";
 
-            var privacyConfig = _privacyConfigStorage.Get()?.DetailSettings;
+            var privacyConfig = (await _privacyConfigStorage.Get())?.DetailSettings;
             if (privacyConfig is not null)
             {
                 foreach (var toggle in AccountDetailsToggles)
@@ -94,12 +94,12 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             AccountDetailsToggles.SetItems(toggles.ToList());
         }
 
-        private void DetailToggled(SettingsToggle detailToggle)
+        private async void DetailToggled(SettingsToggle detailToggle)
         {
             if (detailToggle is not AccountDetailToggle toggle)
                 return;
 
-            var privacyConfig = _privacyConfigStorage.Get();
+            var privacyConfig = await _privacyConfigStorage.Get();
             if (privacyConfig is not null)
             {
                 var setting =

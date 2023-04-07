@@ -1,62 +1,61 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using SteamAccountManager.Domain.Steam.Local.Logger;
+using SteamAccountManager.Infrastructure.Steam.Local.Dao;
+using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage
 {
-    public abstract class LocalKeyValueStorage<TValue> : IKeyValueDataSource<TValue> where TValue : class
+    public abstract class LocalKeyValueStorage<TValue> : IKeyValueStorage<TValue> where TValue : class
     {
-        private readonly object _lock = new object();
-        private readonly string _fileName;
-        private readonly Dictionary<string, TValue> _keyValuePairs;
+        private readonly SemaphoreSlim semaphoreSlim = new(1, 1);
+        private readonly ObjectStorage<Dictionary<string, TValue>> _storage;
 
-        public LocalKeyValueStorage(string name)
+        protected LocalKeyValueStorage(ILogger logger, IFileProvider fileProvider, string name) : this(logger,
+            new FileDataSource(directory: AppDataDirectory.Storages, fileProvider), name)
         {
-            _fileName = Path.ChangeExtension(name, ".json");
-            _keyValuePairs = GetInitialValue();
         }
 
-        private Dictionary<string, TValue> GetInitialValue()
+        private LocalKeyValueStorage(ILogger logger, IKeyValueDataSource dataSource,
+            string name)
         {
-            if (!File.Exists(_fileName))
-                return new();
+            _storage = new ObjectStorage<Dictionary<string, TValue>>(name, logger, dataSource);
+        }
 
+        public async Task Store(string key, TValue value)
+        {
+            await semaphoreSlim.WaitAsync();
+
+            Exception? exception = null;
             try
             {
-                using (var sr = new StreamReader(_fileName))
+                try
                 {
-                    return JsonConvert.DeserializeObject<Dictionary<string, TValue>>(sr.ReadToEnd());
+                    var avatarMap = await _storage.Get() ?? new();
+                    avatarMap[key] = value;
+
+                    await _storage.Set(avatarMap);
+                }
+                catch (Exception e)
+                {
+                    exception = e;
                 }
             }
-            catch (Exception)
+            finally
             {
+                semaphoreSlim.Release();
 
-            }
-
-            return new();
-        }
-
-        private void Save()
-        {
-            lock (_lock)
-            {
-                using (var sw = new StreamWriter(_fileName))
-                {
-                    sw.WriteLine(JsonConvert.SerializeObject(_keyValuePairs, Formatting.Indented));
-                }
+                if (exception is not null)
+                    throw exception;
             }
         }
 
-        public void Store(string key, TValue value)
+        public async Task<TValue?> Get(string key, TValue? defaultValue = null)
         {
-            _keyValuePairs[key] = value;
-            Save();
-        }
-
-        public TValue? Get(string key, TValue? defaultValue = null)
-        {
-            return _keyValuePairs.GetValueOrDefault(key, defaultValue) ?? defaultValue;
+            var avatarMap = await _storage.Get();
+            return avatarMap?.TryGetValue(key, out var value) == true ? value : defaultValue;
         }
     }
 }
