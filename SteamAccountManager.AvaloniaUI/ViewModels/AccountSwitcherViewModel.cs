@@ -37,6 +37,14 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public Account? SelectedAccount { get; set; }
         public VisibilityConfig Config { get; private set; } = new();
 
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set => this.RaiseAndSetIfChanged(ref _isLoading, value);
+        }
+
         public AccountSwitcherViewModel
         (
             IScreen screen,
@@ -125,7 +133,13 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private async void LoadAccounts()
         {
             LoadVisibilityConfig();
-            Accounts.SetItems((await GetAccounts()).ToList());
+
+            if (IsLoading)
+                return;
+
+            IsLoading = true;
+            await Task.Run(async () => Accounts.SetItems((await GetAccounts()).ToList()));
+            IsLoading = false;
         }
 
         private void SendNotification(Account account)
