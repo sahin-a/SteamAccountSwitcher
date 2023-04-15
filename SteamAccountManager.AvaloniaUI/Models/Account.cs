@@ -14,6 +14,7 @@ namespace SteamAccountManager.AvaloniaUI.Models
         public bool IsVacBanned { get; set; }
         public bool IsCommunityBanned { get; set; }
         public string LastLogin { get; set; } = string.Empty;
+        public bool IsLoggedIn { get; set; }
 
         public Rank Rank { get; set; } = new()
         {

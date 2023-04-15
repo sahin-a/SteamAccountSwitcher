@@ -22,6 +22,7 @@
             </UniformGrid>
         </Grid>
 
+        <!-- Account Selection -->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -62,14 +63,22 @@
                                     IsVisible="{Binding Path=DataContext.Config.ShowAvatar, 
 									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                     Margin="0,0,12,0">
-                                    <Button.Styles>
-                                        <Style Selector="Border">
-                                            <Setter Property="CornerRadius" Value="10" />
-                                        </Style>
-                                    </Button.Styles>
                                     <Button.Template>
                                         <ControlTemplate>
-                                            <Image Source="{Binding ProfilePicture}" Width="40" Height="40" />
+                                            <Grid Width="48" Height="48">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+
+                                                <Border Classes.Active="{Binding IsLoggedIn}">
+                                                    <Border Classes="Rounded">
+                                                        <Image Source="{Binding ProfilePicture}" />
+                                                    </Border>
+                                                </Border>
+                                            </Grid>
                                         </ControlTemplate>
                                     </Button.Template>
                                 </Button>
@@ -79,8 +88,7 @@
                                     <Border VerticalAlignment="Center" Margin="0,0,12,0"
                                             IsVisible="{Binding Path=DataContext.Config.ShowBanStatus, 
 									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
-                                        <TextBlock IsVisible="{Binding IsVacBanned}" Text="🛡️"
-                                                   FontSize="28" />
+                                        <TextBlock IsVisible="{Binding IsVacBanned}" Text="🛡️" FontSize="28" />
                                     </Border>
 
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,0,12,0">

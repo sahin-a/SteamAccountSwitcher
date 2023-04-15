@@ -34,7 +34,6 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public ICommand RefreshAccountsCommand { get; }
         public ICommand ShowInfoCommand { get; }
         public ICommand AddAccountCommand { get; }
-        public Account? SelectedAccount { get; set; }
         public VisibilityConfig Config { get; private set; } = new();
 
         private bool _isLoading;
@@ -161,7 +160,6 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public async void OnAccountSelected(Account selectedAccount)
         {
             await _switchAccountUseCase.Execute(selectedAccount.Name);
-            SelectedAccount = selectedAccount;
             SendNotification(selectedAccount);
         }
 
