@@ -11,7 +11,8 @@ namespace SteamAccountManager.Domain.Steam.UseCase
         private readonly ISteamProfileService _steamProfileService;
         private readonly ILogger _logger;
 
-        public GetAccountsWithDetailsUseCase(ISteamRepository steamRepository, ISteamProfileService steamProfileService, ILogger logger)
+        public GetAccountsWithDetailsUseCase(ISteamRepository steamRepository, ISteamProfileService steamProfileService,
+            ILogger logger)
         {
             _steamRepository = steamRepository;
             _steamProfileService = steamProfileService;
@@ -22,6 +23,7 @@ namespace SteamAccountManager.Domain.Steam.UseCase
         {
             try
             {
+                var currentlySetAutoLoginUserId = (await _steamRepository.GetCurrentAutoLoginUser()).SteamId;
                 var steamLoginUsers = await _steamRepository.GetSteamLoginHistoryUsers();
                 var steamIds = steamLoginUsers.Select(user => user.SteamId);
                 var steamProfiles = await _steamProfileService.GetProfileDetails(steamIds.ToArray());
@@ -30,14 +32,14 @@ namespace SteamAccountManager.Domain.Steam.UseCase
                 {
                     var steamProfile = steamProfiles.FirstOrDefault(
                         profile => profile.Id == steamLoginUser.SteamId,
-                        new Profile()
+                        new Profile
                         {
                             Username = steamLoginUser.Username,
-                            Level = -1
+                            Level = -1,
                         }
                     );
 
-                    return new Account()
+                    return new Account
                     {
                         Id = steamLoginUser.SteamId,
                         Name = steamLoginUser.AccountName,
@@ -48,7 +50,8 @@ namespace SteamAccountManager.Domain.Steam.UseCase
                         IsCommunityBanned = steamProfile.IsCommunityBanned,
                         LastLogin = steamLoginUser.LastLogin,
                         IsLoginValid = steamLoginUser.IsLoginTokenValid,
-                        Level = steamProfile.Level
+                        Level = steamProfile.Level,
+                        IsLoggedIn = steamLoginUser.SteamId == currentlySetAutoLoginUserId,
                     };
                 });
 

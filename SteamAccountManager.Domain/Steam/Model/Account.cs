@@ -12,5 +12,6 @@
         public bool IsLoginValid { get; set; }
         public DateTime LastLogin { get; set; }
         public int Level { get; set; }
+        public bool IsLoggedIn { get; set; }
     }
 }
