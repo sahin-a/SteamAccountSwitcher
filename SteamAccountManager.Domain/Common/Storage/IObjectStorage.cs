@@ -2,6 +2,7 @@
 
 public interface IObjectStorage<T> where T : class
 {
-    public T? Get();
-    public void Set(T value);
+    public Task<T?> Get();
+    public Task<T> Get(T defaultValue);
+    public Task Set(T value);
 }

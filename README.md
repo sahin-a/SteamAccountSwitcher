@@ -17,11 +17,11 @@ Simply press the 'Add' button (+), check remember me and press login. 🧙‍♂
 
 # Known Issues 🙉
 Application not launching?
-- [Install .NET 6 Runtime](https://dotnet.microsoft.com/en-us/download)
+- [Install .NET 7 Runtime](https://dotnet.microsoft.com/en-us/download)
 
 Profile Picture, Level etc. not showing? 🌍
-- After you launch the app for the first time, you should have a 'api_key.json' file in the root directory. 
-- Enter the WebAPI key you get from here https://steamcommunity.com/dev/apikey in 'api_key.json'
+- After you launch the app for the first time, go to the settings tab
+- Enter the WebAPI key you get from here https://steamcommunity.com/dev/apikey in the Web API Key field
 
 Avalonia Build Features:
 * Switch Accounts 🧠
@@ -31,40 +31,36 @@ Avalonia Build Features:
 * Auto. Refresh on change
 * Popup Notifications 🤭
 
-Android App Features:
+Android/iOS App Features:
 * Switch Accounts 🧠
-* Open Profile when clicking the Avatar
+* Show Profile when clicking the Avatar
 * Shows Accounts Details (Account Name, Username, VAC/Game Ban Status 😳, Avatar, Level)
 
 # [AvaloniaUI 😉](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.AvaloniaUI)
 * Standalone
 
-![main_tab](https://user-images.githubusercontent.com/55054756/224566828-6737a636-c803-44b9-94b6-c28a7defd3b3.png)
-![settings_tab](https://user-images.githubusercontent.com/55054756/224566838-9a045a40-2ee2-4fd3-b73e-6dbe60f095e7.png)
+![main_tab](https://user-images.githubusercontent.com/55054756/232255480-214f1783-3df1-4823-9851-4203af03f3bc.png)
+![settings_tab](https://user-images.githubusercontent.com/55054756/228658714-af689efd-c88a-4301-9536-c585809932ba.png)
 
-# iOS 🍎
-* The REST Service has to be running in order for the app to work
-<img src="https://user-images.githubusercontent.com/55054756/205394494-1cc68661-c31a-4e12-8daf-483b57965607.png" width="256" />
-
-# [Android 💕](https://github.com/sahin-a/SteamAccountSwitcherAndroid)
+# Mobile App Clients
 * The REST Service has to be running in order for the app to work
 * [Play Store 🤖](https://play.google.com/store/apps/details?id=com.sar.steamaccountswitcher)
-<img src="https://user-images.githubusercontent.com/55054756/182717676-a66bd912-b89e-46ce-9abd-fc4071b9d25f.jpg" width="256">
+* App Store (not published yet)
+
+## [Android](https://github.com/sahin-a/SteamAccountSwitcherAndroid) | iOS
+<img src="https://user-images.githubusercontent.com/55054756/205394494-1cc68661-c31a-4e12-8daf-483b57965607.png" width="256" /> <img src="https://user-images.githubusercontent.com/55054756/182717676-a66bd912-b89e-46ce-9abd-fc4071b9d25f.jpg" width="256" />
 
 # [REST API 🥸](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.WebAPI)
 * Currently provides endpoint for fetching and switching accounts
 ** is required for the android app to work
-
-# Todos 🛠️
-[Project](https://github.com/users/sahin-a/projects/3/views/1?layout=board)
 
 # Supported Plattforms
 * 🪟 Windows 10 and newer
 * 🤖 Android 
 * 🍎 iOS
 
-# Planned Plattforms (Soon™)
-* 🤡 Linux
+# Todos 🛠️
+[Project](https://github.com/users/sahin-a/projects/3/views/1?layout=board)
 
 # You ❤️ it and it's worth a ☕ to you?
 <a href="https://www.buymeacoffee.com/sahina"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=sahina&button_colour=FFDD00&font_colour=000000&font_family=Bree&outline_colour=000000&coffee_colour=ffffff"></a>

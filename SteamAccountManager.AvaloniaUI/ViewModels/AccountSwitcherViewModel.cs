@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -8,6 +6,7 @@ using ReactiveUI;
 using SteamAccountManager.AvaloniaUI.Common;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Models;
+using SteamAccountManager.AvaloniaUI.Services;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
 using SteamAccountManager.Domain.Common.EventSystem;
 using SteamAccountManager.Domain.Steam.Configuration.Model;
@@ -27,14 +26,23 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private readonly ILocalNotificationService _notificationService;
         private readonly IPrivacyConfigStorage _privacyConfigStorage;
         private readonly EventBus _eventBus;
+        private readonly InfoService _infoService;
+        private readonly INotificationConfigStorage _notificationConfigStorage;
 
         public AdvancedObservableCollection<Account> Accounts { get; private set; }
         public ICommand ProfileClickedCommand { get; }
         public ICommand RefreshAccountsCommand { get; }
         public ICommand ShowInfoCommand { get; }
         public ICommand AddAccountCommand { get; }
-        public Account? SelectedAccount { get; set; }
         public VisibilityConfig Config { get; private set; } = new();
+
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set => this.RaiseAndSetIfChanged(ref _isLoading, value);
+        }
 
         public AccountSwitcherViewModel
         (
@@ -44,7 +52,9 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             AccountMapper accountMapper,
             ILocalNotificationService notificationService,
             IPrivacyConfigStorage privacyConfigStorage,
-            EventBus eventBus
+            INotificationConfigStorage notificationConfigStorage,
+            EventBus eventBus,
+            InfoService infoService
         ) : base(screen)
         {
             _getAccountsUseCase = getAccountsUseCase;
@@ -52,7 +62,9 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _accountMapper = accountMapper;
             _notificationService = notificationService;
             _privacyConfigStorage = privacyConfigStorage;
+            _notificationConfigStorage = notificationConfigStorage;
             _eventBus = eventBus;
+            _infoService = infoService;
 
             Accounts = new AdvancedObservableCollection<Account>();
             ProfileClickedCommand = new ProfileClickedCommand();
@@ -75,9 +87,9 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             );
         }
 
-        private void LoadVisibilityConfig()
+        private async void LoadVisibilityConfig()
         {
-            var config = _privacyConfigStorage.Get()?.DetailSettings;
+            var config = (await _privacyConfigStorage.Get())?.DetailSettings;
             if (config is null)
                 return;
 
@@ -117,46 +129,43 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             return SortAccounts(accounts);
         }
 
-        public async void LoadAccounts()
+        private async void LoadAccounts()
         {
             LoadVisibilityConfig();
-            Accounts.SetItems((await GetAccounts()).ToList());
+
+            if (IsLoading)
+                return;
+
+            IsLoading = true;
+            await Task.Run(async () => Accounts.SetItems((await GetAccounts()).ToList()));
+            IsLoading = false;
+        }
+
+        private async void SendNotification(Account account)
+        {
+            if ((await _notificationConfigStorage.Get())?.IsAllowedToSendNotification != true)
+                return;
+
+            _notificationService.Send
+            (
+                new Notification
+                (
+                    title: account.Name,
+                    message: account.Username,
+                    account.ProfilePictureUrl
+                )
+            );
         }
 
         public async void OnAccountSelected(Account selectedAccount)
         {
             await _switchAccountUseCase.Execute(selectedAccount.Name);
-            SelectedAccount = selectedAccount;
-            _notificationService.Send
-            (
-                new Notification
-                (
-                    selectedAccount.Name,
-                    selectedAccount.Username,
-                    selectedAccount.ProfilePictureUrl
-                )
-            );
+            SendNotification(selectedAccount);
         }
 
-        public void ShowInfo()
+        private void ShowInfo()
         {
-            if (OperatingSystem.IsWindows())
-            {
-                Process.Start("explorer", "https://github.com/sahin-a/SteamAccountManager/");
-            }
-            else
-            {
-                Process.Start("xdg-open", "https://github.com/sahin-a/SteamAccountManager/");
-            }
+            _infoService.ShowRepository();
         }
-    }
-
-    public class VisibilityConfig
-    {
-        public bool ShowUsername { get; set; } = true;
-        public bool ShowLoginName { get; set; } = true;
-        public bool ShowAvatar { get; set; } = true;
-        public bool ShowLevel { get; set; } = true;
-        public bool ShowBanStatus { get; set; } = true;
     }
 }

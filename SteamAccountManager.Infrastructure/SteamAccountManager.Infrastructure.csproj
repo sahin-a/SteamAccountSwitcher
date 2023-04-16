@@ -1,16 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Autofac" Version="6.4.0" />
+      <PackageReference Include="Autofac" Version="7.0.0" />
       <PackageReference Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />
       <PackageReference Include="Gameloop.Vdf.JsonConverter" Version="0.2.1" />
       <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-      <PackageReference Include="RestSharp" Version="108.0.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="RestSharp" Version="109.0.1" />
     </ItemGroup>
 
     <ItemGroup>

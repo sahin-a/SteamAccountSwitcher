@@ -1,11 +1,10 @@
-﻿using SteamAccountManager.AvaloniaUI.Common;
+﻿using System;
+using System.Text;
+using System.Threading.Tasks;
+using SteamAccountManager.AvaloniaUI.Common;
 using SteamAccountManager.AvaloniaUI.Common.Utils;
 using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.Services;
-using System;
-using System.Text;
-using System.Threading.Tasks;
-using Account = SteamAccountManager.AvaloniaUI.Models.Account;
 
 namespace SteamAccountManager.AvaloniaUI.Mappers
 {
@@ -34,6 +33,7 @@ namespace SteamAccountManager.AvaloniaUI.Mappers
                     stringBuilder.Append($"{minutesPassed} minutes");
                     break;
             }
+
             stringBuilder.Append(" ago");
 
             return stringBuilder.ToString();
@@ -46,7 +46,7 @@ namespace SteamAccountManager.AvaloniaUI.Mappers
             var avatar = await _avatarService.GetAvatarAsync(steamAccount.Id, steamAccount.AvatarUrl);
             var rank = new Rank
             {
-                Level = steamAccount.Level
+                Level = steamAccount.Level,
             };
 
             return new Account
@@ -60,7 +60,8 @@ namespace SteamAccountManager.AvaloniaUI.Mappers
                 IsVacBanned = steamAccount.IsVacBanned,
                 IsCommunityBanned = steamAccount.IsCommunityBanned,
                 LastLogin = timePassedSinceLastLogin,
-                Rank = rank
+                Rank = rank,
+                IsLoggedIn = steamAccount.IsLoggedIn,
             };
         }
     }

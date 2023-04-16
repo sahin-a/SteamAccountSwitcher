@@ -5,9 +5,12 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SteamAccountManager.AvaloniaUI.Views.SettingsView">
 
+    <UserControl.Styles>
+        <StyleInclude Source="/SteamAccountSwitcherStyles.xaml" />
+    </UserControl.Styles>
+
     <Grid Margin="24">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -15,20 +18,49 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ItemsRepeater Grid.Column="0" Items="{Binding AccountDetailsToggles}">
-            <ItemsRepeater.Layout>
-                <UniformGridLayout Orientation="Horizontal" MaximumRowsOrColumns="2" ItemsStretch="Fill"
-                                   ItemsJustification="SpaceBetween" MinRowSpacing="12" />
-            </ItemsRepeater.Layout>
-            <ItemsRepeater.ItemTemplate>
-                <DataTemplate>
-                    <ToggleSwitch Content="{Binding Title}" IsChecked="{Binding IsToggled}"
-                                  Command="{Binding ToggledCommand}" CommandParameter="{Binding}" />
-                </DataTemplate>
-            </ItemsRepeater.ItemTemplate>
-        </ItemsRepeater>
+        <StackPanel Grid.Column="0" Spacing="16">
 
-        <StackPanel Grid.Column="1">
+            <Border Classes="GroupContainer" Margin="0, 0, 6, 0">
+                <StackPanel Orientation="Vertical" Spacing="16">
+                    <TextBlock Classes="Title" Text="Details Visibility" />
+
+                    <ItemsRepeater Items="{Binding AccountDetailsToggles}">
+                        <ItemsRepeater.Layout>
+                            <UniformGridLayout Orientation="Horizontal" MaximumRowsOrColumns="2" ItemsStretch="Fill"
+                                               ItemsJustification="SpaceBetween" MinRowSpacing="12" />
+                        </ItemsRepeater.Layout>
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate>
+                                <ToggleSwitch Content="{Binding Title}" IsChecked="{Binding IsToggled}"
+                                              Command="{Binding ToggledCommand}" CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="GroupContainer" Margin="0, 0, 6, 0">
+                <StackPanel Orientation="Vertical" Spacing="16">
+                    <TextBlock Classes="Title" Text="Visual Feedback" />
+
+                    <ItemsRepeater Grid.Column="0" Items="{Binding SettingsToggles}">
+                        <ItemsRepeater.Layout>
+                            <UniformGridLayout Orientation="Horizontal" MaximumRowsOrColumns="2" ItemsStretch="Fill"
+                                               ItemsJustification="SpaceBetween" MinRowSpacing="12" />
+                        </ItemsRepeater.Layout>
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate>
+                                <ToggleSwitch Content="{Binding Title}" IsChecked="{Binding IsToggled}"
+                                              Command="{Binding ToggledCommand}" CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Margin="6, 0, 0, 0">
             <Label Content="Steam Web API Key" />
             <TextBox Classes="PasswordInput" x:Name="ApiKeyInputField" Text="{Binding WebApiKey}"
                      Watermark="Enter your key here.." Margin="0, 12, 0, 12" />

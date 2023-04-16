@@ -1,61 +1,71 @@
 ﻿using System;
-using System.IO;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SteamAccountManager.Domain.Common.CodeExtensions;
 using SteamAccountManager.Domain.Common.Storage;
 using SteamAccountManager.Domain.Steam.Local.Logger;
+using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage;
 
-public abstract class ObjectStorage<T> : IObjectStorage<T> where T : class
+public class ObjectStorage<T> : IObjectStorage<T> where T : class
 {
-    private readonly string _fileName;
+    private readonly IKeyValueDataSource _dataSource;
+    private readonly string _name;
     private readonly ILogger _logger;
 
     private T? _value = null;
 
-    public ObjectStorage(string fileName, ILogger logger)
+    public ObjectStorage(string name, ILogger logger, IKeyValueDataSource dataSource)
     {
         _logger = logger;
-        _fileName = $"{fileName}.json";
+        _name = name;
+        _dataSource = dataSource;
     }
 
-    private string ReadJson()
-    {
-        string json = "";
-        try
-        {
-            json = File.ReadAllText(_fileName);
-        }
-        catch
-        {
-        }
+    protected virtual T? GetDefaultValue() => null;
 
-        return json;
-    }
+    /// <summary>
+    /// Retrieves the value as non-nullable
+    /// </summary>
+    /// <param name="defaultValue"></param>
+    /// <returns>value as non-nullable</returns>
+    /// <exception cref="NullReferenceException">Will be thrown when there is no value or default value present</exception>
+    public async Task<T> Get(T defaultValue) =>
+        await Get() ?? throw new NullReferenceException(message: "No value could be retrieved!");
 
-    public T? Get()
+    public async Task<T?> Get()
     {
         if (_value is not null)
             return _value;
 
+        var json = await _dataSource.Load(_name);
+
+        if (json is null)
+            return GetDefaultValue()?.Let(value => value);
+
         try
         {
-            _value = JsonConvert.DeserializeObject<T>(ReadJson());
+            _value = JsonConvert.DeserializeObject<T>(json);
+
+            if (_value is null)
+                throw new NullReferenceException($"Failed to deserialize object! Content: {_value}");
+
             return _value;
         }
         catch (Exception e)
         {
-            _logger.LogException($"Failed to persist object of type {typeof(T).FullName}", e);
+            _logger.LogException($"Failed to retrieve persisted object of type {typeof(T).FullName}", e);
         }
 
-        return null;
+        return GetDefaultValue()?.Let(value => value);
     }
 
-    public void Set(T value)
+    public async Task Set(T value)
     {
         _value = value;
         var json = JsonConvert.SerializeObject(value, Formatting.Indented, new StringEnumConverter());
-        File.WriteAllText(_fileName, json);
+        await _dataSource.Store(_name, json);
     }
 }

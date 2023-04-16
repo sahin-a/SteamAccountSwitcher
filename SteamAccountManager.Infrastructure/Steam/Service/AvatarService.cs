@@ -1,8 +1,8 @@
-﻿using SteamAccountManager.Infrastructure.Steam.Local.Storage;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Domain.Steam.Service;
+using SteamAccountManager.Infrastructure.Steam.Local.Storage;
 
 namespace SteamAccountManager.Infrastructure.Steam.Service;
 
@@ -13,14 +13,15 @@ public class AvatarService : IAvatarService
     private readonly AvatarStorage _avatarStorage;
     private readonly ILogger _logger;
     private readonly IImageService _imageService;
-    private readonly UserAvatarStorage _userAvatarMapStorage;
+    private readonly UserAvatarMapStorage _userAvatarMapMapStorage;
 
-    public AvatarService(ILogger logger, AvatarStorage avatarStorage, IImageService imageService, UserAvatarStorage userAvatarMapStorage)
+    public AvatarService(ILogger logger, AvatarStorage avatarStorage, IImageService imageService,
+        UserAvatarMapStorage userAvatarMapMapStorage)
     {
         _avatarStorage = avatarStorage;
         _logger = logger;
         _imageService = imageService;
-        _userAvatarMapStorage = userAvatarMapStorage;
+        _userAvatarMapMapStorage = userAvatarMapMapStorage;
     }
 
     private string ExtractFileName(string url)
@@ -51,7 +52,7 @@ public class AvatarService : IAvatarService
         }
 
         if (string.IsNullOrEmpty(avatarId))
-            avatarId = _userAvatarMapStorage.Get(steamId, string.Empty);
+            avatarId = await _userAvatarMapMapStorage.Get(steamId, string.Empty);
 
         var cachedAvatar = _avatarStorage.GetUri(avatarId);
         AvatarResponse response;
@@ -67,7 +68,8 @@ public class AvatarService : IAvatarService
                 response = await DownloadAvatarAsync(steamId, url, avatarId);
                 break;
         }
-        _userAvatarMapStorage.Store(steamId, avatarId);
+
+        await _userAvatarMapMapStorage.Store(steamId, avatarId);
 
         return response;
     }

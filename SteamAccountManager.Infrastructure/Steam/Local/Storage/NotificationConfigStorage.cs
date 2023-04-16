@@ -6,10 +6,12 @@ using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Storage;
 
-public class PrivacyConfigStorage : ObjectStorage<PrivacyConfig>, IPrivacyConfigStorage
+public class NotificationConfigStorage : ObjectStorage<NotificationConfig>, INotificationConfigStorage
 {
-    public PrivacyConfigStorage(ILogger logger, IFileProvider fileProvider, string name = "account_details_privacy") :
+    public NotificationConfigStorage(ILogger logger, IFileProvider fileProvider, string name = "notification_config") :
         base(name, logger, new FileDataSource(directory: AppDataDirectory.Configurations, fileProvider))
     {
     }
+
+    protected override NotificationConfig GetDefaultValue() => new(isAllowedToSendNotification: true);
 }

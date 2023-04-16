@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using DynamicData;
@@ -15,10 +16,10 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private readonly ISteamApiKeyStorage _steamApiKeyStorage;
         private readonly IPrivacyConfigStorage _privacyConfigStorage;
         private readonly EventBus _eventBus;
-
+        private readonly INotificationConfigStorage _notificationConfigStorage;
 
         public AdvancedObservableCollection<AccountDetailToggle> AccountDetailsToggles { get; } = new();
-
+        public AdvancedObservableCollection<SettingsToggle> SettingsToggles { get; } = new();
         public ICommand SaveApiKeyCommand { get; }
         public string WebApiKey { get; set; }
 
@@ -27,11 +28,13 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             IScreen screen,
             ISteamApiKeyStorage apiKeyStorage,
             IPrivacyConfigStorage privacyConfigStorage,
+            INotificationConfigStorage notificationConfigStorage,
             EventBus eventBus
         ) : base(screen)
         {
             _steamApiKeyStorage = apiKeyStorage;
             _privacyConfigStorage = privacyConfigStorage;
+            _notificationConfigStorage = notificationConfigStorage;
             _eventBus = eventBus;
 
             SaveApiKeyCommand = ReactiveCommand.Create((string key) => SaveApiKey(key));
@@ -43,13 +46,33 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private void InitializeControls()
         {
             CreateAccountDetailToggles();
+            CreateSettingsToggles();
         }
 
-        private void PrefillFields()
+        private async void CreateSettingsToggles()
         {
-            WebApiKey = _steamApiKeyStorage.Get();
+            SettingsToggles.SetItems(
+                new List<SettingsToggle>
+                {
+                    new
+                    (
+                        title: "Allow Notifications",
+                        isToggled: (await _notificationConfigStorage.Get())?.IsAllowedToSendNotification == true,
+                        toggledCommand: ReactiveCommand.Create<SettingsToggle>(toggle =>
+                            _notificationConfigStorage.Set(
+                                new NotificationConfig(isAllowedToSendNotification: toggle.IsToggled)
+                            )
+                        )
+                    )
+                }
+            );
+        }
 
-            var privacyConfig = _privacyConfigStorage.Get()?.DetailSettings;
+        private async void PrefillFields()
+        {
+            WebApiKey = await _steamApiKeyStorage.Get() ?? "";
+
+            var privacyConfig = (await _privacyConfigStorage.Get())?.DetailSettings;
             if (privacyConfig is not null)
             {
                 foreach (var toggle in AccountDetailsToggles)
@@ -63,22 +86,26 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private void CreateAccountDetailToggles()
         {
             var detailToggledCommand =
-                ReactiveCommand.Create((AccountDetailToggle detailToggle) => DetailToggled(detailToggle));
+                ReactiveCommand.Create((SettingsToggle settingsToggle) => DetailToggled(settingsToggle));
 
             var toggles = Enum.GetValues<AccountDetailType>().Select(x =>
-                new AccountDetailToggle(x, title: x.ToTitle(), detailToggledCommand, isToggled: true));
+                new AccountDetailToggle(detailType: x, title: x.ToTitle(), isToggled: true, detailToggledCommand));
 
             AccountDetailsToggles.SetItems(toggles.ToList());
         }
 
-        private void DetailToggled(AccountDetailToggle detailToggle)
+        private async void DetailToggled(SettingsToggle detailToggle)
         {
-            var privacyConfig = _privacyConfigStorage.Get();
+            if (detailToggle is not AccountDetailToggle toggle)
+                return;
+
+            var privacyConfig = await _privacyConfigStorage.Get();
             if (privacyConfig is not null)
             {
-                var setting = privacyConfig.DetailSettings.FirstOrDefault(x => x.DetailType == detailToggle.DetailType);
+                var setting =
+                    privacyConfig.DetailSettings.FirstOrDefault(x => x.DetailType == toggle.DetailType);
                 privacyConfig.DetailSettings.ReplaceOrAdd(original: setting,
-                    replaceWith: new(detailToggle.DetailType, detailToggle.IsToggled));
+                    replaceWith: new(toggle.DetailType, detailToggle.IsToggled));
 
                 _privacyConfigStorage.Set(privacyConfig);
             }
@@ -118,15 +145,31 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         }
     }
 
-    public class AccountDetailToggle
+    public class SettingsToggle
     {
         public string Title { get; set; }
         public ICommand ToggledCommand { get; set; }
         public bool IsToggled { get; set; }
 
+        public SettingsToggle(string title, bool isToggled, ICommand toggledCommand)
+        {
+            Title = title;
+            ToggledCommand = toggledCommand;
+            IsToggled = isToggled;
+        }
+    }
+
+    public class AccountDetailToggle : SettingsToggle
+    {
         public AccountDetailType DetailType { get; set; }
 
-        public AccountDetailToggle(AccountDetailType detailType, string title, ICommand toggledCommand, bool isToggled)
+        public AccountDetailToggle
+        (
+            AccountDetailType detailType,
+            string title,
+            bool isToggled,
+            ICommand toggledCommand
+        ) : base(title, isToggled, toggledCommand)
         {
             Title = title;
             ToggledCommand = toggledCommand;

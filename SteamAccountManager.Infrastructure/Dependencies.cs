@@ -24,6 +24,7 @@ namespace SteamAccountManager.Infrastructure
     {
         public static void RegisterInfrastructureModule(this ContainerBuilder builder)
         {
+            builder.RegisterType<FileProvider>().As<IFileProvider>().SingleInstance();
             builder.RegisterType<EventBus>().SingleInstance();
 #if DEBUG
             builder.RegisterType<DebugLogger>().As<ILogger>().SingleInstance();
@@ -41,6 +42,7 @@ namespace SteamAccountManager.Infrastructure
                 builder.RegisterType<SteamWinRegistryConfig>().As<ISteamConfig>().SingleInstance();
             }
 
+            builder.RegisterType<FileDataSource>().SingleInstance();
             builder.RegisterType<LoginVdfFileWatcher>().As<IAccountStorageWatcher>().SingleInstance();
             builder.RegisterType<SteamLoginVdfParser>().As<ISteamLoginVdfParser>().SingleInstance();
             builder.RegisterType<SteamLoginVdfReader>().As<ISteamLoginVdfReader>().SingleInstance();
@@ -58,7 +60,7 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<SteamPlayerServiceProvider>().As<ISteamPlayerServiceProvider>().SingleInstance();
             builder.RegisterType<SteamPlayerService>().As<ISteamPlayerService>().SingleInstance();
             builder.RegisterType<AvatarStorage>().SingleInstance();
-            builder.RegisterType<UserAvatarStorage>().SingleInstance();
+            builder.RegisterType<UserAvatarMapStorage>().SingleInstance();
             builder.RegisterType<AvatarService>().As<IAvatarService>().SingleInstance();
         }
 
@@ -66,6 +68,7 @@ namespace SteamAccountManager.Infrastructure
         {
             builder.RegisterType<SteamApiKeyStorage>().As<ISteamApiKeyStorage>().SingleInstance();
             builder.RegisterType<PrivacyConfigStorage>().As<IPrivacyConfigStorage>().SingleInstance();
+            builder.RegisterType<NotificationConfigStorage>().As<INotificationConfigStorage>().SingleInstance();
         }
     }
 }

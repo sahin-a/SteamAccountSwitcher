@@ -2,6 +2,6 @@
 
 namespace SteamAccountManager.Domain.Steam.Storage;
 
-public interface ISteamApiKeyStorage : IStorage<string>
+public interface ISteamApiKeyStorage : IObjectStorage<string>
 {
 }
