@@ -10,13 +10,25 @@ public class DiscordRpcService
         client.Initialize();
         client.SetPresence(new RichPresence
         {
-            Details = "github.com/sahin-a/SteamAccountSwitcher",
-            State = "🧙‍♂️",
+            Details = "One step ahead 🧑‍💻",
             Assets = new Assets
             {
                 LargeImageKey = "sam_logo",
-                LargeImageText = "github.com/sahin-a/SteamAccountSwitcher"
-            }
+                LargeImageText = "You're missing out bro, go get it! 😂"
+            },
+            Buttons = new[]
+            {
+                new Button
+                {
+                    Label = "GitHub 💻",
+                    Url = "https://github.com/sahin-a/SteamAccountSwitcher",
+                },
+                new Button
+                {
+                    Label = "Download 🌍",
+                    Url = "https://github.com/sahin-a/SteamAccountSwitcher/releases",
+                },
+            },
         });
     }
 }
