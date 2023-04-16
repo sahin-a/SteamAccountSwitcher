@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DI;
 using ReactiveUI;
+using SteamAccountManager.AvaloniaUI.Common.Discord;
 using SteamAccountManager.AvaloniaUI.Mappers;
 using SteamAccountManager.AvaloniaUI.Notifications;
 using SteamAccountManager.AvaloniaUI.Services;
@@ -32,6 +33,7 @@ namespace SteamAccountManager.AvaloniaUI
 
         public static ContainerBuilder RegisterAvaloniaModule(this ContainerBuilder builder)
         {
+            builder.RegisterType<DiscordRpcService>().SingleInstance();
             builder.RegisterType<InfoService>().SingleInstance();
             builder.RegisterType<AvatarService>().SingleInstance();
             builder.RegisterType<AccountMapper>().SingleInstance();

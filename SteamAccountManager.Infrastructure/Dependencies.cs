@@ -69,6 +69,7 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<SteamApiKeyStorage>().As<ISteamApiKeyStorage>().SingleInstance();
             builder.RegisterType<PrivacyConfigStorage>().As<IPrivacyConfigStorage>().SingleInstance();
             builder.RegisterType<NotificationConfigStorage>().As<INotificationConfigStorage>().SingleInstance();
+            builder.RegisterType<RichPresenceConfigStorage>().As<IRichPresenceConfigStorage>().SingleInstance();
         }
     }
 }
