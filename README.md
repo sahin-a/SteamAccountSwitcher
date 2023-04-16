@@ -40,7 +40,7 @@ Android/iOS App Features:
 * Standalone
 
 ![main_tab](https://user-images.githubusercontent.com/55054756/232255480-214f1783-3df1-4823-9851-4203af03f3bc.png)
-![settings_tab](https://user-images.githubusercontent.com/55054756/228658714-af689efd-c88a-4301-9536-c585809932ba.png)
+![settings_tab](https://user-images.githubusercontent.com/55054756/232338945-6e298609-5f41-4858-985c-aa714ec9ecc8.png)
 
 # Mobile App Clients
 * The REST Service has to be running in order for the app to work
