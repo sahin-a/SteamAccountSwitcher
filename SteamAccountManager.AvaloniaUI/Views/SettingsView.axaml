@@ -43,7 +43,7 @@
                 <StackPanel Orientation="Vertical" Spacing="16">
                     <TextBlock Classes="Title" Text="Visual Feedback" />
 
-                    <ItemsRepeater Grid.Column="0" Items="{Binding SettingsToggles}">
+                    <ItemsRepeater Items="{Binding SettingsToggles}">
                         <ItemsRepeater.Layout>
                             <UniformGridLayout Orientation="Horizontal" MaximumRowsOrColumns="2" ItemsStretch="Fill"
                                                ItemsJustification="SpaceBetween" MinRowSpacing="12" />
@@ -57,16 +57,32 @@
                     </ItemsRepeater>
                 </StackPanel>
             </Border>
-
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Margin="6, 0, 0, 0">
-            <Label Content="Steam Web API Key" />
-            <TextBox Classes="PasswordInput" x:Name="ApiKeyInputField" Text="{Binding WebApiKey}"
-                     Watermark="Enter your key here.." Margin="0, 12, 0, 12" />
-            <Button Content="Save" Command="{Binding SaveApiKeyCommand}"
-                    CommandParameter="{Binding Text, ElementName=ApiKeyInputField}" HorizontalContentAlignment="Center"
-                    HorizontalAlignment="Stretch" />
+        <StackPanel Grid.Column="1" Spacing="16" Margin="6, 0, 0, 0">
+            <Border Classes="GroupContainer" Margin="6, 0, 0, 0">
+                <StackPanel Orientation="Vertical" Spacing="16">
+                    <TextBlock Classes="Title" Text="Rich Presence" />
+
+                    <ToggleSwitch Content="Show Presence" IsChecked="{Binding IsRichPresenceEnabled}"
+                                  Command="{Binding RichPresenceToggleCommand}" />
+                </StackPanel>
+            </Border>
+
+            <Border Classes="GroupContainer" Margin="6, 0, 0, 0">
+                <StackPanel Orientation="Vertical" Spacing="16">
+                    <TextBlock Classes="Title" Text="Steam Web API" />
+                    <StackPanel>
+                        <Label Content="Developer API Key" />
+                        <TextBox Classes="PasswordInput" x:Name="ApiKeyInputField" Text="{Binding WebApiKey}"
+                                 Watermark="Enter your key here.." Margin="0, 12, 0, 12" />
+                        <Button Content="Apply" Command="{Binding SaveApiKeyCommand}"
+                                CommandParameter="{Binding Text, ElementName=ApiKeyInputField}"
+                                HorizontalContentAlignment="Center"
+                                HorizontalAlignment="Stretch" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
         </StackPanel>
     </Grid>
 

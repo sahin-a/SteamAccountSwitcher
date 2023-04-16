@@ -17,10 +17,13 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private readonly IPrivacyConfigStorage _privacyConfigStorage;
         private readonly EventBus _eventBus;
         private readonly INotificationConfigStorage _notificationConfigStorage;
+        private readonly IRichPresenceConfigStorage _richPresenceConfigStorage;
 
         public AdvancedObservableCollection<AccountDetailToggle> AccountDetailsToggles { get; } = new();
         public AdvancedObservableCollection<SettingsToggle> SettingsToggles { get; } = new();
         public ICommand SaveApiKeyCommand { get; }
+        public ICommand RichPresenceToggleCommand { get; }
+        public bool IsRichPresenceEnabled { get; set; }
         public string WebApiKey { get; set; }
 
         public SettingsViewModel
@@ -28,6 +31,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             IScreen screen,
             ISteamApiKeyStorage apiKeyStorage,
             IPrivacyConfigStorage privacyConfigStorage,
+            IRichPresenceConfigStorage richPresenceConfigStorage,
             INotificationConfigStorage notificationConfigStorage,
             EventBus eventBus
         ) : base(screen)
@@ -35,9 +39,11 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _steamApiKeyStorage = apiKeyStorage;
             _privacyConfigStorage = privacyConfigStorage;
             _notificationConfigStorage = notificationConfigStorage;
+            _richPresenceConfigStorage = richPresenceConfigStorage;
             _eventBus = eventBus;
 
-            SaveApiKeyCommand = ReactiveCommand.Create((string key) => SaveApiKey(key));
+            SaveApiKeyCommand = ReactiveCommand.Create((string key) => UpdateApiKey(key));
+            RichPresenceToggleCommand = ReactiveCommand.Create(UpdateRichPresenceConfig);
 
             InitializeControls();
             PrefillFields();
@@ -47,6 +53,15 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         {
             CreateAccountDetailToggles();
             CreateSettingsToggles();
+        }
+
+        private void UpdateRichPresenceConfig()
+        {
+            _richPresenceConfigStorage.Set(new RichPresenceConfig
+            {
+                IsEnabled = IsRichPresenceEnabled
+            });
+            _eventBus.Notify(Events.RICH_PRESENCE_CONFIG_UPDATED, null);
         }
 
         private async void CreateSettingsToggles()
@@ -81,6 +96,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
                         .FirstOrDefault(x => x.DetailType == toggle.DetailType)?.IsEnabled ?? false;
                 }
             }
+
+            IsRichPresenceEnabled = (await _richPresenceConfigStorage.Get())?.IsEnabled ?? true;
         }
 
         private void CreateAccountDetailToggles()
@@ -118,7 +135,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _eventBus.Notify(Events.PRIVACY_CONFIG_UPDATED, null);
         }
 
-        private void SaveApiKey(string key)
+        private void UpdateApiKey(string key)
         {
             _steamApiKeyStorage.Set(key);
         }

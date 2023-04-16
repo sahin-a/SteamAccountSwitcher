@@ -1,4 +1,5 @@
 ﻿using System;
+using Autofac;
 using Avalonia;
 using Avalonia.ReactiveUI;
 using SteamAccountManager.AvaloniaUI.Common.Discord;
@@ -19,7 +20,7 @@ namespace SteamAccountManager.AvaloniaUI
         {
             Dependencies.RegisterDependencies();
 
-            new DiscordRpcService().Start();
+            Dependencies.Container!.Resolve<DiscordRpcService>().UpdateRichPresence();
 
             return AppBuilder.Configure<App>()
                 .UsePlatformDetect()
