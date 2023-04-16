@@ -7,7 +7,7 @@ namespace SteamAccountManager.AvaloniaUI.Common.Discord;
 
 public class DiscordRpcService
 {
-    private readonly DiscordRpcClient client = new("1085336328020955196");
+    private readonly DiscordRpcClient _client;
     private readonly EventBus _eventBus;
     private readonly IRichPresenceConfigStorage _richPresenceConfigStorage;
 
@@ -15,8 +15,9 @@ public class DiscordRpcService
     {
         _eventBus = eventBus;
         _richPresenceConfigStorage = richPresenceConfigStorage;
+        _client = new("1085336328020955196");
 
-        client.Initialize();
+        _client.Initialize();
         SubscribeToConfigChanges();
     }
 
@@ -35,13 +36,16 @@ public class DiscordRpcService
 
     public async void UpdateRichPresence()
     {
+        if (!_client.IsInitialized)
+            return;
+
         if (await IsRichPresenceDisabled())
         {
-            client.ClearPresence();
+            _client.ClearPresence();
             return;
         }
 
-        client.SetPresence(new RichPresence
+        _client.SetPresence(new RichPresence
         {
             Details = "One step ahead 🧑‍💻",
             Assets = new Assets
