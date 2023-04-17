@@ -4,25 +4,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Gameloop.Vdf;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
 {
-    // TODO: Seperaten Reader erstellen und Unit Tests schreiben
     public class SteamLinuxRegistryConfig : ISteamConfig
     {
         private const string AutoLoginUser = "AutoLoginUser";
-        private IEnumerable<VProperty> _steamRegistry;
 
-        private void LoadRegistry()
+        private VToken? SteamRegistry
         {
-            var rootProperty = Gameloop.Vdf.VdfConvert.Deserialize(GetVdfContent());
-            _steamRegistry = rootProperty["Registry"]["HKCU"]["Software"]["Valve"]["Steam"].Children<VProperty>();
-        }
-
-        private VProperty GetProperty(string key)
-        {
-            LoadRegistry();
-            return _steamRegistry.First(property => property.Key == key);
+            get
+            {
+                var rootProperty = VdfConvert.Deserialize(GetVdfContent());
+                return rootProperty.Value["HKCU"]?["Software"]?["Valve"]?["Steam"];
+            }
         }
 
         private string GetVdfContent()
@@ -32,7 +28,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
 
         public string GetAutoLoginUser()
         {
-            return GetProperty(AutoLoginUser).Value<string>();
+            return SteamRegistry[AutoLoginUser].Value<string>();
         }
 
         public string GetSteamExecutablePath()
@@ -42,7 +38,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
 
         public string GetSteamPath()
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".steam", "steam");
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".steam");
         }
 
         public void SetAutoLoginUser(string accountName)
@@ -57,6 +53,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
         {
             return Path.Combine(
                 GetSteamPath(),
+                "steam",
                 "config",
                 "loginusers.vdf"
             );
