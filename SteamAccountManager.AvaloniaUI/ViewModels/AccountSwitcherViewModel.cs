@@ -118,7 +118,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             await _switchAccountUseCase.Execute(string.Empty);
         }
 
-        private IEnumerable<Account> SortAccounts(Account[] accounts) => accounts.OrderByDescending(x => x.Rank.Level)
+        private IEnumerable<Account> SortAccounts(Account[] accounts) => accounts.OrderByDescending(x => x.IsLoggedIn)
+            .ThenByDescending(x => x.Rank.Level)
             .ThenBy(x => x.Name)
             .ThenBy(x => x.IsVacBanned);
 
