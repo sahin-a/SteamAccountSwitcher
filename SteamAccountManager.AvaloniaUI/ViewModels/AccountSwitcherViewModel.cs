@@ -9,6 +9,8 @@ using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.Services;
 using SteamAccountManager.AvaloniaUI.ViewModels.Commands;
 using SteamAccountManager.Domain.Common.EventSystem;
+using SteamAccountManager.Domain.Steam.Blacklisting.Model;
+using SteamAccountManager.Domain.Steam.Blacklisting.Storage;
 using SteamAccountManager.Domain.Steam.Configuration.Model;
 using SteamAccountManager.Domain.Steam.Service;
 using SteamAccountManager.Domain.Steam.Storage;
@@ -28,12 +30,25 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private readonly EventBus _eventBus;
         private readonly InfoService _infoService;
         private readonly INotificationConfigStorage _notificationConfigStorage;
+        private readonly IBlacklistedAccountsStorage _blacklistedAccountsStorage;
 
-        public AdvancedObservableCollection<Account> Accounts { get; private set; }
+        public List<Account> AllAccounts { get; private set; }
+        public List<Account> WhitelistedAccounts { get; private set; }
+        public AdvancedObservableCollection<Account> AccountsForDisplay { get; private set; }
         public ICommand ProfileClickedCommand { get; }
         public ICommand RefreshAccountsCommand { get; }
         public ICommand ShowInfoCommand { get; }
         public ICommand AddAccountCommand { get; }
+        public ICommand BlacklistAccountCommand { get; set; }
+        public ICommand ToggleBlacklistingModeCommand { get; set; }
+        private bool _isBlacklistToggleVisible;
+
+        public bool IsBlacklistToggleVisible
+        {
+            get => _isBlacklistToggleVisible;
+            set => this.RaiseAndSetIfChanged(ref _isBlacklistToggleVisible, value);
+        }
+
         public VisibilityConfig Config { get; private set; } = new();
 
         private bool _isLoading;
@@ -44,6 +59,9 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _isLoading, value);
         }
 
+        // TODO: I've left a total mess here (yes I mean the entire file), I won't merge this garbage into the main branch until its at least decent
+        // TODO: don't u dear opening a pr until you (yes I'm talking to myself) fixed this mess
+
         public AccountSwitcherViewModel
         (
             IScreen screen,
@@ -53,6 +71,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             ILocalNotificationService notificationService,
             IPrivacyConfigStorage privacyConfigStorage,
             INotificationConfigStorage notificationConfigStorage,
+            IBlacklistedAccountsStorage blacklistedAccountsStorage,
             EventBus eventBus,
             InfoService infoService
         ) : base(screen)
@@ -63,14 +82,18 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _notificationService = notificationService;
             _privacyConfigStorage = privacyConfigStorage;
             _notificationConfigStorage = notificationConfigStorage;
+            _blacklistedAccountsStorage = blacklistedAccountsStorage;
             _eventBus = eventBus;
             _infoService = infoService;
 
-            Accounts = new AdvancedObservableCollection<Account>();
+            AccountsForDisplay = new AdvancedObservableCollection<Account>();
             ProfileClickedCommand = new ProfileClickedCommand();
             RefreshAccountsCommand = new QuickCommand(LoadAccounts);
             ShowInfoCommand = new QuickCommand(ShowInfo);
             AddAccountCommand = new QuickCommand(AddAccount);
+            BlacklistAccountCommand =
+                ReactiveCommand.Create((Account account) => ToggleBlacklistingForAccount(account));
+            ToggleBlacklistingModeCommand = ReactiveCommand.Create(ToggleBlacklistingMode);
 
             RegisterSubscriptions();
             LoadVisibilityConfig();
@@ -113,12 +136,50 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             }
         }
 
+        private void ToggleBlacklistingMode()
+        {
+            var willSwitchToBlacklistingView = !IsBlacklistToggleVisible;
+
+            AccountsForDisplay.SetItems(willSwitchToBlacklistingView
+                ? AllAccounts
+                : SortAccounts(WhitelistedAccounts).ToList());
+            IsBlacklistToggleVisible = willSwitchToBlacklistingView;
+        }
+
+        private async Task WhitelistAccount(Account account, AccountBlacklist blacklist)
+        {
+            blacklist.BlacklistedIds.Remove(account.SteamId);
+            account.IsBlacklisted = false;
+            WhitelistedAccounts.Add(account);
+            await _blacklistedAccountsStorage.Set(blacklist);
+        }
+
+        private async Task BlacklistAccount(Account account, AccountBlacklist blacklist)
+        {
+            blacklist.BlacklistedIds.Add(account.SteamId);
+            account.IsBlacklisted = true;
+            WhitelistedAccounts.Remove(account);
+            await _blacklistedAccountsStorage.Set(blacklist);
+        }
+
+        private async void ToggleBlacklistingForAccount(Account account)
+        {
+            // TODO: add new function to storage or create a wrapper storage (list/hash storage?) that allows better api without having to deal with this hiv list null check garbage
+            var blacklist = await _blacklistedAccountsStorage.Get() ?? new AccountBlacklist();
+
+            if (blacklist.BlacklistedIds.Contains(account.SteamId))
+                await WhitelistAccount(account, blacklist);
+            else
+                await BlacklistAccount(account, blacklist);
+        }
+
         private async void AddAccount()
         {
             await _switchAccountUseCase.Execute(string.Empty);
         }
 
-        private IEnumerable<Account> SortAccounts(Account[] accounts) => accounts.OrderByDescending(x => x.IsLoggedIn)
+        private IEnumerable<Account> SortAccounts(List<Account> accounts) => accounts
+            .OrderByDescending(x => x.IsLoggedIn)
             .ThenByDescending(x => x.Rank.Level)
             .ThenBy(x => x.Name)
             .ThenBy(x => x.IsVacBanned);
@@ -126,7 +187,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private async Task<IEnumerable<Account>> GetAccounts()
         {
             var steamAccounts = await _getAccountsUseCase.Execute();
-            var accounts = await Task.WhenAll(steamAccounts.ConvertAll(x => _accountMapper.FromSteamAccount(x)));
+            var accounts = (await Task.WhenAll(steamAccounts.ConvertAll(x => _accountMapper.FromSteamAccount(x))))
+                .ToList();
             return SortAccounts(accounts);
         }
 
@@ -138,7 +200,11 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
                 return;
 
             IsLoading = true;
-            await Task.Run(async () => Accounts.SetItems((await GetAccounts()).ToList()));
+            var accounts = (await GetAccounts()).ToList();
+            var whitelistedAccounts = accounts.Where(x => !x.IsBlacklisted).ToList();
+            AllAccounts = accounts.ToList();
+            WhitelistedAccounts = whitelistedAccounts;
+            await Task.Run(() => AccountsForDisplay.SetItems(whitelistedAccounts));
             IsLoading = false;
         }
 

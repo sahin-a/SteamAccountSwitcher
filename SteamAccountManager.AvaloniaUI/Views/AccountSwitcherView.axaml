@@ -13,9 +13,11 @@
 
         <!-- Side Bar -->
         <Grid Classes="ButtonBar">
-            <UniformGrid VerticalAlignment="Center" Rows="3">
+            <UniformGrid VerticalAlignment="Center" Rows="4">
                 <Button Classes="BarItem" Content="+" Command="{Binding AddAccountCommand}" ToolTip.Tip="Add Account" />
                 <Button Classes="BarItem" Content="⟳" Command="{Binding RefreshAccountsCommand}" ToolTip.Tip="Refresh" />
+                <Button Classes="BarItem" Content="👁️" Command="{Binding ToggleBlacklistingModeCommand}"
+                        ToolTip.Tip="Manage Accounts" FontSize="16" />
                 <Button Classes="BarItem" Command="{Binding ShowInfoCommand}" ToolTip.Tip="GitHub">
                     <Image Source="avares://SteamAccountManager.AvaloniaUI/Assets/github_mark_light.png" Height="20" />
                 </Button>
@@ -29,7 +31,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ListBox Grid.Row="0" Margin="0,25,0,0" Items="{Binding Accounts}" SelectionMode="Single"
+            <ListBox Grid.Row="0" Margin="0,25,0,0" Items="{Binding AccountsForDisplay}" SelectionMode="Single"
                      SelectionChanged="AccountSelection_SelectionChanged" Background="Transparent">
                 <ListBox.Styles>
                     <Style Selector="ListBoxItem">
@@ -55,6 +57,15 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Stretch">
+                                <ToggleSwitch Content="Hide"
+                                              IsChecked="{Binding IsBlacklisted}"
+                                              Command="{Binding Path=DataContext.BlacklistAccountCommand, 
+									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                              CommandParameter="{Binding}"
+                                              IsVisible="{Binding Path=DataContext.IsBlacklistToggleVisible, 
+									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                              Margin="0, 0, 12, 0" />
+
                                 <!-- Profile Picture -->
                                 <Button
                                     Command="{Binding Path=DataContext.ProfileClickedCommand, 
@@ -112,7 +123,8 @@
                                   IsVisible="{Binding Path=DataContext.Config.ShowLevel, 
 									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
                                 <Panel IsVisible="{Binding ShowLevel}">
-                                    <Ellipse Width="40" Height="40" Stroke="{Binding Rank.Color}" StrokeThickness="2"
+                                    <Ellipse Width="40" Height="40" Stroke="{Binding Rank.Color}"
+                                             StrokeThickness="2"
                                              VerticalAlignment="Center" HorizontalAlignment="Left" />
                                     <TextBlock Text="{Binding Rank.Level}" VerticalAlignment="Center"
                                                HorizontalAlignment="Center" />
