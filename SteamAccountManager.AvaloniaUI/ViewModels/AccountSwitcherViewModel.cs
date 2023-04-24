@@ -179,7 +179,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         }
 
         private List<Account> SortAccountsForManagement(List<Account> accounts) => accounts
-            .OrderByDescending(x => x.IsBlacklisted)
+            .OrderBy(x => x.IsBlacklisted)
             .ToList();
 
         private List<Account> SortAccounts(List<Account> accounts) => accounts
