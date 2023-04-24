@@ -136,15 +136,16 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             }
         }
 
-        private void ToggleBlacklistingMode()
-        {
-            var willSwitchToBlacklistingView = !IsBlacklistToggleVisible;
+        private Task ToggleBlacklistingMode() => Task.Run(() =>
+            {
+                var willSwitchToBlacklistingView = !IsBlacklistToggleVisible;
 
-            AccountsForDisplay.SetItems(willSwitchToBlacklistingView
-                ? AllAccounts
-                : SortAccounts(WhitelistedAccounts).ToList());
-            IsBlacklistToggleVisible = willSwitchToBlacklistingView;
-        }
+                AccountsForDisplay.SetItems(willSwitchToBlacklistingView
+                    ? SortAccountsForManagement(AllAccounts)
+                    : SortAccounts(WhitelistedAccounts));
+                IsBlacklistToggleVisible = willSwitchToBlacklistingView;
+            }
+        );
 
         private async Task WhitelistAccount(Account account, AccountBlacklist blacklist)
         {
@@ -162,10 +163,9 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             await _blacklistedAccountsStorage.Set(blacklist);
         }
 
-        private async void ToggleBlacklistingForAccount(Account account)
+        private async Task ToggleBlacklistingForAccount(Account account)
         {
-            // TODO: add new function to storage or create a wrapper storage (list/hash storage?) that allows better api without having to deal with this hiv list null check garbage
-            var blacklist = await _blacklistedAccountsStorage.Get() ?? new AccountBlacklist();
+            var blacklist = await _blacklistedAccountsStorage.Get(new());
 
             if (blacklist.BlacklistedIds.Contains(account.SteamId))
                 await WhitelistAccount(account, blacklist);
@@ -178,13 +178,18 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             await _switchAccountUseCase.Execute(string.Empty);
         }
 
-        private IEnumerable<Account> SortAccounts(List<Account> accounts) => accounts
+        private List<Account> SortAccountsForManagement(List<Account> accounts) => accounts
+            .OrderByDescending(x => x.IsBlacklisted)
+            .ToList();
+
+        private List<Account> SortAccounts(List<Account> accounts) => accounts
             .OrderByDescending(x => x.IsLoggedIn)
             .ThenByDescending(x => x.Rank.Level)
             .ThenBy(x => x.Name)
-            .ThenBy(x => x.IsVacBanned);
+            .ThenBy(x => x.IsVacBanned)
+            .ToList();
 
-        private async Task<IEnumerable<Account>> GetAccounts()
+        private async Task<List<Account>> GetAccounts()
         {
             var steamAccounts = await _getAccountsUseCase.Execute();
             var accounts = (await Task.WhenAll(steamAccounts.ConvertAll(x => _accountMapper.FromSteamAccount(x))))
@@ -200,9 +205,9 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
                 return;
 
             IsLoading = true;
-            var accounts = (await GetAccounts()).ToList();
+            var accounts = await GetAccounts();
             var whitelistedAccounts = accounts.Where(x => !x.IsBlacklisted).ToList();
-            AllAccounts = accounts.ToList();
+            AllAccounts = accounts;
             WhitelistedAccounts = whitelistedAccounts;
             await Task.Run(() => AccountsForDisplay.SetItems(whitelistedAccounts));
             IsLoading = false;
