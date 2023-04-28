@@ -12,7 +12,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Side Bar -->
-        <Grid Classes="ButtonBar">
+        <Grid Grid.Column="0" Classes="ButtonBar">
             <UniformGrid VerticalAlignment="Center" Rows="4">
                 <Button Classes="BarItem" Content="+" Command="{Binding AddAccountCommand}" ToolTip.Tip="Add Account" />
                 <Button Classes="BarItem" Content="⟳" Command="{Binding RefreshAccountsCommand}" ToolTip.Tip="Refresh" />
@@ -56,8 +56,9 @@
                                 <ColumnDefinition SharedSizeGroup="A" />
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Stretch">
-                                <ToggleSwitch Content="Hide"
+                            <Grid Grid.Column="0" ColumnDefinitions="Auto, Auto, *"
+                                  HorizontalAlignment="Left">
+                                <ToggleSwitch Grid.Column="0" Content="Hide"
                                               IsChecked="{Binding IsBlacklisted}"
                                               Command="{Binding Path=DataContext.BlacklistAccountCommand, 
 									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
@@ -67,13 +68,13 @@
                                               Margin="0, 0, 12, 0" />
 
                                 <!-- Profile Picture -->
-                                <Button
-                                    Command="{Binding Path=DataContext.ProfileClickedCommand, 
+                                <Button Grid.Column="1"
+                                        Command="{Binding Path=DataContext.ProfileClickedCommand, 
 									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                    CommandParameter="{Binding ProfileUrl}" ClipToBounds="True"
-                                    IsVisible="{Binding Path=DataContext.Config.ShowAvatar,
+                                        CommandParameter="{Binding ProfileUrl}" ClipToBounds="True"
+                                        IsVisible="{Binding Path=DataContext.Config.ShowAvatar,
 									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                    Margin="0,0,12,0">
+                                        Margin="0,0,12,0">
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Grid Width="48" Height="48">
@@ -95,28 +96,35 @@
                                 </Button>
 
                                 <!-- Username/Account Name -->
-                                <StackPanel Orientation="Horizontal">
-                                    <Border VerticalAlignment="Center" Margin="0,0,12,0"
+                                <Grid Grid.Column="2" ColumnDefinitions="Auto, *" VerticalAlignment="Center">
+                                    <Border Grid.Column="0" Margin="0,0,12,0"
                                             IsVisible="{Binding Path=DataContext.Config.ShowBanStatus, 
 									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
                                         <TextBlock IsVisible="{Binding IsVacBanned}" Text="🛡️" FontSize="28" />
                                     </Border>
 
-                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,0,12,0">
-                                        <TextBlock Text="{Binding Name}" TextWrapping="Wrap"
+                                    <Grid Grid.Column="1" ColumnDefinitions="*">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0" Text="{Binding Name}" TextWrapping="NoWrap"
                                                    TextTrimming="CharacterEllipsis"
                                                    IsVisible="{Binding Path=DataContext.Config.ShowLoginName, 
 									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
-                                        <TextBlock Text="{Binding Username}" TextWrapping="Wrap"
+                                        <TextBlock Grid.Row="1" Text="{Binding Username}" TextWrapping="NoWrap"
                                                    TextTrimming="CharacterEllipsis" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </StackPanel>
-
+                                    </Grid>
+                                </Grid>
+                            </Grid>
 
                             <!-- Last Login Date -->
-                            <TextBlock Grid.Column="1" Text="{Binding LastLogin}" HorizontalAlignment="Center"
-                                       VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="1" Text="{Binding LastLogin}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" TextWrapping="NoWrap"
+                                       TextTrimming="CharacterEllipsis"
+                                       Margin="12,0,12,0" />
 
                             <!-- Steam Level -->
                             <Grid Grid.Column="2" HorizontalAlignment="Right"
