@@ -1,13 +1,14 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style Selector="Window">
-        <Setter Property="Background" Value="#1c1b1b" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="TransparencyLevelHint" Value="AcrylicBlur" />
         <Setter Property="Icon" Value="/Assets/sam.ico" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
     </Style>
 
     <Style Selector="Grid.NavBar">
-        <Setter Property="Background" Value="#1c1b1b" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
     <Style Selector="Button.NavTab">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -20,7 +21,7 @@
     </Style>
 
     <Style Selector="Grid.ButtonBar">
-        <Setter Property="Background" Value="#1c1b1b" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
     <Style Selector="Button.BarItem">
         <Setter Property="FontSize" Value="25" />
@@ -33,6 +34,18 @@
         <Setter Property="Margin" Value="0" />
     </Style>
 
+    <Style Selector="Panel.AccountListItemPanel">
+        <Setter Property="Margin" Value="12, 0, 12, 8" />
+        <Setter Property="Border.CornerRadius" Value="10" />
+    </Style>
+
+    <Style Selector="Border.AccountListItem">
+        <Setter Property="Padding" Value="12" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
     <Style Selector="TextBox.PasswordInput">
         <Setter Property="PasswordChar" Value="●" />
         <Setter Property="FontSize" Value="12" />
@@ -43,6 +56,10 @@
         <Setter Property="Background" Value="#262626" />
         <Setter Property="CornerRadius" Value="10" />
         <Setter Property="Padding" Value="12" />
+    </Style>
+
+    <Style Selector="Border.AccountListItemActionBar">
+        <Setter Property="Margin" Value="0,12,0,0" />
     </Style>
 
     <Style Selector="TextBlock.Title">

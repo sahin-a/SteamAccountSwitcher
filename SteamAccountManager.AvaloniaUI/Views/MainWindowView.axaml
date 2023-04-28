@@ -16,26 +16,45 @@
         <StyleInclude Source="/SteamAccountSwitcherStyles.xaml" />
     </Window.Styles>
 
-    <DockPanel LastChildFill="True">
-        <Grid Classes="NavBar" DockPanel.Dock="Bottom">
-            <ItemsRepeater Items="{Binding NavigationTargets}">
-                <ItemsRepeater.Layout>
-                    <UniformGridLayout ItemsJustification="SpaceAround"
-                                       MaximumRowsOrColumns="{Binding Path=NavigationTargets.Count}"
-                                       Orientation="Horizontal" ItemsStretch="Fill" />
-                </ItemsRepeater.Layout>
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate>
-                        <Button Classes="NavTab" Content="{Binding Title}" Command="{Binding NavigateCommand}"
-                                ToolTip.Tip="{Binding HintText}" />
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.75" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="1" LastChildFill="True">
+                <Grid Classes="NavBar" DockPanel.Dock="Bottom">
+                    <ItemsRepeater Items="{Binding NavigationTargets}">
+                        <ItemsRepeater.Layout>
+                            <UniformGridLayout ItemsJustification="SpaceAround"
+                                               MaximumRowsOrColumns="{Binding Path=NavigationTargets.Count}"
+                                               Orientation="Horizontal" ItemsStretch="Fill" />
+                        </ItemsRepeater.Layout>
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate>
+                                <Button Classes="NavTab" Content="{Binding Title}" Command="{Binding NavigateCommand}"
+                                        ToolTip.Tip="{Binding HintText}" />
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </Grid>
+                <rxui:RoutedViewHost Router="{Binding Router}">
+                    <rxui:RoutedViewHost.ViewLocator>
+                        <app:AppViewLocator />
+                    </rxui:RoutedViewHost.ViewLocator>
+                </rxui:RoutedViewHost>
+            </DockPanel>
         </Grid>
-        <rxui:RoutedViewHost Router="{Binding Router}">
-            <rxui:RoutedViewHost.ViewLocator>
-                <app:AppViewLocator />
-            </rxui:RoutedViewHost.ViewLocator>
-        </rxui:RoutedViewHost>
-    </DockPanel>
+    </Panel>
 </Window>

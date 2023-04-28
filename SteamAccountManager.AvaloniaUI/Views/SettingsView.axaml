@@ -9,7 +9,7 @@
         <StyleInclude Source="/SteamAccountSwitcherStyles.xaml" />
     </UserControl.Styles>
 
-    <Grid Margin="24, 36, 24, 24">
+    <Grid Margin="24, 0, 24, 24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
