@@ -35,6 +35,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         public List<Account> AllAccounts { get; private set; }
         public List<Account> WhitelistedAccounts { get; private set; }
         public AdvancedObservableCollection<Account> AccountsForDisplay { get; private set; }
+        public ICommand AccountSelectedCommand { get; set; }
         public ICommand ProfileClickedCommand { get; }
         public ICommand RefreshAccountsCommand { get; }
         public ICommand ShowInfoCommand { get; }
@@ -91,6 +92,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             RefreshAccountsCommand = new QuickCommand(LoadAccounts);
             ShowInfoCommand = new QuickCommand(ShowInfo);
             AddAccountCommand = new QuickCommand(AddAccount);
+            AccountSelectedCommand = ReactiveCommand.Create((Account account) => OnAccountSelected(account));
             BlacklistAccountCommand =
                 ReactiveCommand.Create((Account account) => ToggleBlacklistingForAccount(account));
             ToggleBlacklistingModeCommand = ReactiveCommand.Create(ToggleBlacklistingMode);
@@ -136,16 +138,18 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             }
         }
 
-        private Task ToggleBlacklistingMode() => Task.Run(() =>
-            {
-                var willSwitchToBlacklistingView = !IsBlacklistToggleVisible;
+        private void DisplayAccountsForCurrentState()
+        {
+            AccountsForDisplay.SetItems(IsBlacklistToggleVisible
+                ? SortAccountsForManagement(AllAccounts)
+                : SortAccounts(WhitelistedAccounts));
+        }
 
-                AccountsForDisplay.SetItems(willSwitchToBlacklistingView
-                    ? SortAccountsForManagement(AllAccounts)
-                    : SortAccounts(WhitelistedAccounts));
-                IsBlacklistToggleVisible = willSwitchToBlacklistingView;
-            }
-        );
+        private Task ToggleBlacklistingMode() => Task.Run(() =>
+        {
+            IsBlacklistToggleVisible = !IsBlacklistToggleVisible;
+            DisplayAccountsForCurrentState();
+        });
 
         private async Task WhitelistAccount(Account account, AccountBlacklist blacklist)
         {
@@ -209,7 +213,7 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             var whitelistedAccounts = accounts.Where(x => !x.IsBlacklisted).ToList();
             AllAccounts = accounts;
             WhitelistedAccounts = whitelistedAccounts;
-            await Task.Run(() => AccountsForDisplay.SetItems(whitelistedAccounts));
+            await Task.Run(DisplayAccountsForCurrentState);
             IsLoading = false;
         }
 

@@ -46,7 +46,10 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <Button Grid.Row="0" HorizontalAlignment="Stretch">
+                                    <Button Grid.Row="0" HorizontalAlignment="Stretch"
+                                            Command="{Binding Path=DataContext.AccountSelectedCommand, 
+									RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}">
                                         <Button.Template>
                                             <ControlTemplate>
                                                 <Grid Background="Transparent">
