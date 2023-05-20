@@ -1,23 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {AccountItem} from "./steam/presentation/components/switcher/AccountItem";
+import {Container, CssBaseline} from "@mui/material";
+import {AccountSwitcher} from "./steam/presentation/components/switcher/AccountSwitcher";
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+
+const darkTheme = createTheme({
+    palette: {
+        mode: 'dark',
+    },
+});
 
 function App() {
-    const accountName = "sahin"
-    return (
-        <div className="App">
-            <AccountItem
-                accountName={accountName}
-                username="Epic Sahin"
-                isBanned={true}
-                level={BigInt(100)}
-                lastLoginStatus={"last seen 8 hours ago"}
-                onAvatarClick={ () => console.log(`avatar clicked ${accountName}`) }
-                onAccountClick={ () => console.log(`account clicked ${accountName}`) }
-            />
-        </div>
-    );
+    return <ThemeProvider theme={darkTheme}>
+        <CssBaseline/>
+
+        <Container>
+            <AccountSwitcher/>
+        </Container>
+    </ThemeProvider>;
 }
 
 export default App;

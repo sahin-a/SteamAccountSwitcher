@@ -1,42 +1,55 @@
 import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import {Grid, Stack} from "@mui/material";
+import {CardMedia, Grid, Stack} from "@mui/material";
 
 interface IProps {
-    accountName: String,
-    username: String,
-    level: BigInt,
-    lastLoginStatus: String,
+    accountName: string,
+    username: string,
+    level: number,
+    lastLoginStatus: string,
     isBanned: Boolean,
-    onAvatarClick: () => void,
+    avatarUrl: string,
+    profileUrl: string,
     onAccountClick: () => void
 }
 
-export const AccountItem = ({accountName, username, level, lastLoginStatus, isBanned, onAvatarClick, onAccountClick}: IProps) => {
+export const AccountItem = (
+    {
+        accountName,
+        username,
+        level,
+        lastLoginStatus,
+        isBanned,
+        avatarUrl,
+        profileUrl,
+        onAccountClick,
+    }: IProps
+) => {
 
     return (
         <Card onClick={onAccountClick}>
-            <CardContent>
-                <Grid container sx={{alignItems: "center"}}>
-                    <Grid item>
-                            <Avatar
-                                onClick={onAvatarClick}
-                                src="https://media.istockphoto.com/vectors/default-avatar-photo-placeholder-icon-grey-profile-picture-business-vector-id1327592449?k=20&m=1327592449&s=612x612&w=0&h=6yFQPGaxmMLgoEKibnVSRIEnnBgelAeIAf8FqpLBNww="
-                            />
-                    </Grid>
-                    {isBanned ? <Grid sx={{paddingLeft: 2, paddingRight: 2, fontSize: 26}} item>🛡</Grid> : null}
-                    <Grid item>
-                        <Typography align={"left"}>
-                            <header>{accountName}</header>
-                            <body>{username}</body>
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={5}>{lastLoginStatus}</Grid>
-                    <Grid item>
+            <CardMedia
+                sx={{height: 128, objectFit: 'scale-down'}}
+                image={avatarUrl ? (avatarUrl) : ("https://media.istockphoto.com/vectors/default-avatar-photo-placeholder-icon-grey-profile-picture-business-vector-id1327592449?k=20&m=1327592449&s=612x612&w=0&h=6yFQPGaxmMLgoEKibnVSRIEnnBgelAeIAf8FqpLBNww=")}>
+            </CardMedia>
+            <CardContent sx={{
+                "&:last-child": {
+                    paddingBottom: 2
+                }
+            }}>
+                <Grid container spacing={0} sx={{alignItems: "center"}}>
+                    {level >= 0 ? <Grid item>
                         <Avatar sx={{fontSize: 16, verticalAlign: "center"}}>{level.toString()}</Avatar>
-                    </Grid>
+                    </Grid> : null
+                    }
+
+                    {isBanned ? <Grid item sx={{paddingLeft: 2, fontSize: 26}}>🛡</Grid> : null}
+
+                    <Stack sx={{paddingLeft: 2}}>
+                        <a>{!username ? accountName : "••••"}</a>
+                        <a>{username}</a>
+                    </Stack>
                 </Grid>
             </CardContent>
         </Card>
