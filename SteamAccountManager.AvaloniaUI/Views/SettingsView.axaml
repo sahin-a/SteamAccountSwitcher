@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:SteamAccountManager.AvaloniaUI.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SteamAccountManager.AvaloniaUI.Views.SettingsView">
 
@@ -39,24 +40,27 @@
                 </StackPanel>
             </Border>
 
-            <Border Classes="GroupContainer" Margin="0, 0, 6, 0">
-                <StackPanel Orientation="Vertical" Spacing="16">
-                    <TextBlock Classes="Title" Text="Visual Feedback" />
+            <views:RoundedContainer>
+                <Border Classes="GroupContainer" Margin="0, 0, 6, 0">
+                    <StackPanel Orientation="Vertical" Spacing="16">
+                        <TextBlock Classes="Title" Text="Visual Feedback" />
 
-                    <ItemsRepeater Items="{Binding SettingsToggles}">
-                        <ItemsRepeater.Layout>
-                            <UniformGridLayout Orientation="Horizontal" MaximumRowsOrColumns="2" ItemsStretch="Fill"
-                                               ItemsJustification="SpaceBetween" MinRowSpacing="12" />
-                        </ItemsRepeater.Layout>
-                        <ItemsRepeater.ItemTemplate>
-                            <DataTemplate>
-                                <ToggleSwitch Content="{Binding Title}" IsChecked="{Binding IsToggled}"
-                                              Command="{Binding ToggledCommand}" CommandParameter="{Binding}" />
-                            </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
-                </StackPanel>
-            </Border>
+                        <ItemsRepeater Items="{Binding SettingsToggles}">
+                            <ItemsRepeater.Layout>
+                                <UniformGridLayout Orientation="Horizontal" MaximumRowsOrColumns="2"
+                                                   ItemsStretch="Fill"
+                                                   ItemsJustification="SpaceBetween" MinRowSpacing="12" />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate>
+                                    <ToggleSwitch Content="{Binding Title}" IsChecked="{Binding IsToggled}"
+                                                  Command="{Binding ToggledCommand}" CommandParameter="{Binding}" />
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </StackPanel>
+                </Border>
+            </views:RoundedContainer>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Spacing="16" Margin="6, 0, 0, 0">
