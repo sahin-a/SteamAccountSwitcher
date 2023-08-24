@@ -5,11 +5,16 @@ namespace SteamAccountManager.AvaloniaUI.Services;
 
 public class InfoService
 {
-    public void ShowRepository()
+    private const string RetrieveApiKey = "https://steamcommunity.com/dev/apikey";
+    private const string GithubRepository = "https://github.com/sahin-a/SteamAccountSwitcher/";
+
+    public void ShowRepository() => ShowWebPage(GithubRepository);
+
+    public void ShowRetrieveApiKey() => ShowWebPage(RetrieveApiKey);
+
+    private void ShowWebPage(string url)
     {
-        if (OperatingSystem.IsWindows())
-            Process.Start("explorer", "https://github.com/sahin-a/SteamAccountManager/");
-        else
-            Process.Start("xdg-open", "https://github.com/sahin-a/SteamAccountManager/");
+        var targetExecutable = OperatingSystem.IsWindows() ? "explorer" : "xdg-open";
+        Process.Start(targetExecutable, url);
     }
 }

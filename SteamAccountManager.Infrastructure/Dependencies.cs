@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using Autofac;
 using SteamAccountManager.Domain.Common.EventSystem;
+using SteamAccountManager.Domain.Steam.Blacklisting.Storage;
 using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Domain.Steam.Local.Repository;
 using SteamAccountManager.Domain.Steam.Observables;
@@ -70,6 +71,7 @@ namespace SteamAccountManager.Infrastructure
             builder.RegisterType<PrivacyConfigStorage>().As<IPrivacyConfigStorage>().SingleInstance();
             builder.RegisterType<NotificationConfigStorage>().As<INotificationConfigStorage>().SingleInstance();
             builder.RegisterType<RichPresenceConfigStorage>().As<IRichPresenceConfigStorage>().SingleInstance();
+            builder.RegisterType<BlacklistedAccountsStorage>().As<IBlacklistedAccountsStorage>().SingleInstance();
         }
     }
 }

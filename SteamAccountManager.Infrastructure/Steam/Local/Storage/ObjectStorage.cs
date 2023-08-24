@@ -26,14 +26,8 @@ public class ObjectStorage<T> : IObjectStorage<T> where T : class
 
     protected virtual T? GetDefaultValue() => null;
 
-    /// <summary>
-    /// Retrieves the value as non-nullable
-    /// </summary>
-    /// <param name="defaultValue"></param>
-    /// <returns>value as non-nullable</returns>
-    /// <exception cref="NullReferenceException">Will be thrown when there is no value or default value present</exception>
     public async Task<T> Get(T defaultValue) =>
-        await Get() ?? throw new NullReferenceException(message: "No value could be retrieved!");
+        await Get() ?? defaultValue;
 
     public async Task<T?> Get()
     {

@@ -1,40 +1,48 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
-		xmlns:app="clr-namespace:SteamAccountManager.AvaloniaUI"
-        xmlns:vm="using:SteamAccountManager.AvaloniaUI.ViewModels"
-        xmlns:view="using:SteamAccountManager.AvaloniaUI.Views"
+        xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
+        xmlns:app="clr-namespace:SteamAccountManager.AvaloniaUI"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="SteamAccountManager.AvaloniaUI.Views.MainWindowView"
         Title="Steam Account Switcher (AvaloniaUI)"
-		Width="800"
-		Height="450"
-		MinWidth="800"
-		MinHeight="450">
+        Width="800"
+        Height="450"
+        MinWidth="800"
+        MinHeight="450">
 
-	<Window.Styles>
-		<StyleInclude Source="/SteamAccountSwitcherStyles.xaml" />
-	</Window.Styles>
+    <Window.Styles>
+        <StyleInclude Source="/SteamAccountSwitcherStyles.xaml" />
+    </Window.Styles>
 
-	<DockPanel LastChildFill="True">
-		<Grid Classes="NavBar" DockPanel.Dock="Bottom">
-			<ItemsRepeater Items="{Binding NavigationTargets}">
-				<ItemsRepeater.Layout>
-					<UniformGridLayout ItemsJustification="SpaceAround" MaximumRowsOrColumns="{Binding Path=NavigationTargets.Count}" Orientation="Horizontal" ItemsStretch="Fill"/>
-				</ItemsRepeater.Layout>
-				<ItemsRepeater.ItemTemplate>
-					<DataTemplate>
-						<Button Classes="NavTab" Content="{Binding Title}" Command="{Binding NavigateCommand}" ToolTip.Tip="{Binding HintText}" />
-					</DataTemplate>
-				</ItemsRepeater.ItemTemplate>
-			</ItemsRepeater>
-		</Grid>
-		<rxui:RoutedViewHost Router="{Binding Router}">
-			<rxui:RoutedViewHost.ViewLocator>
-				<app:AppViewLocator />
-			</rxui:RoutedViewHost.ViewLocator>
-		</rxui:RoutedViewHost>
-	</DockPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="1" LastChildFill="True">
+            <Grid Classes="NavBar" DockPanel.Dock="Bottom">
+                <ItemsRepeater Items="{Binding NavigationTargets}">
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout ItemsJustification="SpaceAround"
+                                           MaximumRowsOrColumns="{Binding Path=NavigationTargets.Count}"
+                                           Orientation="Horizontal" ItemsStretch="Fill" />
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate>
+                            <Button Classes="NavTab" Content="{Binding Title}" Command="{Binding NavigateCommand}"
+                                    ToolTip.Tip="{Binding HintText}" />
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </Grid>
+            <rxui:RoutedViewHost Router="{Binding Router}">
+                <rxui:RoutedViewHost.ViewLocator>
+                    <app:AppViewLocator />
+                </rxui:RoutedViewHost.ViewLocator>
+            </rxui:RoutedViewHost>
+        </DockPanel>
+    </Grid>
 </Window>

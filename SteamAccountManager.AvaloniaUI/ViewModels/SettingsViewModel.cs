@@ -5,6 +5,7 @@ using System.Windows.Input;
 using DynamicData;
 using ReactiveUI;
 using SteamAccountManager.AvaloniaUI.Common;
+using SteamAccountManager.AvaloniaUI.Services;
 using SteamAccountManager.Domain.Common.EventSystem;
 using SteamAccountManager.Domain.Steam.Configuration.Model;
 using SteamAccountManager.Domain.Steam.Storage;
@@ -18,13 +19,24 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private readonly EventBus _eventBus;
         private readonly INotificationConfigStorage _notificationConfigStorage;
         private readonly IRichPresenceConfigStorage _richPresenceConfigStorage;
+        private readonly InfoService _infoService;
 
         public AdvancedObservableCollection<AccountDetailToggle> AccountDetailsToggles { get; } = new();
         public AdvancedObservableCollection<SettingsToggle> SettingsToggles { get; } = new();
-        public ICommand SaveApiKeyCommand { get; }
         public ICommand RichPresenceToggleCommand { get; }
+        public ICommand ShowRetrieveApiKeyPageCommand { get; }
         public bool IsRichPresenceEnabled { get; set; }
-        public string WebApiKey { get; set; }
+        private string _webApiKey = "";
+
+        public string WebApiKey
+        {
+            get => _webApiKey;
+            set
+            {
+                _webApiKey = value;
+                UpdateApiKey(value);
+            }
+        }
 
         public SettingsViewModel
         (
@@ -33,7 +45,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             IPrivacyConfigStorage privacyConfigStorage,
             IRichPresenceConfigStorage richPresenceConfigStorage,
             INotificationConfigStorage notificationConfigStorage,
-            EventBus eventBus
+            EventBus eventBus,
+            InfoService infoService
         ) : base(screen)
         {
             _steamApiKeyStorage = apiKeyStorage;
@@ -41,9 +54,10 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _notificationConfigStorage = notificationConfigStorage;
             _richPresenceConfigStorage = richPresenceConfigStorage;
             _eventBus = eventBus;
+            _infoService = infoService;
 
-            SaveApiKeyCommand = ReactiveCommand.Create((string key) => UpdateApiKey(key));
             RichPresenceToggleCommand = ReactiveCommand.Create(UpdateRichPresenceConfig);
+            ShowRetrieveApiKeyPageCommand = ReactiveCommand.Create(ShowRetrieveApiKeyPage);
 
             InitializeControls();
             PrefillFields();
@@ -62,6 +76,11 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
                 IsEnabled = IsRichPresenceEnabled
             });
             _eventBus.Notify(Events.RICH_PRESENCE_CONFIG_UPDATED, null);
+        }
+
+        private void ShowRetrieveApiKeyPage()
+        {
+            _infoService.ShowRetrieveApiKey();
         }
 
         private async void CreateSettingsToggles()

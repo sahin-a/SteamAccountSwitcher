@@ -1,9 +1,10 @@
 ﻿using System;
 using Avalonia.Media.Imaging;
+using ReactiveUI;
 
 namespace SteamAccountManager.AvaloniaUI.Models
 {
-    public class Account
+    public class Account : ReactiveObject
     {
         public IBitmap? ProfilePicture { get; set; }
         public Uri? ProfilePictureUrl { get; set; }
@@ -15,6 +16,21 @@ namespace SteamAccountManager.AvaloniaUI.Models
         public bool IsCommunityBanned { get; set; }
         public string LastLogin { get; set; } = string.Empty;
         public bool IsLoggedIn { get; set; }
+        private bool _isBlacklisted;
+
+        public bool IsBlacklisted
+        {
+            get => _isBlacklisted;
+            set => this.RaiseAndSetIfChanged(ref _isBlacklisted, value);
+        }
+
+        private bool _isBlacklistToggleVisible;
+
+        public bool IsBlacklistToggleVisible
+        {
+            get => _isBlacklistToggleVisible;
+            set => this.RaiseAndSetIfChanged(ref _isBlacklistToggleVisible, value);
+        }
 
         public Rank Rank { get; set; } = new()
         {

@@ -5,16 +5,29 @@ using SteamAccountManager.AvaloniaUI.Common;
 using SteamAccountManager.AvaloniaUI.Common.Utils;
 using SteamAccountManager.AvaloniaUI.Models;
 using SteamAccountManager.AvaloniaUI.Services;
+using SteamAccountManager.Domain.Steam.Blacklisting.Storage;
 
 namespace SteamAccountManager.AvaloniaUI.Mappers
 {
     public class AccountMapper
     {
-        private AvatarService _avatarService;
+        private readonly IBlacklistedAccountsStorage _blacklistedAccountsStorage;
+        private readonly AvatarService _avatarService;
 
-        public AccountMapper(AvatarService avatarService)
+        public AccountMapper(AvatarService avatarService, IBlacklistedAccountsStorage blacklistedAccountsStorage)
         {
             _avatarService = avatarService;
+            _blacklistedAccountsStorage = blacklistedAccountsStorage;
+        }
+
+        private async Task<bool> IsBlacklisted(string steamId)
+        {
+            var blacklistedIds = await _blacklistedAccountsStorage.Get();
+
+            if (blacklistedIds is null)
+                return false;
+
+            return blacklistedIds.BlacklistedIds.Contains(steamId);
         }
 
         private string GetTimePassedFormatted(long minutesPassed)
@@ -62,6 +75,7 @@ namespace SteamAccountManager.AvaloniaUI.Mappers
                 LastLogin = timePassedSinceLastLogin,
                 Rank = rank,
                 IsLoggedIn = steamAccount.IsLoggedIn,
+                IsBlacklisted = await IsBlacklisted(steamAccount.Id),
             };
         }
     }
