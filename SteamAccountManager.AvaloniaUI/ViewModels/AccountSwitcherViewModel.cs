@@ -18,8 +18,6 @@ using SteamAccountManager.Domain.Steam.UseCase;
 
 namespace SteamAccountManager.AvaloniaUI.ViewModels
 {
-    // TODO: looks ridicilous, I should refactor all of this but I don't feel bored enough yet
-    // TOOD: switch to reactive commands etc.
     public class AccountSwitcherViewModel : RoutableViewModel
     {
         private readonly IGetAccountsWithDetailsUseCase _getAccountsUseCase;
@@ -32,8 +30,8 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
         private readonly INotificationConfigStorage _notificationConfigStorage;
         private readonly IBlacklistedAccountsStorage _blacklistedAccountsStorage;
 
-        public List<Account> AllAccounts { get; private set; }
-        public List<Account> WhitelistedAccounts { get; private set; }
+        public List<Account> AllAccounts { get; private set; } = new();
+        public List<Account> WhitelistedAccounts { get; private set; } = new();
         public AdvancedObservableCollection<Account> AccountsForDisplay { get; private set; }
         public ICommand AccountSelectedCommand { get; set; }
         public ICommand ProfileClickedCommand { get; }
@@ -59,9 +57,6 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             get => _isLoading;
             set => this.RaiseAndSetIfChanged(ref _isLoading, value);
         }
-
-        // TODO: I've left a total mess here (yes I mean the entire file), I won't merge this garbage into the main branch until its at least decent
-        // TODO: don't u dear opening a pr until you (yes I'm talking to myself) fixed this mess
 
         public AccountSwitcherViewModel
         (
