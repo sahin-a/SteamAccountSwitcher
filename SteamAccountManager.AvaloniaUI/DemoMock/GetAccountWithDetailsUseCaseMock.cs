@@ -34,7 +34,7 @@ namespace SteamAccountManager.AvaloniaUI.DemoMock
                     AvatarUrl =
                         "https://i.redd.it/qfdnsaaherq21.jpg",
                     Level = 111,
-                    LastLogin = DateTime.UtcNow
+                    LastLogin = DateTime.UtcNow.AddMinutes(-20)
                 },
                 new()
                 {
@@ -74,7 +74,7 @@ namespace SteamAccountManager.AvaloniaUI.DemoMock
                     AvatarUrl =
                         "https://steamuserimages-a.akamaihd.net/ugc/780749025467440214/E0244A02E538EA1287241F3F5C97DB5DA9748906/",
                     Level = 808,
-                    LastLogin = DateTime.UtcNow
+                    LastLogin = DateTime.UtcNow.AddMinutes(-190)
                 },
                 new()
                 {
