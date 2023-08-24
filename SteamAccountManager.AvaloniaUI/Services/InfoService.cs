@@ -6,7 +6,7 @@ namespace SteamAccountManager.AvaloniaUI.Services;
 public class InfoService
 {
     private const string RetrieveApiKey = "https://steamcommunity.com/dev/apikey";
-    private const string GithubRepository = "https://github.com/sahin-a/SteamAccountManager/";
+    private const string GithubRepository = "https://github.com/sahin-a/SteamAccountSwitcher/";
 
     public void ShowRepository() => ShowWebPage(GithubRepository);
 
