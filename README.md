@@ -39,8 +39,9 @@ Android/iOS App Features:
 # [AvaloniaUI 😉](https://github.com/sahin-a/SteamAccountSwitcher/tree/develop/SteamAccountManager.AvaloniaUI)
 * Standalone
 
-![main_tab](https://user-images.githubusercontent.com/55054756/232255480-214f1783-3df1-4823-9851-4203af03f3bc.png)
-![settings_tab](https://user-images.githubusercontent.com/55054756/232338945-6e298609-5f41-4858-985c-aa714ec9ecc8.png)
+![account_page](https://github.com/sahin-a/SteamAccountSwitcher/assets/55054756/eb0c8395-2bce-4b9f-a895-c2fcdfa3b311)
+![settings_page](https://github.com/sahin-a/SteamAccountSwitcher/assets/55054756/0c819774-9a6a-454e-bc00-da44dc2e8966)
+
 
 # Mobile App Clients
 * The REST Service has to be running in order for the app to work
