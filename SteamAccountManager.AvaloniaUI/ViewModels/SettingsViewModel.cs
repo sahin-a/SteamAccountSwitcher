@@ -21,10 +21,19 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
 
         public AdvancedObservableCollection<AccountDetailToggle> AccountDetailsToggles { get; } = new();
         public AdvancedObservableCollection<SettingsToggle> SettingsToggles { get; } = new();
-        public ICommand SaveApiKeyCommand { get; }
         public ICommand RichPresenceToggleCommand { get; }
         public bool IsRichPresenceEnabled { get; set; }
-        public string WebApiKey { get; set; }
+        private string _webApiKey = "";
+
+        public string WebApiKey
+        {
+            get => _webApiKey;
+            set
+            {
+                _webApiKey = value;
+                UpdateApiKey(value);
+            }
+        }
 
         public SettingsViewModel
         (
@@ -42,7 +51,6 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
             _richPresenceConfigStorage = richPresenceConfigStorage;
             _eventBus = eventBus;
 
-            SaveApiKeyCommand = ReactiveCommand.Create((string key) => UpdateApiKey(key));
             RichPresenceToggleCommand = ReactiveCommand.Create(UpdateRichPresenceConfig);
 
             InitializeControls();
