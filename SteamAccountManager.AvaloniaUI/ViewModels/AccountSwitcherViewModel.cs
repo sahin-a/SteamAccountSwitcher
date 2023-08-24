@@ -97,12 +97,12 @@ namespace SteamAccountManager.AvaloniaUI.ViewModels
                 ReactiveCommand.Create((Account account) => ToggleBlacklistingForAccount(account));
             ToggleBlacklistingModeCommand = ReactiveCommand.Create(ToggleBlacklistingMode);
 
-            RegisterSubscriptions();
+            SubscribeToEventBus();
             LoadVisibilityConfig();
             LoadAccounts();
         }
 
-        private void RegisterSubscriptions()
+        private void SubscribeToEventBus()
         {
             _eventBus.Subscribe(subscriberKey: GetType().Name, Events.ACCOUNTS_UPDATED,
                 _ => LoadAccounts()
