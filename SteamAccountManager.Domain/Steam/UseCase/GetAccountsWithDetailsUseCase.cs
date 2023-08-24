@@ -23,7 +23,7 @@ namespace SteamAccountManager.Domain.Steam.UseCase
         {
             try
             {
-                var currentlySetAutoLoginUserId = (await _steamRepository.GetCurrentAutoLoginUser()).SteamId;
+                var currentlySetAutoLoginUserId = (await _steamRepository.GetCurrentAutoLoginUser())?.SteamId;
                 var steamLoginUsers = await _steamRepository.GetSteamLoginHistoryUsers();
                 var steamIds = steamLoginUsers.Select(user => user.SteamId);
                 var steamProfiles = await _steamProfileService.GetProfileDetails(steamIds.ToArray());

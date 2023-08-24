@@ -1,6 +1,7 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using Microsoft.Win32;
 using SteamAccountManager.Domain.Steam.Exceptions;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
@@ -10,7 +11,8 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
     {
         private readonly RegistryKey _steamRegistryKey;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Plattformkompatibilität überprüfen", Justification = "<Ausstehend>")]
+        [SuppressMessage("Interoperability", "CA1416:Plattformkompatibilität überprüfen",
+            Justification = "<Ausstehend>")]
         public SteamWinRegistryConfig()
         {
             try
@@ -26,24 +28,26 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Plattformkompatibilität überprüfen", Justification = "<Ausstehend>")]
-        private string GetValue(string key)
+        [SuppressMessage("Interoperability", "CA1416:Plattformkompatibilität überprüfen",
+            Justification = "<Ausstehend>")]
+        private string? GetValue(string key)
         {
             var value = _steamRegistryKey?.GetValue(key);
-            return value == null ? string.Empty : (string)value;
+            return (string?)value;
         }
 
         public string GetSteamExecutablePath()
         {
-            return GetValue("SteamExe");
+            return GetValue("SteamExe") ?? string.Empty;
         }
 
         public string GetSteamPath()
         {
-            return GetValue("SteamPath");
+            return GetValue("SteamPath") ?? string.Empty;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Plattformkompatibilität überprüfen", Justification = "<Ausstehend>")]
+        [SuppressMessage("Interoperability", "CA1416:Plattformkompatibilität überprüfen",
+            Justification = "<Ausstehend>")]
         public void SetAutoLoginUser(string accountName)
         {
             try
@@ -57,7 +61,7 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Dao
             }
         }
 
-        public string GetAutoLoginUser()
+        public string? GetAutoLoginUser()
         {
             return GetValue("AutoLoginUser");
         }

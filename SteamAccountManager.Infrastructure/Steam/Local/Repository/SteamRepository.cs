@@ -1,6 +1,4 @@
-﻿using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
-using SteamAccountManager.Infrastructure.Steam.Local.Mapping;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +6,8 @@ using SteamAccountManager.Domain.Steam.Exceptions;
 using SteamAccountManager.Domain.Steam.Local.Logger;
 using SteamAccountManager.Domain.Steam.Local.Repository;
 using SteamAccountManager.Domain.Steam.Model;
+using SteamAccountManager.Infrastructure.Steam.Local.DataSource;
+using SteamAccountManager.Infrastructure.Steam.Local.Mapping;
 
 namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
 {
@@ -33,13 +33,13 @@ namespace SteamAccountManager.Infrastructure.Steam.Local.Repository
             _steamDataSource.UpdateAutoLoginUser(accountName);
         }
 
-        public async Task<LoginUser> GetCurrentAutoLoginUser()
+        public async Task<LoginUser?> GetCurrentAutoLoginUser()
         {
             var currentAutoLoginAccountName = _steamDataSource.GetCurrentAutoLoginUser();
             try
             {
                 var currentSteamLoginUser = (await _steamDataSource.GetUsersFromLoginHistory())
-                    .First(dto => dto.AccountName == currentAutoLoginAccountName)
+                    .FirstOrDefault(dto => dto.AccountName == currentAutoLoginAccountName)?
                     .ToSteamLoginUser();
 
                 return currentSteamLoginUser;

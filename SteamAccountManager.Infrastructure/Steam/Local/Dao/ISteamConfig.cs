@@ -5,7 +5,7 @@
         string GetSteamExecutablePath();
         string GetSteamPath();
         void SetAutoLoginUser(string accountName);
-        public string GetAutoLoginUser();
+        public string? GetAutoLoginUser();
         public string GetLoginUsersVdfPath();
     }
 }

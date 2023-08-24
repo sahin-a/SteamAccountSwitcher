@@ -6,6 +6,6 @@ namespace SteamAccountManager.Domain.Steam.Local.Repository
     {
         public Task<List<LoginUser>> GetSteamLoginHistoryUsers();
         public void UpdateAutoLoginUser(string accountName);
-        public Task<LoginUser> GetCurrentAutoLoginUser();
+        public Task<LoginUser?> GetCurrentAutoLoginUser();
     }
 }
