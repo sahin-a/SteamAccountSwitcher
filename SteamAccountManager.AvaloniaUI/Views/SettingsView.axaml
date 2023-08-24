@@ -72,8 +72,22 @@
             <Border Classes="GroupContainer" Margin="6, 0, 0, 0">
                 <StackPanel Orientation="Vertical" Spacing="16">
                     <TextBlock Classes="Title" Text="Steam Web API" />
-                    <TextBox Classes="PasswordInput" x:Name="ApiKeyInputField" Text="{Binding WebApiKey}"
-                             Watermark="Enter your key here.." />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="4" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0" Classes="PasswordInput" x:Name="ApiKeyInputField"
+                                 Text="{Binding WebApiKey}"
+                                 Watermark="Enter your key here.." />
+
+                        <Button Grid.Column="2" Classes="InfoButton" Command="{Binding ShowRetrieveApiKeyPageCommand}"
+                                ToolTip.Tip="It is required to display additional information about the accounts, such as avatars, level etc. Click me to get your key!">
+                            <TextBlock Text="?" />
+                        </Button>
+                    </Grid>
                 </StackPanel>
             </Border>
         </StackPanel>

@@ -14,6 +14,16 @@
         <Setter Property="Background" Value="#1a1a1a" />
     </Style>
 
+    <Style Selector="Button.InfoButton">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.InfoButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.InfoButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
     <Style Selector="Grid.NavBar">
         <Setter Property="Background" Value="Transparent" />
     </Style>
